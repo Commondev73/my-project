@@ -1,0 +1,18 @@
+div.profile {
+  overflow: hidden;
+}
+div.image {
+  width: 50px;
+  height: 50px;
+  margin: auto;
+}
+div.image img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+div.user-name p{
+    text-align: center;
+    margin: 0;
+}

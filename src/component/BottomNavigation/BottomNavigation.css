@@ -1,0 +1,23 @@
+.navigation-menu {
+  width: 100%;
+  text-align: center;
+  /* position: fixed;
+  bottom: 0; */
+  background-color: #0080FF;
+}
+
+.navigation-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-around;
+}
+.navigation-menu svg{
+  color: white;
+}
+.navigation-menu p {
+    font-size: 0.3cm;
+    color: white;
+    margin: 0;
+}
