@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import Login from "../component/Login/Login";
+import ModalErr from "../component/ModalErr/ModalErr";
 import { Container, Breadcrumb, BreadcrumbItem } from "reactstrap";
 import { FaHome } from "react-icons/fa";
 import { connect } from "react-redux";
@@ -32,6 +33,7 @@ class LoginPage extends React.Component {
           </Breadcrumb>
         </Container>
         <Login submit={this.handleSubmit} err={err} />
+        {err  && <ModalErr />}
       </Fragment>
     );
   }

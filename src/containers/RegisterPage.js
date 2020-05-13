@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import Register from "../component/Register/Register";
+import ModalErr from "../component/ModalErr/ModalErr";
 import { connect } from "react-redux";
 import { postRegister } from "../actions";
 import {
@@ -30,7 +31,7 @@ class RegisterPage extends React.Component {
     }
   };
   render() {
-    const { redirect } = this.props;
+    const { redirect, err } = this.props;
     return (
       <Fragment>
         <Container className="mt-2">
@@ -69,6 +70,7 @@ class RegisterPage extends React.Component {
           </Modal>
         )}
         <Register submit={this.handleSubmit} />
+        {err && <ModalErr />}
       </Fragment>
     );
   }

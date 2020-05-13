@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import Loading from "../component/Loading/Loading";
+import ModalErr from "../component/ModalErr/ModalErr";
 import ReactPaginate from "react-paginate";
 import AnnouncesList from "../component/AnnouncesList/AnnouncesList";
 import { connect } from "react-redux";
@@ -64,6 +65,7 @@ class Home extends React.Component {
                 )}
               </Fragment>
             )}
+             {err  && <ModalErr />}
           </Row>
         </Container>
       </Fragment>

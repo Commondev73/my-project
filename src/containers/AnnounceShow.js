@@ -1,15 +1,19 @@
 import React, { Fragment } from "react";
 import Announce from "../component/Announce/Announce";
+import ModalErr from "../component/ModalErr/ModalErr";
 import Loading from "../component/Loading/Loading";
 
 import { connect } from "react-redux";
 import { fetchAnnounce, message } from "../actions";
 import {
-  Container, Breadcrumb, BreadcrumbItem, Modal,
+  Container,
+  Breadcrumb,
+  BreadcrumbItem,
+  Modal,
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Button
+  Button,
 } from "reactstrap";
 import { FaHome, FaRegTimesCircle, FaRegCheckCircle } from "react-icons/fa";
 
@@ -28,14 +32,14 @@ class AnnounceShow extends React.Component {
         phone: "",
         email: "",
         message: "",
-        idUser: ""
+        idUser: "",
       },
       invalid: {
         invalidName: false,
         invalidPhone: false,
         invalidEmail: false,
-        invalidMessage: false
-      }
+        invalidMessage: false,
+      },
     };
   }
 
@@ -44,7 +48,7 @@ class AnnounceShow extends React.Component {
     this.props.fetchAnnounce(id);
   };
 
-  changeHandler = event => {
+  changeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value.trim();
 
@@ -52,8 +56,8 @@ class AnnounceShow extends React.Component {
       message: {
         ...this.state.message,
         [name]: value,
-        idUser: this.props.announce.id_user
-      }
+        idUser: this.props.announce.id_user,
+      },
     });
   };
 
@@ -77,17 +81,16 @@ class AnnounceShow extends React.Component {
 
     this.setState({
       invalid: {
-        ...this.state.invalid
-      }
+        ...this.state.invalid,
+      },
     });
     return isError;
-
-  }
+  };
   messageErr = () => {
     this.setState({
       messageErr: !this.state.messageErr,
     });
-  }
+  };
   sendMessage = () => {
     this.setState({
       messageSuccess: !this.state.messageSuccess,
@@ -96,10 +99,10 @@ class AnnounceShow extends React.Component {
         name: "",
         phone: "",
         email: "",
-        message: ""
-      }
+        message: "",
+      },
     });
-  }
+  };
 
   componentDidUpdate(nextProps) {
     const { message_err } = this.props;
@@ -110,23 +113,23 @@ class AnnounceShow extends React.Component {
     }
   }
   handleMessagSuccess = () => {
-    const { message } = this.props
+    const { message } = this.props;
     if (message) this.setState({ messageSuccess: true });
-  }
-  handleSubmit =async event => {
+  };
+  handleSubmit = async (event) => {
     const message = this.state.message;
     event.preventDefault();
     const err = this.validation();
-    if (!err) { 
-      await this.props.message(message) 
-      await this.handleMessagSuccess()
+    if (!err) {
+      await this.props.message(message);
+      await this.handleMessagSuccess();
     }
   };
 
   render() {
-    const { announce, isLoading, message } = this.props;
+    const { announce, isLoading, message, err, message_err } = this.props;
     const { invalid } = this.state;
-    const value = { ...this.state.message }
+    const value = { ...this.state.message };
     return (
       <Fragment>
         <Container className="mt-2">
@@ -135,10 +138,10 @@ class AnnounceShow extends React.Component {
               <FaHome className="mr-1" />
               <a href="/">หน้าแรก</a>
             </BreadcrumbItem>
-            <BreadcrumbItem >
+            <BreadcrumbItem>
               {announce && <Fragment>{announce.property_type}</Fragment>}
             </BreadcrumbItem>
-            <BreadcrumbItem >
+            <BreadcrumbItem>
               {announce && <Fragment>{announce.announcement_type}</Fragment>}
             </BreadcrumbItem>
             <BreadcrumbItem active>
@@ -157,7 +160,7 @@ class AnnounceShow extends React.Component {
             submit={this.handleSubmit}
           />
         )}
-
+        {err || message_err && <ModalErr />}
         <Modal isOpen={this.state.messageErr} className="modal-dialog-centered">
           <ModalBody className="text-center">
             <FaRegTimesCircle style={{ color: "red" }} size={32} />
@@ -170,16 +173,19 @@ class AnnounceShow extends React.Component {
               className="rounded-pill"
             >
               ตกลง
-              </Button>
+            </Button>
           </ModalFooter>
         </Modal>
 
-        <Modal isOpen={this.state.messageSuccess} className="modal-dialog-centered">
+        <Modal
+          isOpen={this.state.messageSuccess}
+          className="modal-dialog-centered"
+        >
           <ModalHeader
             style={{
               backgroundColor: "#01D26C",
               display: "flex",
-              justifyContent: "center"
+              justifyContent: "center",
             }}
           >
             <FaRegCheckCircle style={{ color: "white" }} size={32} />
@@ -194,10 +200,9 @@ class AnnounceShow extends React.Component {
               className="rounded-pill"
             >
               ตกลง
-              </Button>
+            </Button>
           </ModalFooter>
         </Modal>
-
       </Fragment>
     );
   }
@@ -211,13 +216,13 @@ const mapStateToProps = (state, props) => {
     err: announce.err,
 
     message: state.message.data,
-    message_err: state.message.err
+    message_err: state.message.err,
   };
 };
 
 const mapDispatchToProps = {
   fetchAnnounce,
-  message
+  message,
 };
 
 export default AnnounceShow = connect(
