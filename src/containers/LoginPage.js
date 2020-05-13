@@ -33,7 +33,6 @@ class LoginPage extends React.Component {
           </Breadcrumb>
         </Container>
         <Login submit={this.handleSubmit} err={err} />
-        {err  && <ModalErr />}
       </Fragment>
     );
   }

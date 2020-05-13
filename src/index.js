@@ -10,12 +10,12 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import allReducer from "./reducers";
 import jwt from "jsonwebtoken";
-// import { setCurrentUser } from "./actions";
+import { setCurrentUser } from "./actions";
 
 const middleware = [thunk];
 const store = createStore(allReducer, applyMiddleware(...middleware));
 
-// if(localStorage.token)store.dispatch(setCurrentUser(jwt.decode(localStorage.token)));
+if(localStorage.token)store.dispatch(setCurrentUser(jwt.decode(localStorage.token)));
 
 ReactDOM.render(
   <Provider store={store}>

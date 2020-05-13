@@ -1,0 +1,58 @@
+.usermenu {
+  width: 100%;
+  text-align: center;
+  height: 100px;
+  background-color: cornflowerblue;
+}
+/* div.set-top {
+  padding-top: 18px;
+} */
+div.usermenu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+div.usermenu ul {
+  /* display: inline-block;
+  padding: 10px;
+  width: calc(100% / 5); */
+  padding: 15px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.usermenu svg {
+  color: white;
+}
+.usermenu p {
+  color: white;
+}
+.usermenu li {
+  width: 100%;
+}
+
+.usermenu li:hover,
+svg:hover {
+  transform: scale(1.2);
+  transition: 0.5s;
+}
+
+/* .icon:hover svg{
+ color: #FFD95E;
+} */
+
+.icon:hover .heart {
+  color: tomato;
+}
+/* .icon:hover p{
+  color: black;
+ } */
+/* div li:hover{
+      transform: scale(1);
+      transition: 1s;
+      background-color: #F5A623;
+  } */
+
+a:hover {
+  text-decoration: none;
+}
