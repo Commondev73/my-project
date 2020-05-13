@@ -1,0 +1,40 @@
+
+div.Dropdown-condition{
+  position: absolute;
+  left: -28px;
+}
+div.condition{
+  width: 230px;
+}
+/* .top-search {
+  
+} */
+
+button.btn-search {
+  background-color: #f3994d;
+}
+
+.btn-group {
+  width: 100%;
+}
+
+div.btn-menu {
+  padding: 0;
+  margin: 0 0px;
+}
+
+@media (max-width: 767px) {
+  div.btn-menu {
+    display: none;
+  }
+  button.btn-menu {
+    display: none;
+  }
+  div.search {
+    position: relative;
+  }
+  button.btn-search {
+    position: absolute;
+    right: 5px;
+  }
+}

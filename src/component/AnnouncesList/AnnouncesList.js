@@ -1,0 +1,135 @@
+import React, { Fragment } from "react";
+import "./AnnouncesList.css";
+import {
+  Card,
+  CardImg,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  Row,
+  Col,
+  Button,
+} from "reactstrap";
+import { Link } from "react-router-dom";
+
+import { MdHome, MdSettingsOverscan } from "react-icons/md";
+import {
+  FaBed,
+  FaBath,
+  FaBullhorn,
+  FaMapMarkerAlt,
+  FaEdit
+} from "react-icons/fa";
+import { TiHeartFullOutline } from "react-icons/ti";
+
+
+class AnnouncesList extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const { announce } = this.props;
+    // console.log('image',announce.image[0].image_name);
+    return (
+      <Fragment>
+        {/* <Link to={`/announce/${announce.id}`}></Link> */}
+        <Col sm="4" md="3" xs="6" className="mb-3">
+          <Link className="announces-link" to={`/announce/${announce.id}`}>
+            <div className="announces-list ">
+              <Card style={{ borderRadius: "10px" }}>
+                <div className="img-box">
+                  <CardImg
+                    top
+                    width="100%"
+                    src={announce.image[0].image_name}
+                    alt="Card image cap"
+                  />
+                </div>
+                <div className="price">
+                  <span>{announce.price} ฿</span>
+                </div>
+                <CardBody>
+                  <CardTitle>
+                    <h6 style={{ color: "rgb(23,162,184)"}}>
+                      {announce.topic}
+                    </h6>
+                  </CardTitle>
+                  <CardSubtitle>
+                    <div className="location announce-details">
+                      <FaMapMarkerAlt
+                        className="mr-1"
+                        style={{ color: "#D74B3F" }}
+                      />
+                      &nbsp;
+                      {announce.province_name} &nbsp;{announce.amphoe_name}
+                    </div>
+                    <Row>
+                      <Col
+                        xs={{ size: 5, offset: 1 }}
+                        className="announce-details details-left"
+                      >
+                        <MdHome className="" style={{ color: "#138799" }} />
+                        &nbsp;{announce.floor}&nbsp;ชั้น
+                      </Col>
+                      <Col xs="6" className="announce-details">
+                        <FaBed className="mr-1" style={{ color: "#138799" }} />
+                        &nbsp;
+                        {announce.bedroom}&nbsp;ห้องนอน
+                      </Col>
+                      <Col
+                        xs={{ size: 5, offset: 1 }}
+                        className="announce-details details-left"
+                      >
+                        <FaBath className="" style={{ color: "#138799" }} />
+                        &nbsp;
+                        {announce.toilet}&nbsp;ห้องน้ำ
+                      </Col>
+                      <Col xs="6" className="announce-details">
+                        <MdSettingsOverscan
+                          className="mr-1"
+                          style={{ color: "#138799" }}
+                        />
+                        {announce.area}&nbsp;ตร.ว.
+                      </Col>
+                      <Col xs="12">
+                        <div className="time announce-details mt-1">
+                          <span className="created_at">
+                            <FaEdit
+                              className="mr-1"
+                              // style={{ color: "#138799" }}
+                            />
+                            <small className="text-muted">{announce.created_at}</small>
+                          </span>
+                        </div>
+                      </Col>
+                    </Row>
+                  </CardSubtitle>
+                </CardBody>
+              </Card>
+            </div>
+          </Link>
+
+          <div className="announcement-type">
+            <Button
+              color="primary"
+              className="mt-2 rounded-pill border-white"
+              style={{ backgroundColor: "#6ea7ec" }}
+            >
+              <FaBullhorn className="mr-1" />
+              <span>{announce.announcement_type}</span>
+            </Button>
+          </div>
+          <div className="icon-heart">
+            <TiHeartFullOutline
+              className="heart"
+              style={{ width: "35px", height: "35px" }}
+            />
+          </div>
+        </Col>
+      </Fragment>
+    );
+  }
+}
+
+export default AnnouncesList ;

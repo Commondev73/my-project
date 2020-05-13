@@ -1,14 +1,27 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
+
+import thunk from "redux-thunk";
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import allReducer from "./reducers";
+import jwt from "jsonwebtoken";
+// import { setCurrentUser } from "./actions";
+
+const middleware = [thunk];
+const store = createStore(allReducer, applyMiddleware(...middleware));
+
+// if(localStorage.token)store.dispatch(setCurrentUser(jwt.decode(localStorage.token)));
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </Provider>,
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

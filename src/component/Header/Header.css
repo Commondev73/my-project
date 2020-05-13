@@ -1,0 +1,72 @@
+.user .navbar-toggler-icon {
+  background-image: url(https://www.livinginsider.com/assets18/images/xno-user.png.pagespeed.ic.7d6lssbtJ3.webp) !important;
+}
+
+/* .navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+} */
+
+/* div.image-user {
+  width: 30px;
+  height: 30px;
+  margin: auto;
+}
+div.image-user img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+} */
+.main-menu > a {
+  width: 100%;
+}
+
+div.main-menu {
+  display: flex;
+  justify-content: center;
+}
+
+ul.main-menu {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.logo {
+  margin: auto;
+}
+
+.navbar-brand img {
+  display: inline-block;
+  height: 35px;
+}
+
+@media only screen and (max-width: 768px) and (min-width: 320px) {
+  .navbar-brand img {
+    display: inline-block;
+    height: 24px;
+  }
+}
+
+.navbar .navbar-collapse {
+  text-align: center;
+}
+
+.menu {
+  background-color: #6ea7ec;
+}
+
+.nav-link:hover {
+  background-color: white;
+  transition: 0.7s;
+}
+
+.font-menu {
+  /* font-weight: bold; */
+  color: white;
+}
+
+.nav-link:hover span {
+  color: #169bb0;
+}
