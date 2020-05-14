@@ -12,8 +12,10 @@ import AnnounceShow from "./containers/AnnounceShow";
 
 import MemberArea from "./containers/MemberArea";
 import ProfilePage from "./containers/ProfilePage";
+import UserChangePassword from "./containers/UserChangePassword";
 import PostAnnounces from "./containers/PostAnnounces";
 import UserAnnouncesOnline from "./containers/UserAnnouncesOnline";
+import EditAnnounces from "./containers/EditAnnounces";
 
 import NotFoundPage from "./containers/PageNotFound";
 import {
@@ -51,6 +53,12 @@ class App extends React.Component {
               path="/profile"
               component={ProfilePage}
             />
+             <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              exact
+              path="/member/changepassword"
+              component={UserChangePassword}
+            />
             <PrivateRoute
               isAuthenticated={isAuthenticated}
               exact
@@ -62,6 +70,12 @@ class App extends React.Component {
               exact
               path="/member/announces"
               component={UserAnnouncesOnline}
+            />
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              exact
+              path="/member/announces/edit/:id"
+              component={EditAnnounces}
             />
             <Route component={NotFoundPage} />
           </Switch>
