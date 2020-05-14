@@ -378,7 +378,7 @@ export const deleteAnnounces = id => async dispatch => {
       type: DELETE_ANNOUNCES_SUCCESS,
     });
   } catch (err) {
-    return dispatch({ type: DELETE_ANNOUNCES_ERROR });
+    return dispatch({ type: DELETE_ANNOUNCES_ERROR, err });
   }
 };
 

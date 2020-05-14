@@ -1,0 +1,10 @@
+.image-noData {
+  width: 100%;
+  height: auto;
+}
+
+.image-noData img {
+  width: 100%;
+  height: auto;
+  opacity: 0.5;
+}

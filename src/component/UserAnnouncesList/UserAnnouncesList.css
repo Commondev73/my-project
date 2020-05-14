@@ -1,0 +1,47 @@
+.tabs nav ul {
+  display: flex;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 1200px;
+  list-style: none;
+}
+
+.tabs nav ul li {
+  overflow: hidden;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  text-align: center;
+  -webkit-flex: 1;
+  -moz-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.tabs nav li a {
+  display: block;
+  text-decoration: none;
+  padding: 5px 10px;
+}
+
+.tabs nav a {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 2.5;
+}
+
+.tabs nav li.active a {
+  background: #6495ed;
+  color: #fff;
+}
+div.table-user-announces {
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15), 0 2px 1px rgba(0, 0, 0, 0.12);
+}
+
+/* button.btn-add {
+  background-color: darkcyan;
+} */

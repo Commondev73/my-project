@@ -149,7 +149,7 @@ class ProfilePage extends React.Component {
           </ModalFooter>
         </Modal>
 
-        {update_profile_image_err || (err && <ModalErr />)}
+        {update_profile_image_err || err && <ModalErr />}
       </Fragment>
     );
   }

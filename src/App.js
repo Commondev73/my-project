@@ -12,7 +12,8 @@ import AnnounceShow from "./containers/AnnounceShow";
 
 import MemberArea from "./containers/MemberArea";
 import ProfilePage from "./containers/ProfilePage";
-
+import PostAnnounces from "./containers/PostAnnounces";
+import UserAnnouncesOnline from "./containers/UserAnnouncesOnline";
 
 import NotFoundPage from "./containers/PageNotFound";
 import {
@@ -49,6 +50,18 @@ class App extends React.Component {
               exact
               path="/profile"
               component={ProfilePage}
+            />
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              exact
+              path="/member/announces/post"
+              component={PostAnnounces}
+            />
+             <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              exact
+              path="/member/announces"
+              component={UserAnnouncesOnline}
             />
             <Route component={NotFoundPage} />
           </Switch>
