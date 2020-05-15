@@ -6,13 +6,13 @@ import {
   FaBullhorn,
   FaUser,
   FaRegEnvelope,
-  FaTachometerAlt
+  FaTachometerAlt,
 } from "react-icons/fa";
 import { TiHeartFullOutline } from "react-icons/ti";
 
 class UserMenu extends React.Component {
   render() {
-    const {user} = this.props
+    const { user } = this.props;
     return (
       <div className="d-none d-sm-block set-top">
         <div className="usermenu">
@@ -20,14 +20,15 @@ class UserMenu extends React.Component {
             <ul>
               <li className="icon">
                 {/* <a href="#"></a> */}
-                <ImageProfile user={user}/>
+                <ImageProfile user={user} />
               </li>
               <li className="icon">
-                <a href="#"></a>
-                <h2>
-                  <FaTachometerAlt />
-                </h2>
-                <p>แดชบอร์ด</p>
+                <a href="/member">
+                  <h2>
+                    <FaTachometerAlt />
+                  </h2>
+                  <p>แดชบอร์ด</p>
+                </a>
               </li>
               <li className="icon">
                 <a href="/profile">
@@ -46,18 +47,20 @@ class UserMenu extends React.Component {
                 </a>
               </li>
               <li className="icon">
-                <a href="#"></a>
-                <h2>
-                  <TiHeartFullOutline className="heart" />
-                </h2>
-                <p>รายการโปรด</p>
+                <a href="#">
+                  <h2>
+                    <TiHeartFullOutline className="heart" />
+                  </h2>
+                  <p>รายการโปรด</p>
+                </a>
               </li>
               <li className="icon">
-                <a href="#"></a>
-                <h2>
-                  <FaRegEnvelope />
-                </h2>
-                <p>ข้อความ</p>
+                <a href="/member/mail">
+                  <h2>
+                    <FaRegEnvelope />
+                  </h2>
+                  <p>ข้อความ</p>
+                </a>
               </li>
             </ul>
           </Container>

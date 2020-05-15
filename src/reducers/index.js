@@ -14,13 +14,17 @@ import ProvinceReducer from "./ProvinceReducer";
 import AmphoeReducer from "./AmphoeReducer";
 import DistrictReducer from "./DistrictReducer";
 import PostAnnouncesReducer from "./PostAnnouncesReducer";
-import UpdateAnnouncesReducer from "./UpdateAnnouncesReducer"
+import UpdateAnnouncesReducer from "./UpdateAnnouncesReducer";
 import DeleteAnnouncesReducer from "./DeleteAnnouncesReducer";
 import DraftAnnouncesUserReducer from "./DraftAnnouncesUserReducer";
 import CorrectAnnouncesUserReducer from "./CorrectAnnouncesUserReducer";
 import MessageReducer from "./MessageReducer";
-import MailReducer from './MailReducer';
-import MessageIDReducer from './MessageIDReducer';
+import MailReducer from "./MailReducer";
+import CountMailReducer from "./CountMailReducer";
+import ReadMailReducer from "./ReadMailReducer";
+import UnreadMailReducer from "./UnreadMailReducer";
+import SaveMailReducer from "./SaveMailReducer";
+import MessageIDReducer from "./MessageIDReducer";
 
 const allReducer = combineReducers({
   announces: AnnouncesReducer,
@@ -44,7 +48,11 @@ const allReducer = combineReducers({
   deleteAnnounces: DeleteAnnouncesReducer,
   message: MessageReducer,
   messageID: MessageIDReducer,
-  mail: MailReducer
+  mail: MailReducer,
+  countMail: CountMailReducer,
+  readMail: ReadMailReducer,
+  unreadMail: UnreadMailReducer,
+  saveMail: SaveMailReducer,
 });
 
 export default allReducer;

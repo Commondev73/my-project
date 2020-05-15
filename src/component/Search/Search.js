@@ -176,7 +176,7 @@ class Search extends React.Component {
                             placeholder="จำนวนห้องนอน"
                           />
                         </Col>
-                        <Col md="12" className="mb-2">
+                        {/* <Col md="12" className="mb-2">
                           <ButtonDropdown className="btn-menu">
                             <DropdownToggle
                               caret
@@ -191,7 +191,7 @@ class Search extends React.Component {
                               <DropdownItem>2</DropdownItem>
                             </DropdownMenu>
                           </ButtonDropdown>
-                        </Col>
+                        </Col> */}
                       </Row>
                     </Container>
                   </DropdownMenu>

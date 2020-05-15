@@ -15,7 +15,10 @@ import ProfilePage from "./containers/ProfilePage";
 import UserChangePassword from "./containers/UserChangePassword";
 import PostAnnounces from "./containers/PostAnnounces";
 import UserAnnouncesOnline from "./containers/UserAnnouncesOnline";
+
 import EditAnnounces from "./containers/EditAnnounces";
+import Mail from "./containers/Mail";
+import MailByID from "./containers/MailByID";
 
 import NotFoundPage from "./containers/PageNotFound";
 import {
@@ -47,13 +50,13 @@ class App extends React.Component {
               path="/member"
               component={MemberArea}
             />
-             <PrivateRoute
+            <PrivateRoute
               isAuthenticated={isAuthenticated}
               exact
               path="/profile"
               component={ProfilePage}
             />
-             <PrivateRoute
+            <PrivateRoute
               isAuthenticated={isAuthenticated}
               exact
               path="/member/changepassword"
@@ -65,7 +68,7 @@ class App extends React.Component {
               path="/member/announces/post"
               component={PostAnnounces}
             />
-             <PrivateRoute
+            <PrivateRoute
               isAuthenticated={isAuthenticated}
               exact
               path="/member/announces"
@@ -77,6 +80,22 @@ class App extends React.Component {
               path="/member/announces/edit/:id"
               component={EditAnnounces}
             />
+
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              exact
+              path="/member/mail/:page"
+              component={Mail}
+            />
+            <Redirect exact from="/member/mail/" to="/member/mail/1" />
+
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              exact
+              path="/member/message/:id"
+              component={MailByID}
+            />
+
             <Route component={NotFoundPage} />
           </Switch>
         </div>

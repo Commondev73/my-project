@@ -4,10 +4,10 @@ import {
   FaBullhorn,
   FaUser,
   FaRegEnvelope,
-  FaTachometerAlt
+  FaTachometerAlt,
 } from "react-icons/fa";
 import { TiHeartFullOutline } from "react-icons/ti";
-import {} from 'reactstrap';
+import {} from "reactstrap";
 class BottomNavigation extends React.Component {
   render() {
     return (
@@ -16,39 +16,44 @@ class BottomNavigation extends React.Component {
           <nav>
             <ul>
               <li className="border-white">
-                <a href="#"></a>
-                <h5>
-                  <FaTachometerAlt />
-                </h5>
-                <p>แดชบอร์ด</p>
+                <a href="/member">
+                  <h5>
+                    <FaTachometerAlt />
+                  </h5>
+                  <p>แดชบอร์ด</p>
+                </a>
               </li>
               <li className="border-white">
-                <a href="#"></a>
-                <h5>
-                  <FaUser />
-                </h5>
-                <p>ฉัน</p>
+                <a href="/profile">
+                  <h5>
+                    <FaUser />
+                  </h5>
+                  <p>ฉัน</p>
+                </a>
               </li>
               <li className="border-white">
-                <a href="#"></a>
-                <h5>
-                  <FaBullhorn />
-                </h5>
-                <p>ประกาศของฉัน</p>
+                <a href="/member/announces">
+                  <h5>
+                    <FaBullhorn />
+                  </h5>
+                  <p>ประกาศของฉัน</p>
+                </a>
               </li>
               <li className="border-white">
-                <a href="#"></a>
-                <h5>
-                  <TiHeartFullOutline className="" />
-                </h5>
-                <p>ถูกใจ</p>
+                <a href="/member/announces">
+                  <h5>
+                    <TiHeartFullOutline className="" />
+                  </h5>
+                  <p>ถูกใจ</p>
+                </a>
               </li>
               <li className="">
-                <a href="#"></a>
-                <h5>
-                  <FaRegEnvelope />
-                </h5>
-                <p>ข้อความ</p>
+                <a href="/member/mail">
+                  <h5>
+                    <FaRegEnvelope />
+                  </h5>
+                  <p>ข้อความ</p>
+                </a>
               </li>
             </ul>
           </nav>

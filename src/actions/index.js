@@ -438,3 +438,77 @@ export const message = data => async dispatch => {
     return dispatch({ type: POST_MAIL_MESSAGE_ERROR, err });
   }
 }
+
+export const COUNT_MAIL_MESSAGE_REQUEST = "COUNT_MAIL_MESSAGE_REQUEST";
+export const COUNT_MAIL_MESSAGE_SUCCESS = "COUNT_MAIL_MESSAGE_SUCCESS";
+export const COUNT_MAIL_MESSAGE_ERROR = "COUNT_MAIL_MESSAGE_ERROR";
+
+export const countMail = () => async dispatch => {
+  await dispatch({ type: COUNT_MAIL_MESSAGE_REQUEST });
+  try {
+    const response = await httpClient.get('/api/count/mail');
+    return dispatch({
+      type: COUNT_MAIL_MESSAGE_SUCCESS,
+      data: response.data
+    });
+  } catch (err) {
+    return dispatch({ type: COUNT_MAIL_MESSAGE_ERROR, err });
+  }
+}
+
+export const READ_MAIL_MESSAGE_REQUEST = "READ_MAIL_MESSAGE_REQUEST";
+export const READ_MAIL_MESSAGE_SUCCESS = "READ_MAIL_MESSAGE_SUCCESS";
+export const READ_MAIL_MESSAGE_ERROR = "READ_MAIL_MESSAGE_ERROR";
+
+export const readMail = id => async dispatch => {
+  await dispatch({ type: READ_MAIL_MESSAGE_REQUEST });
+  try {
+    const formdata = new FormData();
+    formdata.append('_method', 'PATCH')
+    const response = await httpClient.post(`/api/mail/read/${id}`, formdata);
+    return dispatch({
+      type: READ_MAIL_MESSAGE_SUCCESS,
+      data: "success"
+    });
+  } catch (err) {
+    return dispatch({ type: READ_MAIL_MESSAGE_ERROR, err });
+  }
+}
+
+export const UNREAD_MAIL_MESSAGE_REQUEST = "UNREAD_MAIL_MESSAGE_REQUEST";
+export const UNREAD_MAIL_MESSAGE_SUCCESS = "UNREAD_MAIL_MESSAGE_SUCCESS";
+export const UNREAD_MAIL_MESSAGE_ERROR = "UNREAD_MAIL_MESSAGE_ERROR";
+
+export const unreadMail = id => async dispatch => {
+  await dispatch({ type: UNREAD_MAIL_MESSAGE_REQUEST });
+  try {
+    const formdata = new FormData();
+    formdata.append('_method', 'PATCH')
+    const response = await httpClient.post(`/api/mail/unread/${id}`, formdata);
+    return dispatch({
+      type: UNREAD_MAIL_MESSAGE_SUCCESS,
+      data: true
+    });
+  } catch (err) {
+    return dispatch({ type: UNREAD_MAIL_MESSAGE_ERROR, err });
+  }
+}
+
+export const SAVE_MAIL_MESSAGE_REQUEST = "SAVE_MAIL_MESSAGE_REQUEST";
+export const SAVE_MAIL_MESSAGE_SUCCESS = "SAVE_MAIL_MESSAGE_SUCCESS";
+export const SAVE_MAIL_MESSAGE_ERROR = "SAVE_MAIL_MESSAGE_ERROR";
+
+export const saveMail = id => async dispatch => {
+  await dispatch({ type: SAVE_MAIL_MESSAGE_REQUEST });
+  try {
+    const formdata = new FormData();
+    formdata.append('_method', 'PATCH')
+    const response = await httpClient.post(`/api/mail/save/${id}`, formdata);
+    return dispatch({
+      type: SAVE_MAIL_MESSAGE_SUCCESS,
+      data: true
+    });
+  } catch (err) {
+    return dispatch({ type: SAVE_MAIL_MESSAGE_ERROR, err });
+  }
+}
