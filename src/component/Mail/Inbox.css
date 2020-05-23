@@ -1,5 +1,23 @@
 table.mail-list {
+  table-layout: fixed;
   width: 100%;
+}
+td.columnA {
+  width: 15%;
+}
+td.columnB {
+  width: 50%;
+}
+td.columnC {
+  width: 15%;
+}
+td.columnD {
+  width: 20%;
+}
+.fix {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .mail:hover {
   box-shadow: 0 0 1px 1px;
@@ -12,20 +30,17 @@ table.mail-list {
   font-weight: bold;
 }
 
-.star:hover{
-  color:white;
+.star-2 {
+  color: #e5c04d;
+  box-shadow: inset 0 0 5px 5px #e5c04d;
 }
-
-.star:hover{
-  color: #E5C04D;
-  box-shadow: inset 0 0 5px 5px #E5C04D;
+.star:hover {
+  color: #e5c04d;
+  box-shadow: inset 0 0 5px 5px #e5c04d;
 }
-/* tr:nth-of-type(odd) {
-  background: #eee;
-} */
 
 @media only screen and (max-width: 760px),
-  (min-device-width: 768px) and (max-device-width: 1024px) {
+  (min-device-width: 768px) and (max-device-width: 1199px) {
   table,
   thead,
   tbody,
@@ -33,5 +48,19 @@ table.mail-list {
   td,
   tr {
     display: block;
+  }
+  td.columnA {
+    width: 100%;
+  }
+  td.columnB {
+    width: 100%;
+  }
+  td.columnC {
+    width: 100%;
+  }
+  td.columnD {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
   }
 }

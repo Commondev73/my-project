@@ -416,6 +416,23 @@ export const fetchMessage = id => async dispatch => {
   }
 }
 
+export const DELETE_MESSAGE_REQUEST = "DELETE_MESSAGE_REQUEST";
+export const DELETE_MESSAGE_SUCCESS = "DELETE_MESSAGE_SUCCESS";
+export const DELETE_MESSAGE_ERROR = "DELETE_MESSAGE_ERROR";
+
+export const deleteMessage = id => async dispatch => {
+  await dispatch({ type: DELETE_MESSAGE_REQUEST });
+  try {
+    const response = await httpClient.delete(`/api/mail/${id}`);
+    return dispatch({
+      type: DELETE_MESSAGE_SUCCESS,
+      data: response.data
+    });
+  } catch (err) {
+    return dispatch({ type: DELETE_MESSAGE_ERROR, err });
+  }
+}
+
 export const POST_MAIL_MESSAGE_REQUEST = "POST_MAIL_MESSAGE_REQUEST";
 export const POST_MAIL_MESSAGE_SUCCESS = "POST_MAIL_MESSAGE_SUCCESS";
 export const POST_MAIL_MESSAGE_ERROR = "POST_MAIL_MESSAGE_ERROR";

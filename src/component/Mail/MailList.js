@@ -3,13 +3,12 @@ import "./MailList.css";
 import { Row, Col, Container, Input, Button } from "reactstrap";
 import Inbox from "./Inbox";
 import {
-  FaEnvelope,
-  FaEnvelopeOpen,
-  FaEnvelopeSquare,
+  FaMailBulk,
+  FaRegEnvelopeOpen,
+  FaRegEnvelope,
   FaStar,
   FaSearch,
 } from "react-icons/fa";
-import { Link, withRouter } from "react-router-dom";
 
 class MailList extends React.Component {
   constructor(props) {
@@ -24,7 +23,7 @@ class MailList extends React.Component {
   tab3 = () => this.setState({ activeTab: 3 });
 
   render() {
-    const { mail } = this.props;
+    const { mail , count ,unread ,save , deleteMail} = this.props;
     return (
       <Container>
         <div className="tabs">
@@ -39,8 +38,8 @@ class MailList extends React.Component {
               >
                 {/* <Link to="/member/announces"> */}
                 <a>
-                  <FaEnvelope />
-                  &nbsp;ทั้งหมด ()
+                  <FaMailBulk />
+                  &nbsp;ทั้งหมด ({mail.data.length})
                 </a>
                 {/* </Link> */}
               </li>
@@ -53,8 +52,8 @@ class MailList extends React.Component {
               >
                 {/* <Link to="/member/announces/draft"> */}
                 <a>
-                  <FaEnvelopeOpen />
-                  &nbsp;อ่านแล้ว ()
+                  <FaRegEnvelopeOpen />
+                  &nbsp;อ่านแล้ว ({count.read})
                 </a>
                 {/* </Link> */}
               </li>
@@ -67,8 +66,8 @@ class MailList extends React.Component {
               >
                 {/* <Link to="/member/announces/correct"> */}
                 <a>
-                  <FaEnvelopeSquare />
-                  &nbsp;ยังไม่ได้อ่าน ()
+                  <FaRegEnvelope />
+                  &nbsp;ยังไม่ได้อ่าน ({count.unread})
                 </a>
                 {/* </Link> */}
               </li>
@@ -82,7 +81,7 @@ class MailList extends React.Component {
                 {/* <Link to="/member/announces/correct"> */}
                 <a>
                   <FaStar color="#E5C04D"/>
-                  &nbsp;ติดดาว()
+                  &nbsp;ติดดาว({count.save})
                 </a>
                 {/* </Link> */}
               </li>
@@ -106,7 +105,7 @@ class MailList extends React.Component {
                 </Button>
               </Col>
             </Row>
-            <Inbox mail={mail} />
+            <Inbox mail={mail} save={save} unread={unread} deleteMail={deleteMail}/>
           </Container>
         </div>
       </Container>

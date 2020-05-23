@@ -25,6 +25,7 @@ import ReadMailReducer from "./ReadMailReducer";
 import UnreadMailReducer from "./UnreadMailReducer";
 import SaveMailReducer from "./SaveMailReducer";
 import MessageIDReducer from "./MessageIDReducer";
+import DeleteMessageReducer from "./DeleteMessageReducer";
 
 const allReducer = combineReducers({
   announces: AnnouncesReducer,
@@ -48,6 +49,7 @@ const allReducer = combineReducers({
   deleteAnnounces: DeleteAnnouncesReducer,
   message: MessageReducer,
   messageID: MessageIDReducer,
+  deleteMessage: DeleteMessageReducer,
   mail: MailReducer,
   countMail: CountMailReducer,
   readMail: ReadMailReducer,
