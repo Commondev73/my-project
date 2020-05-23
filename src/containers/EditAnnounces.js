@@ -16,7 +16,7 @@ import {
 import { FaHome, FaRegCheckCircle, FaRegTimesCircle } from "react-icons/fa";
 import { connect } from "react-redux";
 import {
-  fetchAnnounce,
+  fetchUserAnnounce,
   updateAnnounces,
   fetchDataUser,
   fetchProvince,
@@ -59,7 +59,7 @@ class EditAnnounces extends React.Component {
     const id = this.props.match.params.id;
     this.props.fetchDataUser();
     this.props.fetchProvince();
-    this.props.fetchAnnounce(id);
+    this.props.fetchUserAnnounce(id);
   };
 
   componentDidUpdate = (nextProps) => {
@@ -265,28 +265,33 @@ class EditAnnounces extends React.Component {
       user,
       isLoading,
       err,
-      isLoading_announces,
-      announces,
+      //
+      isLoading_announce,
+      announce,
+      err_announce,
+      //
       updateAnnounces_err,
       redirect,
+      //  
       province_isLoading,
       province,
+      province_err,
+      //
       amphoe_isLoading,
       amphoe,
+      amphoe_err,
+      //
       district_isLoading,
       district,
-
-      province_err,
-      amphoe_err,
       district_err,
     } = this.props;
     const values = { ...this.state.formInputs };
     return (
       <Fragment>
-        {isLoading && isLoading_announces && !user && !announces && (
+        {isLoading && isLoading_announce && !user && !announce && (
           <Loading isLoading={isLoading} />
         )}
-        {user && (
+        {user && announce && (
           <Fragment>
             <UserMenu user={user} />
             <Container className="mt-2">
@@ -298,7 +303,7 @@ class EditAnnounces extends React.Component {
                 <BreadcrumbItem>
                   <a href="/member">หน้าสมาชิก</a>
                 </BreadcrumbItem>
-                <BreadcrumbItem active>เพิ่มประกาศ</BreadcrumbItem>
+                <BreadcrumbItem active>แก้ไขประกาศ</BreadcrumbItem>
               </Breadcrumb>
             </Container>
             <FormAnnounces
@@ -321,7 +326,7 @@ class EditAnnounces extends React.Component {
             />
           </Fragment>
         )}
-        {err ||
+        {err || err_announce ||
           updateAnnounces_err ||
           province_err ||
           amphoe_err ||
@@ -382,9 +387,9 @@ const mapStateToProps = (state, props) => {
     err: state.data_user.err,
     isLoading: state.data_user.isLoading,
 
-    isLoading_announce: announce.isLoading,
-    announce: announce.data,
-    err_announce: announce.err,
+    isLoading_announce: state.announce_user.isLoading,
+    announce: state.announce_user.data,
+    err_announce: state.announce_user.err,
 
     updateAnnounces: state.updateAnnounces.data,
     updateAnnounces_err: state.updateAnnounces.err,
@@ -404,7 +409,7 @@ const mapStateToProps = (state, props) => {
 };
 
 const mapDispatchToProps = {
-  fetchAnnounce,
+  fetchUserAnnounce,
   updateAnnounces,
 
   fetchDataUser,

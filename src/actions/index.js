@@ -70,6 +70,23 @@ export const fetchUserAnnouncesCorrect = page => async dispatch => {
   }
 };
 
+export const FETCH_ANNOUNCE_USER_REQUEST = "FETCH_ANNOUNCE_USER_REQUEST";
+export const FETCH_ANNOUNCE_USER_SUCCESS = "FETCH_ANNOUNCE_USER_SUCCESS";
+export const FETCH_ANNOUNCE_USER_ERROR = "FETCH_ANNOUNCE_USER_ERROR";
+
+export const fetchUserAnnounce = id => async dispatch => {
+  await dispatch({ type: FETCH_ANNOUNCE_USER_REQUEST });
+  try {
+    const response = await httpClient.get(`/api/user/announces/${id}`);
+    return dispatch({
+      type: FETCH_ANNOUNCE_USER_SUCCESS,
+      data: response.data
+    });
+  } catch (err) {
+    return dispatch({ type: FETCH_ANNOUNCE_USER_ERROR, err });
+  }
+};
+
 export const FETCH_ANNOUNCE_REQUEST = "FETCH_ANNOUNCE_REQUEST";
 export const FETCH_ANNOUNCE_SUCCESS = "FETCH_ANNOUNCE_SUCCESS";
 export const FETCH_ANNOUNCE_ERROR = "FETCH_ANNOUNCES_ERROR";
@@ -282,6 +299,23 @@ export const fetchDistrict = code => async dispatch => {
     });
   } catch (err) {
     return dispatch({ type: FETCH_DISTRICET_ERROR, err });
+  }
+};
+
+export const FETCH_COUNT_ANNOUNCES_REQUEST = "FETCH_COUNT_ANNOUNCES_REQUEST";
+export const FETCH_COUNT_ANNOUNCES_SUCCESS = "FETCH_COUNT_ANNOUNCES_SUCCESS";
+export const FETCH_COUNT_ANNOUNCES_ERROR = "FETCH_COUNT_ANNOUNCES_ERROR";
+
+export const fetchCountAnnounces = () => async dispatch => {
+  await dispatch({ type: FETCH_COUNT_ANNOUNCES_REQUEST });
+  try {
+    const response = await httpClient.get('/api/user/count/announces');
+    return dispatch({
+      type: FETCH_COUNT_ANNOUNCES_SUCCESS,
+      data: response.data
+    });
+  } catch (err) {
+    return dispatch({ type: FETCH_COUNT_ANNOUNCES_ERROR, err });
   }
 };
 

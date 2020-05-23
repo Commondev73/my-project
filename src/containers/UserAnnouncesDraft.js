@@ -6,17 +6,16 @@ import UserAnnouncesList from "../component/UserAnnouncesList/UserAnnouncesList"
 import { Container, Breadcrumb, BreadcrumbItem } from "reactstrap";
 import { FaHome } from "react-icons/fa";
 import { connect } from "react-redux";
-import { fetchUserAnnounces, fetchDataUser, fetchCountAnnounces, deleteAnnounces } from "../actions";
+import { fetchUserAnnouncesDraft, fetchDataUser, fetchCountAnnounces, deleteAnnounces } from "../actions";
 
-class UserAnnouncesOnline extends React.Component {
+class UserAnnouncesDraft extends React.Component {
   constructor(props) {
     super(props);
   }
   componentDidMount = () => {
     const page = this.props.match.params.page;
     this.props.fetchDataUser();
-    this.props.fetchCountAnnounces();
-    this.props.fetchUserAnnounces(page);
+    this.props.fetchUserAnnouncesDraft(page);
   };
 
   //   getDataAnnounces = pageNumber => {
@@ -71,7 +70,7 @@ class UserAnnouncesOnline extends React.Component {
             <UserAnnouncesList
               count={count}
               announces={announces}
-              tab={1}
+              tab={2}
               delete={this.handleDelete}
               getDataAnnounces={this.getDataAnnounces}
             />
@@ -89,9 +88,9 @@ const mapStateToProps = state => {
     err: state.data_user.err,
     isLoading: state.data_user.isLoading,
 
-    announces: state.announces_user.data,
-    isLoading_announces: state.announces_user.isLoading,
-    announces_err: state.announces_user.err,
+    announces: state.draft_announces_user.data,
+    isLoading_announces: state.draft_announces_user.isLoading,
+    announces_err: state.draft_announces_user.err,
 
     count: state.countAnnounces.data,
     count_err: state.countAnnounces.err,
@@ -106,12 +105,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   fetchDataUser,
-  fetchUserAnnounces,
+  fetchUserAnnouncesDraft,
   fetchCountAnnounces,
   deleteAnnounces
 };
 
-export default UserAnnouncesOnline = connect(
+export default UserAnnouncesDraft = connect(
   mapStateToProps,
   mapDispatchToProps
-)(UserAnnouncesOnline);
+)(UserAnnouncesDraft);

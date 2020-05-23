@@ -63,7 +63,7 @@ class UserAnnouncesList extends React.Component {
   };
 
   render() {
-    const { announces } = this.props;
+    const { announces , count} = this.props;
     return (
       <Container>
         <div className="tabs">
@@ -76,9 +76,9 @@ class UserAnnouncesList extends React.Component {
                     : "border order-bottom-0"
                 }
               >
-                {/* <Link to="/member/announces"> */}
-                  <a>ออนไลน์ ({announces.total})</a>
-                {/* </Link> */}
+                <Link to="/member/announces">
+                  <a>ออนไลน์ ({count.online})</a>
+                </Link>
               </li>
               <li
                 className={
@@ -87,9 +87,9 @@ class UserAnnouncesList extends React.Component {
                     : "border border-bottom-0"
                 }
               >
-                {/* <Link to="/member/announces/draft"> */}
-                  <a>แบบร่าง ()</a>
-                {/* </Link> */}
+                <Link to="/member/announces/draft">
+                  <a>แบบร่าง ({count.draft})</a>
+                </Link>
               </li>
               <li
                 className={
@@ -98,9 +98,9 @@ class UserAnnouncesList extends React.Component {
                     : "border border-bottom-0 mr-1"
                 }
               >
-                {/* <Link to="/member/announces/correct"> */}
-                  <a>รอแก้ไข ()</a>
-                {/* </Link> */}
+                <Link to="/member/announces/correct">
+                  <a>รอแก้ไข ({count.correct})</a>
+                </Link>
               </li>
               <Link to="/member/announces/post">
                 <div className="m-auto">

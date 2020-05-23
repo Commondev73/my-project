@@ -15,6 +15,8 @@ import ProfilePage from "./containers/ProfilePage";
 import UserChangePassword from "./containers/UserChangePassword";
 import PostAnnounces from "./containers/PostAnnounces";
 import UserAnnouncesOnline from "./containers/UserAnnouncesOnline";
+import UserAnnouncesDraft from "./containers/UserAnnouncesDraft";
+import UserAnnouncesCorrect from "./containers/UserAnnouncesCorrect";
 
 import EditAnnounces from "./containers/EditAnnounces";
 import Mail from "./containers/Mail";
@@ -73,6 +75,18 @@ class App extends React.Component {
               exact
               path="/member/announces"
               component={UserAnnouncesOnline}
+            />
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              exact
+              path="/member/announces/draft"
+              component={UserAnnouncesDraft}
+            />
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              exact
+              path="/member/announces/correct"
+              component={UserAnnouncesCorrect}
             />
             <PrivateRoute
               isAuthenticated={isAuthenticated}

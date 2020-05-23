@@ -6,9 +6,9 @@ import UserAnnouncesList from "../component/UserAnnouncesList/UserAnnouncesList"
 import { Container, Breadcrumb, BreadcrumbItem } from "reactstrap";
 import { FaHome } from "react-icons/fa";
 import { connect } from "react-redux";
-import { fetchUserAnnounces, fetchDataUser, fetchCountAnnounces, deleteAnnounces } from "../actions";
+import { fetchUserAnnouncesCorrect, fetchDataUser, fetchCountAnnounces, deleteAnnounces } from "../actions";
 
-class UserAnnouncesOnline extends React.Component {
+class UserAnnouncesCorrect extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -16,7 +16,7 @@ class UserAnnouncesOnline extends React.Component {
     const page = this.props.match.params.page;
     this.props.fetchDataUser();
     this.props.fetchCountAnnounces();
-    this.props.fetchUserAnnounces(page);
+    this.props.fetchUserAnnouncesCorrect(page);
   };
 
   //   getDataAnnounces = pageNumber => {
@@ -53,7 +53,7 @@ class UserAnnouncesOnline extends React.Component {
           !count && !user && !announces && (
             <Loading isLoading={isLoading} />
           )}
-        {user && announces && count && (
+        {user && announces &&  count && (
           <Fragment>
             <UserMenu user={user} />
             <Container className="mt-2">
@@ -71,7 +71,7 @@ class UserAnnouncesOnline extends React.Component {
             <UserAnnouncesList
               count={count}
               announces={announces}
-              tab={1}
+              tab={3}
               delete={this.handleDelete}
               getDataAnnounces={this.getDataAnnounces}
             />
@@ -89,9 +89,9 @@ const mapStateToProps = state => {
     err: state.data_user.err,
     isLoading: state.data_user.isLoading,
 
-    announces: state.announces_user.data,
-    isLoading_announces: state.announces_user.isLoading,
-    announces_err: state.announces_user.err,
+    announces: state.correct_announces_user.data,
+    isLoading_announces: state.correct_announces_user.isLoading,
+    announces_err: state.correct_announces_user.err,
 
     count: state.countAnnounces.data,
     count_err: state.countAnnounces.err,
@@ -106,12 +106,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   fetchDataUser,
-  fetchUserAnnounces,
+  fetchUserAnnouncesCorrect,
   fetchCountAnnounces,
   deleteAnnounces
 };
 
-export default UserAnnouncesOnline = connect(
+export default UserAnnouncesCorrect = connect(
   mapStateToProps,
   mapDispatchToProps
-)(UserAnnouncesOnline);
+)(UserAnnouncesCorrect);

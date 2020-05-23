@@ -6,6 +6,7 @@ import LoginReducer from "./LoginReducer";
 import LogoutReducer from "./LogoutReducer";
 import CurrentUserReducer from "./CurrentUserReducer";
 import AnnouncesUserReducer from "./AnnouncesUserReducer";
+import AnnounceUserReducer from "./AnnounceUserReducer";
 import ChangePasswordReducer from "./ChangePasswordReducer";
 import DataUserReducer from "./DataUserReducer";
 import UpdateProfileReducer from "./UpdateProfileReducer";
@@ -13,6 +14,7 @@ import UpdateProfileImageReducer from "./UpdateProfileImageReducer";
 import ProvinceReducer from "./ProvinceReducer";
 import AmphoeReducer from "./AmphoeReducer";
 import DistrictReducer from "./DistrictReducer";
+import CountAnnouncesReducer from "./CountAnnouncesReducer";
 import PostAnnouncesReducer from "./PostAnnouncesReducer";
 import UpdateAnnouncesReducer from "./UpdateAnnouncesReducer";
 import DeleteAnnouncesReducer from "./DeleteAnnouncesReducer";
@@ -29,10 +31,11 @@ import DeleteMessageReducer from "./DeleteMessageReducer";
 
 const allReducer = combineReducers({
   announces: AnnouncesReducer,
+  announce: AnnounceReducer,
   announces_user: AnnouncesUserReducer,
+  announce_user :AnnounceUserReducer,
   draft_announces_user: DraftAnnouncesUserReducer,
   correct_announces_user: CorrectAnnouncesUserReducer,
-  announce: AnnounceReducer,
   register: RegisterReducer,
   login: LoginReducer,
   user: CurrentUserReducer,
@@ -44,6 +47,7 @@ const allReducer = combineReducers({
   province: ProvinceReducer,
   amphoe: AmphoeReducer,
   district: DistrictReducer,
+  countAnnounces: CountAnnouncesReducer,
   postAnnounces: PostAnnouncesReducer,
   updateAnnounces: UpdateAnnouncesReducer,
   deleteAnnounces: DeleteAnnouncesReducer,
