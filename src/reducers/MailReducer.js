@@ -15,6 +15,9 @@ const MailReducer = (state = {}, action) => {
       return {
         ...state,
         data: action.data,
+        // save: [action.data.data.map((id) => {
+        //   return id.id;
+        // })],
         isLoading: false,
       };
     case FETCH_MAIL_ERROR:

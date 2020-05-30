@@ -1,15 +1,37 @@
 import React, { Fragment } from "react";
 import "./Inbox.css";
-import { Modal, Button ,ModalBody ,ModalFooter} from "reactstrap";
-import { FaRegStar, FaRegEnvelope, FaTrashAlt ,FaTimes } from "react-icons/fa";
+import { Modal, Button, ModalBody, ModalFooter } from "reactstrap";
+import { FaRegStar, FaRegEnvelope, FaTrashAlt, FaTimes } from "react-icons/fa";
+import _ from "lodash";
 class Inbox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       confirmDelete: false,
+      selectedItem: this.handleDataMailSave(this.props.mail.data),
       id: "",
     };
   }
+
+  handleDataMailSave = (data) => {
+    const result = data.map((data) => {
+      return data.reading_status === 2
+        ? { id: data.id, value: true }
+        : { id: data.id, value: false };
+    });
+    return result;
+  };
+
+  ItemStyle = (id) => {
+    const isItemSelected = this.state.selectedItem
+      .filter((data) => data.id === id)
+      .map((ele) => ele.value);
+    // console.log("test", isItemSelected);
+    // console.log("state", this.state.selectedItem);
+    return isItemSelected[0]
+      ? "mt-1 star-2 rounded-circle"
+      : "mt-1 star rounded-circle";
+  };
 
   handleClick = (e, id) => {
     e.preventDefault();
@@ -24,12 +46,44 @@ class Inbox extends React.Component {
     });
   };
 
+  handleSave = async (idMail) => {
+    await this.setState((prevState) => {
+      const isItemSelected = this.state.selectedItem;
+      let index = isItemSelected.findIndex((obj) => obj.id === idMail);
+      let check = isItemSelected[index].value === true;
+      check
+        ? (isItemSelected[index].value = false)
+        : (isItemSelected[index].value = true);
+      check ? this.props.read(idMail) : this.props.save(idMail);
+      return {
+        ...prevState,
+        isItemSelected,
+      };
+    });
+  };
+
+  handleUnread = async (idMail) => {
+    await this.setState((prevState) => {
+      const isItemSelected = this.state.selectedItem;
+      let index = isItemSelected.findIndex((obj) => obj.id === idMail);
+      let check = isItemSelected[index].value === true;
+      check
+        ? (isItemSelected[index].value = false)
+        : (isItemSelected[index].value = false);
+      this.props.unread(idMail);
+      return {
+        ...prevState,
+        isItemSelected,
+      };
+    });
+  };
+
   handleDelete = () => {
     this.props.deleteMail(this.state.id);
   };
 
   render() {
-    const { mail, save, unread } = this.props;
+    const { mail } = this.props;
     return (
       <Fragment>
         <table className="mail-list mt-2">
@@ -68,18 +122,14 @@ class Inbox extends React.Component {
                 <td className="pr-2 columnD">
                   <FaRegStar
                     size="20"
-                    className={
-                      detail.reading_status === 2
-                        ? "mt-1 star-2 rounded-circle"
-                        : "mt-1 star rounded-circle"
-                    }
-                    onClick={() => save(detail.id)}
+                    className={this.ItemStyle(detail.id)}
+                    onClick={() => this.handleSave(detail.id)}
                   />
                   <Button
                     color="primary"
                     className="rounded-pill ml-2"
                     size="sm"
-                    onClick={() => unread(detail.id)}
+                    onClick={() => this.handleUnread(detail.id)}
                   >
                     <FaRegEnvelope className="mr-1" />
                     ยังไม่ได้อ่าน

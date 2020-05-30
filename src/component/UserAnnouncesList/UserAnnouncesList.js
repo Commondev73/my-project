@@ -13,14 +13,14 @@ class UserAnnouncesList extends React.Component {
     this.state = {
       activeTab: this.props.tab,
       confirmDelete: false,
-      announcesID: ""
+      announcesID: "",
     };
   }
 
-  handleAnnounces = announces => {
+  handleAnnounces = (announces) => {
     return announces.data.length !== 0 ? (
       <Fragment>
-        {announces.data.map(announce => (
+        {announces.data.map((announce) => (
           <TabOnline
             key={announce.id}
             announce={announce}
@@ -36,7 +36,7 @@ class UserAnnouncesList extends React.Component {
             pageCount={announces.last_page}
             marginPagesDisplayed={2}
             pageRangeDisplayed={5}
-            onPageChange={data =>
+            onPageChange={(data) =>
               this.props.getDataAnnounces(data.selected + 1)
             }
             containerClassName={"pagination"}
@@ -50,11 +50,11 @@ class UserAnnouncesList extends React.Component {
     );
   };
 
-  confirmDelete = id => {
+  confirmDelete = (id) => {
     this.setState({
       ...this.state,
       confirmDelete: !this.state.confirmDelete,
-      announcesID: id
+      announcesID: id,
     });
   };
 
@@ -63,7 +63,7 @@ class UserAnnouncesList extends React.Component {
   };
 
   render() {
-    const { announces , count} = this.props;
+    const { announces, count } = this.props;
     return (
       <Container>
         <div className="tabs">
@@ -76,9 +76,7 @@ class UserAnnouncesList extends React.Component {
                     : "border order-bottom-0"
                 }
               >
-                <Link to="/member/announces">
-                  <a>ออนไลน์ ({count.online})</a>
-                </Link>
+                <Link to="/member/announces">ออนไลน์ ({count.online})</Link>
               </li>
               <li
                 className={
@@ -88,7 +86,7 @@ class UserAnnouncesList extends React.Component {
                 }
               >
                 <Link to="/member/announces/draft">
-                  <a>แบบร่าง ({count.draft})</a>
+                  แบบร่าง ({count.draft})
                 </Link>
               </li>
               <li
@@ -99,7 +97,7 @@ class UserAnnouncesList extends React.Component {
                 }
               >
                 <Link to="/member/announces/correct">
-                  <a>รอแก้ไข ({count.correct})</a>
+                  รอแก้ไข ({count.correct})
                 </Link>
               </li>
               <Link to="/member/announces/post">

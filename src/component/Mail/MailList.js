@@ -9,6 +9,7 @@ import {
   FaStar,
   FaSearch,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 class MailList extends React.Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class MailList extends React.Component {
   tab3 = () => this.setState({ activeTab: 3 });
 
   render() {
-    const { mail , count ,unread ,save , deleteMail} = this.props;
+    const { mail, count, unread, save, deleteMail, read } = this.props;
     return (
       <Container>
         <div className="tabs">
@@ -36,12 +37,10 @@ class MailList extends React.Component {
                     : "border order-bottom-0"
                 }
               >
-                {/* <Link to="/member/announces"> */}
-                <a>
+                <Link to="/member/mail">
                   <FaMailBulk />
                   &nbsp;ทั้งหมด ({mail.data.length})
-                </a>
-                {/* </Link> */}
+                </Link>
               </li>
               <li
                 className={
@@ -50,12 +49,10 @@ class MailList extends React.Component {
                     : "border border-bottom-0"
                 }
               >
-                {/* <Link to="/member/announces/draft"> */}
-                <a>
+                <Link to="/member">
                   <FaRegEnvelopeOpen />
                   &nbsp;อ่านแล้ว ({count.read})
-                </a>
-                {/* </Link> */}
+                </Link>
               </li>
               <li
                 className={
@@ -64,12 +61,10 @@ class MailList extends React.Component {
                     : "border border-bottom-0"
                 }
               >
-                {/* <Link to="/member/announces/correct"> */}
-                <a>
+                <Link to="/member/mail/1">
                   <FaRegEnvelope />
                   &nbsp;ยังไม่ได้อ่าน ({count.unread})
-                </a>
-                {/* </Link> */}
+                </Link>
               </li>
               <li
                 className={
@@ -78,18 +73,16 @@ class MailList extends React.Component {
                     : "border border-bottom-0"
                 }
               >
-                {/* <Link to="/member/announces/correct"> */}
-                <a>
-                  <FaStar color="#E5C04D"/>
+                <Link to="/member/mail/1">
+                  <FaStar color="#E5C04D" />
                   &nbsp;ติดดาว({count.save})
-                </a>
-                {/* </Link> */}
+                </Link>
               </li>
             </ul>
           </nav>
           <Container className="pt-3 pb-3 border table-user-announces">
             <Row>
-              <Col className="mb-3" md="10" >
+              <Col className="mb-3" md="10">
                 <Input
                   className="rounded-pill"
                   type="Search"
@@ -100,12 +93,18 @@ class MailList extends React.Component {
               </Col>
               <Col md="2">
                 <Button color="info" className="rounded-pill" block>
-                <FaSearch className="mr-1" />
+                  <FaSearch className="mr-1" />
                   ค้นหา
                 </Button>
               </Col>
             </Row>
-            <Inbox mail={mail} save={save} unread={unread} deleteMail={deleteMail}/>
+            <Inbox
+              read={read}
+              mail={mail}
+              save={save}
+              unread={unread}
+              deleteMail={deleteMail}
+            />
           </Container>
         </div>
       </Container>

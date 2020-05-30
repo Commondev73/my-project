@@ -8,8 +8,30 @@ import {
 } from "react-icons/fa";
 
 class MailDetail extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedItem: this.props.message.reading_status === 2 ? true : false,
+    };
+  }
+
+  handleSave = () => {
+    const selected = this.state.selectedItem
+    this.setState({
+      selectedItem: !selected,
+    });
+    selected ? this.props.read(1) : this.props.Save();
+  };
+
+  handleUnread = () => {
+    this.setState({
+      selectedItem: false,
+    });
+    this.props.Unread();
+  };
+
   render() {
-    const { message, Unread, Save, deleteMail } = this.props;
+    const { message, deleteMail } = this.props;
     return (
       <Fragment>
         <Row className="border border-radius pt-3 pb-3">
@@ -24,17 +46,17 @@ class MailDetail extends React.Component {
                 <FaRegStar
                   size="23"
                   className={
-                    message.reading_status === 2
+                    this.state.selectedItem
                       ? "mt-1 star-2 rounded-circle"
                       : "mt-1 star rounded-circle"
                   }
-                  onClick={() => Save()}
+                  onClick={() => this.handleSave()}
                 />
                 <Button
                   color="primary"
                   className="rounded-pill ml-2"
                   size="sm"
-                  onClick={() => Unread()}
+                  onClick={() => this.handleUnread()}
                 >
                   <FaRegEnvelope className="mr-1" />
                   ยังไม่ได้อ่าน

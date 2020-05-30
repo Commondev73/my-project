@@ -79,9 +79,9 @@ class Header extends React.Component {
                   <NavLink className="rounded-pill font-menu" href="#">
                     <span className="font-menu">บ้าน</span>
                   </NavLink>
-                  <NavLink className="rounded-pill font-menu" href="#">
+                  {/* <NavLink className="rounded-pill font-menu" href="#">
                     <span className="font-menu">ที่ดิน</span>
-                  </NavLink>
+                  </NavLink> */}
                 </Nav>
               </Collapse>
 

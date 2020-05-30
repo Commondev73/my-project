@@ -11,7 +11,7 @@ import {
   fetchDataUser,
   fetchMail,
   countMail,
-  // readMail,
+  readMail,
   unreadMail,
   saveMail,
   deleteMessage,
@@ -50,6 +50,14 @@ class Mail extends React.Component {
     });
   };
 
+  handleRead = (id) => {
+    this.props.readMail(id).then((res) =>
+      this.setState({
+        success: res.data,
+      })
+    );
+  };
+
   handleUnread = (id) => {
     this.props.unreadMail(id).then((res) =>
       this.setState({
@@ -75,12 +83,18 @@ class Mail extends React.Component {
       user,
       isLoading,
       err,
+
       mail,
       mail_isLoading,
       mail_err,
+
       count,
       count_isLoading,
       count_err,
+      
+      // read,
+      read_err,
+
       delete_err,
       redirect,
     } = this.props;
@@ -134,6 +148,7 @@ class Mail extends React.Component {
               </Alert>
             </Container>
             <MailList
+              read={this.handleRead}
               mail={mail}
               count={count}
               save={this.handleSave}
@@ -161,7 +176,7 @@ class Mail extends React.Component {
             )}
           </Fragment>
         )}
-        {err || mail_err || count_err || delete_err && <ModalErr />}
+        {err || mail_err || count_err || delete_err || read_err && <ModalErr />}
       </Fragment>
     );
   }
@@ -181,9 +196,9 @@ const mapStateToProps = (state) => {
     count_err: state.countMail.err,
     count_isLoading: state.countMail.isLoading,
 
-    // read: state.readMail.data,
-    // read_err: state.readMail.err,
-    // read_isLoading: state.readMail.isLoading,
+    read: state.readMail.data,
+    read_err: state.readMail.err,
+    read_isLoading: state.readMail.isLoading,
 
     unread: state.unreadMail.data,
     unread_err: state.unreadMail.err,
@@ -204,6 +219,7 @@ const mapDispatchToProps = {
   fetchMail,
   countMail,
   unreadMail,
+  readMail,
   saveMail,
   deleteMessage,
 };

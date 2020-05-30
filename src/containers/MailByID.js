@@ -172,6 +172,7 @@ class MailByID extends React.Component {
               </Alert>
               {this.handleRead(message.reading_status)}
               <MailDetail
+                read={this.handleRead}
                 message={message}
                 Unread={this.handleUnread}
                 Save={this.handleSave}
