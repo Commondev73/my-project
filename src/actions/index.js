@@ -507,6 +507,57 @@ export const countMail = () => async dispatch => {
   }
 }
 
+export const FETCH_MAIL_READ_USER_REQUEST = "FETCH_MAIL_READ_USER_REQUEST";
+export const FETCH_MAIL_READ_USER_SUCCESS = "FETCH_MAIL_READ_USER_SUCCESS";
+export const FETCH_MAIL_READ_USER_ERROR = "FETCH_MAIL_READ_USER_ERROR";
+
+export const fetchUserMailRead = page => async dispatch => {
+  await dispatch({ type: FETCH_MAIL_READ_USER_REQUEST });
+  try {
+    const response = await httpClient.get(`/api/user/read/mail?page=${page}`);
+    return dispatch({
+      type: FETCH_MAIL_READ_USER_SUCCESS,
+      data: response.data
+    });
+  } catch (err) {
+    return dispatch({ type: FETCH_MAIL_READ_USER_ERROR, err });
+  }
+};
+
+export const FETCH_MAIL_UNREAD_USER_REQUEST = "FETCH_MAIL_UNREAD_USER_REQUEST";
+export const FETCH_MAIL_UNREAD_USER_SUCCESS = "FETCH_MAIL_UNREAD_USER_SUCCESS";
+export const FETCH_MAIL_UNREAD_USER_ERROR = "FETCH_MAIL_UNREAD_USER_ERROR";
+
+export const fetchUserMailUnread = page => async dispatch => {
+  await dispatch({ type: FETCH_MAIL_UNREAD_USER_REQUEST });
+  try {
+    const response = await httpClient.get(`/api/user/unread/mail?page=${page}`);
+    return dispatch({
+      type: FETCH_MAIL_UNREAD_USER_SUCCESS,
+      data: response.data
+    });
+  } catch (err) {
+    return dispatch({ type: FETCH_MAIL_UNREAD_USER_ERROR, err });
+  }
+};
+
+export const FETCH_MAIL_SAVE_USER_REQUEST = "FETCH_MAIL_SAVE_USER_REQUEST";
+export const FETCH_MAIL_SAVE_USER_SUCCESS = "FETCH_MAIL_SAVE_USER_SUCCESS";
+export const FETCH_MAIL_SAVE_USER_ERROR = "FETCH_MAIL_SAVE_USER_ERROR";
+
+export const fetchUserMailSave = page => async dispatch => {
+  await dispatch({ type: FETCH_MAIL_SAVE_USER_REQUEST });
+  try {
+    const response = await httpClient.get(`/api/user/save/mail?page=${page}`);
+    return dispatch({
+      type: FETCH_MAIL_SAVE_USER_SUCCESS,
+      data: response.data
+    });
+  } catch (err) {
+    return dispatch({ type: FETCH_MAIL_SAVE_USER_ERROR, err });
+  }
+};
+
 export const READ_MAIL_MESSAGE_REQUEST = "READ_MAIL_MESSAGE_REQUEST";
 export const READ_MAIL_MESSAGE_SUCCESS = "READ_MAIL_MESSAGE_SUCCESS";
 export const READ_MAIL_MESSAGE_ERROR = "READ_MAIL_MESSAGE_ERROR";

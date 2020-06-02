@@ -15,13 +15,17 @@ class MailList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeTab: 1,
+      activeTab: this.props.activeTab,
     };
   }
 
-  tab1 = () => this.setState({ activeTab: 1 });
-  tab2 = () => this.setState({ activeTab: 2 });
-  tab3 = () => this.setState({ activeTab: 3 });
+  mailAll = () => {
+    const { count } = this.props;
+    const read = Number(count.read)
+    const unread = Number(count.unread)
+    const save = Number(count.save)
+    return read + unread + save
+  }
 
   render() {
     const { mail, count, unread, save, deleteMail, read } = this.props;
@@ -37,10 +41,10 @@ class MailList extends React.Component {
                     : "border order-bottom-0"
                 }
               >
-                <Link to="/member/mail">
+                <a href="/member/mail">
                   <FaMailBulk />
-                  &nbsp;ทั้งหมด ({mail.data.length})
-                </Link>
+                  &nbsp;ทั้งหมด ({this.mailAll()})
+                </a>
               </li>
               <li
                 className={
@@ -49,10 +53,10 @@ class MailList extends React.Component {
                     : "border border-bottom-0"
                 }
               >
-                <Link to="/member">
+                <a href="/member/read/mail/">
                   <FaRegEnvelopeOpen />
                   &nbsp;อ่านแล้ว ({count.read})
-                </Link>
+                </a>
               </li>
               <li
                 className={
@@ -61,22 +65,22 @@ class MailList extends React.Component {
                     : "border border-bottom-0"
                 }
               >
-                <Link to="/member/mail/1">
+                <a href="/member/unread/mail/1">
                   <FaRegEnvelope />
                   &nbsp;ยังไม่ได้อ่าน ({count.unread})
-                </Link>
+                </a>
               </li>
               <li
                 className={
-                  this.state.activeTab === 3
+                  this.state.activeTab === 4
                     ? "active border border-bottom-0"
                     : "border border-bottom-0"
                 }
               >
-                <Link to="/member/mail/1">
+                <a href="/member/save/mail/1">
                   <FaStar color="#E5C04D" />
                   &nbsp;ติดดาว({count.save})
-                </Link>
+                </a>
               </li>
             </ul>
           </nav>

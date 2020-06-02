@@ -9,7 +9,7 @@ import { FaHome, FaRegCheckCircle, FaRegTimesCircle } from "react-icons/fa";
 import { connect } from "react-redux";
 import {
   fetchDataUser,
-  fetchMail,
+  fetchUserMailSave,
   countMail,
   readMail,
   unreadMail,
@@ -18,7 +18,7 @@ import {
 } from "../actions";
 import { Col } from "reactstrap";
 
-class Mail extends React.Component {
+class MailSave extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,7 +30,7 @@ class Mail extends React.Component {
   componentDidMount = () => {
     const page = this.props.match.params.page;
     this.props.fetchDataUser();
-    this.props.fetchMail(page);
+    this.props.fetchUserMailSave(page);
     this.props.countMail();
   };
 
@@ -148,7 +148,7 @@ class Mail extends React.Component {
               </Alert>
             </Container>
             <MailList
-              activeTab={1}
+              activeTab={4}
               read={this.handleRead}
               mail={mail}
               count={count}
@@ -189,14 +189,14 @@ const mapStateToProps = (state) => {
     err: state.data_user.err,
     isLoading: state.data_user.isLoading,
 
-    mail: state.mail.data,
-    mail_err: state.mail.err,
-    mail_isLoading: state.mail.isLoading,
+    mail: state.mailSave.data,
+    mail_err: state.mailSave.err,
+    mail_isLoading: state.mailSave.isLoading,
 
     count: state.countMail.data,
     count_err: state.countMail.err,
     count_isLoading: state.countMail.isLoading,
-
+ 
     read: state.readMail.data,
     read_err: state.readMail.err,
     read_isLoading: state.readMail.isLoading,
@@ -217,7 +217,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   fetchDataUser,
-  fetchMail,
+  fetchUserMailSave,
   countMail,
   unreadMail,
   readMail,
@@ -225,4 +225,4 @@ const mapDispatchToProps = {
   deleteMessage,
 };
 
-export default Mail = connect(mapStateToProps, mapDispatchToProps)(Mail);
+export default MailSave = connect(mapStateToProps, mapDispatchToProps)(MailSave);

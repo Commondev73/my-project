@@ -22,6 +22,9 @@ import DraftAnnouncesUserReducer from "./DraftAnnouncesUserReducer";
 import CorrectAnnouncesUserReducer from "./CorrectAnnouncesUserReducer";
 import MessageReducer from "./MessageReducer";
 import MailReducer from "./MailReducer";
+import MailUserReadReducer from "./MailUserReadReducer";
+import MailUserUnreadReducer from "./MailUserUnreadReducer";
+import MailUserSaveReducer from "./MailUserSaveReducer";
 import CountMailReducer from "./CountMailReducer";
 import ReadMailReducer from "./ReadMailReducer";
 import UnreadMailReducer from "./UnreadMailReducer";
@@ -33,7 +36,7 @@ const allReducer = combineReducers({
   announces: AnnouncesReducer,
   announce: AnnounceReducer,
   announces_user: AnnouncesUserReducer,
-  announce_user :AnnounceUserReducer,
+  announce_user: AnnounceUserReducer,
   draft_announces_user: DraftAnnouncesUserReducer,
   correct_announces_user: CorrectAnnouncesUserReducer,
   register: RegisterReducer,
@@ -55,6 +58,9 @@ const allReducer = combineReducers({
   messageID: MessageIDReducer,
   deleteMessage: DeleteMessageReducer,
   mail: MailReducer,
+  mailRead: MailUserReadReducer,
+  mailUnread: MailUserUnreadReducer,
+  mailSave: MailUserSaveReducer,
   countMail: CountMailReducer,
   readMail: ReadMailReducer,
   unreadMail: UnreadMailReducer,

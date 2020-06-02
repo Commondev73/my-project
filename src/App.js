@@ -20,6 +20,9 @@ import UserAnnouncesCorrect from "./containers/UserAnnouncesCorrect";
 
 import EditAnnounces from "./containers/EditAnnounces";
 import Mail from "./containers/Mail";
+import MailRead from "./containers/MailRead";
+import MailUnread from "./containers/MailUnread";
+import MailSave from "./containers/MailSave";
 import MailByID from "./containers/MailByID";
 
 import NotFoundPage from "./containers/PageNotFound";
@@ -102,6 +105,30 @@ class App extends React.Component {
               component={Mail}
             />
             <Redirect exact from="/member/mail/" to="/member/mail/1" />
+
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              exact
+              path="/member/read/mail/:page"
+              component={MailRead}
+            />
+            <Redirect exact from="/member/read/mail/" to="/member/read/mail/1" />
+
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              exact
+              path="/member/unread/mail/:page"
+              component={MailUnread}
+            />
+            <Redirect exact from="/member/unread/mail/" to="/member/unread/mail/1" />
+            
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              exact
+              path="/member/save/mail/:page"
+              component={MailSave}
+            />
+            <Redirect exact from="/member/save/mail/" to="/member/save/mail/1" />
 
             <PrivateRoute
               isAuthenticated={isAuthenticated}
