@@ -34,6 +34,19 @@ class Header extends React.Component {
     });
   }
 
+  NavbarTogglerSpan = (data) => {
+    const { user, isAuthenticated } = this.props
+    const NoAuth = {
+      backgroundImage: 'url(https://www.livinginsider.com/assets18/images/xno-user.png.pagespeed.ic.7d6lssbtJ3.webp)'
+    };
+    const Auth = {
+      backgroundImage: `url(${user.image})`,
+      backgroundSize: 'cover'
+    }
+    const Style = isAuthenticated ? Auth : NoAuth;
+    return Style
+  }
+
   toggle2() {
     this.setState({
       isOpen2: !this.state.isOpen2,
@@ -54,7 +67,7 @@ class Header extends React.Component {
               {/* Brandname */}
               {/* <NavbarBrand href="/">Demo</NavbarBrand> */}
               {/* Add toggler to auto-collapse */}
-              <NavbarToggler onClick={this.toggle} />
+              <NavbarToggler onClick={this.toggle} className="border-0" />
 
               <NavbarBrand className="font-menu text-light" href="/">
                 {/* <img className="logo" src={logo} alt="" /> */}
@@ -66,7 +79,9 @@ class Header extends React.Component {
                 </div>
               </NavbarBrand>
 
-              <NavbarToggler onClick={this.toggle2} className="user border-0" />
+              <NavbarToggler onClick={this.toggle2} className="user border-0">
+                <span className="navbar-toggler-icon rounded-circle" style={this.NavbarTogglerSpan()}></span>
+              </NavbarToggler>
 
               <Collapse isOpen={this.state.isOpen} navbar>
                 <Nav className="main-menu" navbar>

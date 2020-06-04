@@ -4,28 +4,63 @@ import ModalErr from "../component/ModalErr/ModalErr";
 import ReactPaginate from "react-paginate";
 import AnnouncesList from "../component/AnnouncesList/AnnouncesList";
 import { connect } from "react-redux";
-import { fetchAnnounces } from "../actions";
+import { fetchAnnounces, addBookMark, deleteBookMark } from "../actions";
 import { Container, Row, Breadcrumb, BreadcrumbItem, Col } from "reactstrap";
 import { FaHome } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { httpClient } from "../HttpClient";
 
 class Home extends React.Component {
-  // componentDidMount = async () => {
-  //   await this.getData();
-  // };
+  constructor(props) {
+    super(props);
+    this.state = {
+      bookmarks: ""
+    };
+  }
 
   componentDidMount = () => {
+    document.title = "บ้าน คอนโด ตลาดซื้อขาย-เช่า"
     const page = this.props.match.params.page;
     this.props.fetchAnnounces(page);
+    if (this.props.isAuthenticated) {
+      httpClient.get('/api/user/bookmark')
+        .then(response => {
+          this.setState({ bookmarks: response.data })
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
   };
 
-  getData = async pageNumber => {
+  getData = async (pageNumber) => {
     window.location.replace(`${pageNumber}`);
-    // this.props.fetchAnnounces(pageNumber);
+  };
+
+  handleBookMark = (id) => {
+    if (this.props.isAuthenticated) {
+      const Mark = this.state.bookmarks.filter(data => data === id)
+      const result = Mark.length === 0 ? false : true;
+      return result;
+    }
+    return false;
+  };
+
+  handleAddBookMark = (id) => {
+    this.props.addBookMark(id);
+  };
+
+  handleDeleteBookMark = (id) => {
+    this.props.deleteBookMark(id);
   };
 
   render() {
-    const { announces, err, isLoading } = this.props;
+    const {
+      announces,
+      err,
+      isLoading,
+      addBookmarkErr,
+      deleteBookmarkErr,
+    } = this.props;
     return (
       <Fragment>
         <Container className="mt-1">
@@ -37,13 +72,19 @@ class Home extends React.Component {
           </Breadcrumb>
         </Container>
 
-        <Container className="pt-3 border-primary border">
+        <Container className="pt-3 border border-0">
           <Row>
             {isLoading && !announces && <Loading isLoading={isLoading} />}
             {announces && (
               <Fragment>
-                {announces.data.map(announce => (
-                  <AnnouncesList key={announce.id} announce={announce} />
+                {announces.data.map((announce) => (
+                  <AnnouncesList
+                    key={announce.id}
+                    announce={announce}
+                    addBookMark={this.handleAddBookMark}
+                    deleteBookMark={this.handleDeleteBookMark}
+                    mark={this.handleBookMark(announce.id)}
+                  />
                 ))}
                 {announces.last_page > 1 && (
                   <Col xs="12">
@@ -56,7 +97,7 @@ class Home extends React.Component {
                       marginPagesDisplayed={2}
                       pageRangeDisplayed={5}
                       forcePage={this.props.match.params.page - 1}
-                      onPageChange={data => this.getData(data.selected + 1)}
+                      onPageChange={(data) => this.getData(data.selected + 1)}
                       containerClassName={"pagination"}
                       subContainerClassName={"pages pagination"}
                       activeClassName={"active"}
@@ -65,7 +106,7 @@ class Home extends React.Component {
                 )}
               </Fragment>
             )}
-             {err  && <ModalErr />}
+            {err || addBookmarkErr || deleteBookmarkErr && <ModalErr />}
           </Row>
         </Container>
       </Fragment>
@@ -73,17 +114,28 @@ class Home extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  // console.log("STATE: ", state);
+const mapStateToProps = (state) => {
   return {
+    isAuthenticated: state.user.authenticated,
+
     announces: state.announces.data,
     err: state.announces.err,
-    isLoading: state.announces.isLoading
+    isLoading: state.announces.isLoading,
+
+    addBookmark: state.addBookmark.data,
+    addBookmarkErr: state.addBookmark.err,
+    addBookmarkIsLoading: state.addBookmark.isLoading,
+
+    deleteBookmark: state.deleteBookmark.data,
+    deleteBookmarkErr: state.deleteBookmark.err,
+    deleteBookmarkIsLoading: state.deleteBookmark.isLoading,
   };
 };
 
 const mapDispatchToProps = {
-  fetchAnnounces
+  fetchAnnounces,
+  addBookMark,
+  deleteBookMark,
 };
 
 export default Home = connect(mapStateToProps, mapDispatchToProps)(Home);

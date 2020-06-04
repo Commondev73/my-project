@@ -39,7 +39,7 @@ class UserMenu extends React.Component {
                 </a>
               </li>
               <li className="icon">
-                <a href="/member/announces">
+                <a href="/member/announces/online">
                   <h2>
                     <FaBullhorn />
                   </h2>
@@ -47,7 +47,7 @@ class UserMenu extends React.Component {
                 </a>
               </li>
               <li className="icon">
-                <a href="#">
+                <a href="/member/bookmarks">
                   <h2>
                     <TiHeartFullOutline className="heart" />
                   </h2>

@@ -1,10 +1,19 @@
 import React, { Fragment } from "react";
 import "./TabOnline.css";
-import { Row, Col, Button} from "reactstrap";
+import { Row, Col, Button } from "reactstrap";
 import { FaTrashAlt, FaPen, FaBullhorn, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 class TabOnline extends React.Component {
+
+  dateFormat = (date) => {
+    const months = ["ม.ค", "ก.พ", "มี.ค", "เม.ย", "พ.ค.", "มิ.ย",
+      "ก.ค", "ส.ค", "ก.ย", "ต.ค", "พ.ย", "ธ.ค"];
+    let current_datetime = new Date(date)
+    let formatted_date = current_datetime.getDate() + " " + months[current_datetime.getMonth()] + " " + (current_datetime.getFullYear() + 543);
+    return formatted_date;
+  }
+
   render() {
     const { announce } = this.props;
     return (
@@ -40,7 +49,7 @@ class TabOnline extends React.Component {
                 <h6>{announce.price}</h6>
               </Col>
               <Col xs="12" md="12" className="">
-                <p>{announce.created_at}</p>
+                <p>{this.dateFormat(announce.created_at)}</p>
               </Col>
               <Col xs="12" md="12" className="m-auto">
                 <Row className="mb-1 justify-content-end">

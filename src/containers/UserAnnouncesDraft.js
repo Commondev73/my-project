@@ -8,20 +8,20 @@ import { FaHome } from "react-icons/fa";
 import { connect } from "react-redux";
 import { fetchUserAnnouncesDraft, fetchDataUser, fetchCountAnnounces, deleteAnnounces } from "../actions";
 
-class UserAnnouncesDraft extends React.Component {
+class UserAnnouncesCorrect extends React.Component {
   constructor(props) {
     super(props);
   }
   componentDidMount = () => {
     const page = this.props.match.params.page;
     this.props.fetchDataUser();
+    this.props.fetchCountAnnounces();
     this.props.fetchUserAnnouncesDraft(page);
   };
 
-  //   getDataAnnounces = pageNumber => {
-  //     this.props.fetchUserAnnounces(pageNumber);
-  //     return this.props.history.push('/foo')
-  //   };
+  getData = async (pageNumber) => {
+    window.location.replace(`${pageNumber}`);
+  };
 
   handleDelete = id => {
     this.props.deleteAnnounces(id);
@@ -52,7 +52,7 @@ class UserAnnouncesDraft extends React.Component {
           !count && !user && !announces && (
             <Loading isLoading={isLoading} />
           )}
-        {user && announces && count && (
+        {user && announces &&  count && (
           <Fragment>
             <UserMenu user={user} />
             <Container className="mt-2">
@@ -72,7 +72,7 @@ class UserAnnouncesDraft extends React.Component {
               announces={announces}
               tab={2}
               delete={this.handleDelete}
-              getDataAnnounces={this.getDataAnnounces}
+              getData={this.getData}
             />
           </Fragment>
         )}
@@ -110,7 +110,7 @@ const mapDispatchToProps = {
   deleteAnnounces
 };
 
-export default UserAnnouncesDraft = connect(
+export default UserAnnouncesCorrect = connect(
   mapStateToProps,
   mapDispatchToProps
-)(UserAnnouncesDraft);
+)(UserAnnouncesCorrect);

@@ -17,6 +17,7 @@ import PostAnnounces from "./containers/PostAnnounces";
 import UserAnnouncesOnline from "./containers/UserAnnouncesOnline";
 import UserAnnouncesDraft from "./containers/UserAnnouncesDraft";
 import UserAnnouncesCorrect from "./containers/UserAnnouncesCorrect";
+import Bookmarks from "./containers/Bookmarks";
 
 import EditAnnounces from "./containers/EditAnnounces";
 import Mail from "./containers/Mail";
@@ -73,30 +74,45 @@ class App extends React.Component {
               path="/member/announces/post"
               component={PostAnnounces}
             />
+
             <PrivateRoute
               isAuthenticated={isAuthenticated}
               exact
-              path="/member/announces"
+              path="/member/announces/online/:page"
               component={UserAnnouncesOnline}
             />
+            <Redirect exact from="/member/announces/online" to="/member/announces/online/1" />
+
             <PrivateRoute
               isAuthenticated={isAuthenticated}
               exact
-              path="/member/announces/draft"
+              path="/member/announces/draft/:page"
               component={UserAnnouncesDraft}
             />
+            <Redirect exact from="/member/announces/draft" to="/member/announces/draft/1" />
+
             <PrivateRoute
               isAuthenticated={isAuthenticated}
               exact
-              path="/member/announces/correct"
+              path="/member/announces/correct/:page"
               component={UserAnnouncesCorrect}
             />
+            <Redirect exact from="/member/announces/correct" to="/member/announces/correct/1" />
+
             <PrivateRoute
               isAuthenticated={isAuthenticated}
               exact
               path="/member/announces/edit/:id"
               component={EditAnnounces}
             />
+
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              exact
+              path="/member/bookmarks/:page"
+              component={Bookmarks}
+            />
+            <Redirect exact from="/member/bookmarks" to="/member/bookmarks/1" />
 
             <PrivateRoute
               isAuthenticated={isAuthenticated}

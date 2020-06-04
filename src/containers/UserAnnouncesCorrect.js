@@ -19,10 +19,9 @@ class UserAnnouncesCorrect extends React.Component {
     this.props.fetchUserAnnouncesCorrect(page);
   };
 
-  //   getDataAnnounces = pageNumber => {
-  //     this.props.fetchUserAnnounces(pageNumber);
-  //     return this.props.history.push('/foo')
-  //   };
+  getData = async (pageNumber) => {
+    window.location.replace(`${pageNumber}`);
+  };
 
   handleDelete = id => {
     this.props.deleteAnnounces(id);
@@ -73,7 +72,7 @@ class UserAnnouncesCorrect extends React.Component {
               announces={announces}
               tab={3}
               delete={this.handleDelete}
-              getDataAnnounces={this.getDataAnnounces}
+              getData={this.getData}
             />
           </Fragment>
         )}

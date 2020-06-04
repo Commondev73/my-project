@@ -37,7 +37,7 @@ class UserAnnouncesList extends React.Component {
             marginPagesDisplayed={2}
             pageRangeDisplayed={5}
             onPageChange={(data) =>
-              this.props.getDataAnnounces(data.selected + 1)
+              this.props.getData(data.selected + 1)
             }
             containerClassName={"pagination"}
             subContainerClassName={"pages pagination"}
@@ -46,8 +46,8 @@ class UserAnnouncesList extends React.Component {
         )}
       </Fragment>
     ) : (
-      <NoData />
-    );
+        <NoData />
+      );
   };
 
   confirmDelete = (id) => {
@@ -76,7 +76,7 @@ class UserAnnouncesList extends React.Component {
                     : "border order-bottom-0"
                 }
               >
-                <Link to="/member/announces">ออนไลน์ ({count.online})</Link>
+                <a href="/member/announces/online">ออนไลน์ ({count.online})</a>
               </li>
               <li
                 className={
@@ -85,9 +85,9 @@ class UserAnnouncesList extends React.Component {
                     : "border border-bottom-0"
                 }
               >
-                <Link to="/member/announces/draft">
+                <a href="/member/announces/draft">
                   แบบร่าง ({count.draft})
-                </Link>
+                </a>
               </li>
               <li
                 className={
@@ -96,9 +96,9 @@ class UserAnnouncesList extends React.Component {
                     : "border border-bottom-0 mr-1"
                 }
               >
-                <Link to="/member/announces/correct">
+                <a href="/member/announces/correct">
                   รอแก้ไข ({count.correct})
-                </Link>
+                </a>
               </li>
               <Link to="/member/announces/post">
                 <div className="m-auto">

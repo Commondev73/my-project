@@ -32,7 +32,7 @@ class BottomNavigation extends React.Component {
                 </a>
               </li>
               <li className="border-white">
-                <a href="/member/announces">
+                <a href="/member/announces/online">
                   <h5>
                     <FaBullhorn />
                   </h5>
@@ -40,7 +40,7 @@ class BottomNavigation extends React.Component {
                 </a>
               </li>
               <li className="border-white">
-                <a href="/member/announces">
+                <a href="/member/bookmarks">
                   <h5>
                     <TiHeartFullOutline className="" />
                   </h5>

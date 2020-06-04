@@ -19,10 +19,9 @@ class UserAnnouncesOnline extends React.Component {
     this.props.fetchUserAnnounces(page);
   };
 
-  //   getDataAnnounces = pageNumber => {
-  //     this.props.fetchUserAnnounces(pageNumber);
-  //     return this.props.history.push('/foo')
-  //   };
+  getData = async (pageNumber) => {
+    window.location.replace(`${pageNumber}`);
+  };
 
   handleDelete = id => {
     this.props.deleteAnnounces(id);
@@ -73,7 +72,7 @@ class UserAnnouncesOnline extends React.Component {
               announces={announces}
               tab={1}
               delete={this.handleDelete}
-              getDataAnnounces={this.getDataAnnounces}
+              getData={this.getData}
             />
           </Fragment>
         )}

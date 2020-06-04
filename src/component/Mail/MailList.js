@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import "./MailList.css";
 import { Row, Col, Container, Input, Button } from "reactstrap";
 import Inbox from "./Inbox";
+import NoData from "../UserAnnouncesList/NoData/NoData"
 import {
   FaMailBulk,
   FaRegEnvelopeOpen,
@@ -9,7 +10,6 @@ import {
   FaStar,
   FaSearch,
 } from "react-icons/fa";
-import { Link } from "react-router-dom";
 
 class MailList extends React.Component {
   constructor(props) {
@@ -109,6 +109,7 @@ class MailList extends React.Component {
               unread={unread}
               deleteMail={deleteMail}
             />
+            {mail.data.length === 0 && <NoData />}
           </Container>
         </div>
       </Container>

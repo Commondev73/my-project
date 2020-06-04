@@ -20,6 +20,9 @@ import UpdateAnnouncesReducer from "./UpdateAnnouncesReducer";
 import DeleteAnnouncesReducer from "./DeleteAnnouncesReducer";
 import DraftAnnouncesUserReducer from "./DraftAnnouncesUserReducer";
 import CorrectAnnouncesUserReducer from "./CorrectAnnouncesUserReducer";
+import BookMarksReducer from "./BookMarksReducer";
+import AddBookMarkReducer from "./AddBookMarkReducer";
+import DeleteBookMarkReducer from "./DeleteBookMarkReducer";
 import MessageReducer from "./MessageReducer";
 import MailReducer from "./MailReducer";
 import MailUserReadReducer from "./MailUserReadReducer";
@@ -39,6 +42,9 @@ const allReducer = combineReducers({
   announce_user: AnnounceUserReducer,
   draft_announces_user: DraftAnnouncesUserReducer,
   correct_announces_user: CorrectAnnouncesUserReducer,
+  bookmarks: BookMarksReducer,
+  addBookmark: AddBookMarkReducer,
+  deleteBookmark: DeleteBookMarkReducer,
   register: RegisterReducer,
   login: LoginReducer,
   user: CurrentUserReducer,

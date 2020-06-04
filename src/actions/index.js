@@ -105,6 +105,59 @@ export const fetchAnnounce = id => async dispatch => {
   }
 };
 
+export const FETCH_BOOKMARKS_REQUEST = "FETCH_BOOKMARKS_REQUEST";
+export const FETCH_BOOKMARKS_SUCCESS = "FETCH_BOOKMARKS_SUCCESS";
+export const FETCH_BOOKMARKS_ERROR = "FETCH_BOOKMARKS_ERROR";
+
+export const fetchBookMarks = page => async dispatch => {
+  await dispatch({ type: FETCH_BOOKMARKS_REQUEST });
+  try {
+    const response = await httpClient.get(`/api/bookmark?page=${page}`);
+    return dispatch({
+      type: FETCH_BOOKMARKS_SUCCESS,
+      data: response.data
+    });
+  } catch (err) {
+    return dispatch({ type: FETCH_BOOKMARKS_ERROR, err });
+  }
+};
+
+export const ADD_BOOKMARK_REQUEST = "ADD_BOOKMARK_REQUEST";
+export const ADD_BOOKMARK_SUCCESS = "ADD_BOOKMARK_SUCCESS";
+export const ADD_BOOKMARK_ERROR = "ADD_BOOKMARK_ERROR";
+
+export const addBookMark = id => async dispatch => {
+  await dispatch({ type: ADD_BOOKMARK_REQUEST });
+  try {
+    const formdata = new FormData();
+    formdata.append("id_announces", id);
+    const response = await httpClient.post(`/api/bookmark`,formdata);
+    return dispatch({
+      type: ADD_BOOKMARK_SUCCESS,
+      data: response.data
+    });
+  } catch (err) {
+    return dispatch({ type: ADD_BOOKMARK_ERROR, err });
+  }
+};
+
+export const DELETE_BOOKMARK_REQUEST = "DELETE_BOOKMARK_REQUEST";
+export const DELETE_BOOKMARK_SUCCESS = "DELETE_BOOKMARK_SUCCESS";
+export const DELETE_BOOKMARK_ERROR = "DELETE_BOOKMARK_ERROR";
+
+export const deleteBookMark = id => async dispatch => {
+  await dispatch({ type: DELETE_BOOKMARK_REQUEST });
+  try {
+    const response = await httpClient.delete(`/api/bookmark/${id}`);
+    return dispatch({
+      type: DELETE_BOOKMARK_SUCCESS,
+      data: response.data
+    });
+  } catch (err) {
+    return dispatch({ type: DELETE_BOOKMARK_ERROR, err });
+  }
+};
+
 export const POST_REGISTER_REQUEST = "POST_REGISTER_REQUEST";
 export const POST_REGISTER_SUCCESS = "POST_REGISTER_SUCCESS";
 export const POST_REGISTER_ERROR = "POST_REGISTER_ERROR";

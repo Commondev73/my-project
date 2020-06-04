@@ -30,6 +30,14 @@ class MailDetail extends React.Component {
     this.props.Unread();
   };
 
+  dateFormat = (date) => {
+    const months = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
+      "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤษจิกายน", "ธันวาคม"];
+    let current_datetime = new Date(date)
+    let formatted_date = current_datetime.getDate() + " " + months[current_datetime.getMonth()] + " " + (current_datetime.getFullYear()+543);
+    return formatted_date;
+  }
+
   render() {
     const { message, deleteMail } = this.props;
     return (
@@ -77,7 +85,7 @@ class MailDetail extends React.Component {
             <p>{message.email}</p>
           </Col>
           <Col md="6" xs="4" className="mt-3 d-flex justify-content-end pl-0">
-            <p>{message.created_at}</p>
+            <p>{this.dateFormat(message.created_at)}</p>
           </Col>
           <Col className="mt-3">{message.message}</Col>
         </Row>

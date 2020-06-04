@@ -59,6 +59,9 @@ a.announces-link {
 .heart {
   color: white;
 }
+.heart-mark {
+  color: tomato;
+}
 .heart:hover {
   color: tomato;
 }

@@ -82,6 +82,14 @@ class Inbox extends React.Component {
     this.props.deleteMail(this.state.id);
   };
 
+  dateFormat = (date) => {
+    const months = ["ม.ค", "ก.พ", "มี.ค", "เม.ย", "พ.ค.", "มิ.ย",
+      "ก.ค", "ส.ค", "ก.ย", "ต.ค", "พ.ย", "ธ.ค"];
+    let current_datetime = new Date(date)
+    let formatted_date = current_datetime.getDate() + " " + months[current_datetime.getMonth()] + " " + (current_datetime.getFullYear() + 543);
+    return formatted_date;
+  }
+
   render() {
     const { mail } = this.props;
     return (
@@ -117,7 +125,7 @@ class Inbox extends React.Component {
                     this.handleClick(e, detail.id);
                   }}
                 >
-                  {detail.created_at}
+                  {this.dateFormat(detail.created_at)}
                 </td>
                 <td className="pr-2 columnD">
                   <FaRegStar
