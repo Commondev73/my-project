@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import Header from "../component/Header/Header";
 import Loading from "../component/Loading/Loading";
 import UserMenu from "../component/UserMenu/UserMenu";
 import ModalErr from "../component/ModalErr/ModalErr";
@@ -39,7 +40,11 @@ class UserAnnouncesCorrect extends React.Component {
       count_isLoading,
       count_err,
       deleteAnnounces_err,
-      redirect
+      redirect,
+
+      userSet,
+      isAuthenticated,
+      match,
     } = this.props;
 
     if (redirect) {
@@ -47,7 +52,12 @@ class UserAnnouncesCorrect extends React.Component {
     }
     return (
       <Fragment>
-        {/* <Loading isLoading={true} /> */}
+        <Header
+          user={userSet}
+          isAuthenticated={isAuthenticated}
+          match={match}
+        />
+        <div className="content">
         {isLoading && isLoading_announces && count_isLoading &&
           !count && !user && !announces && (
             <Loading isLoading={isLoading} />
@@ -77,6 +87,7 @@ class UserAnnouncesCorrect extends React.Component {
           </Fragment>
         )}
         {err || announces_err || deleteAnnounces_err || count_err && <ModalErr />}
+        </div>
       </Fragment>
     );
   }
@@ -84,6 +95,9 @@ class UserAnnouncesCorrect extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    isAuthenticated: state.user.authenticated,
+    userSet: state.user,
+
     user: state.data_user.data,
     err: state.data_user.err,
     isLoading: state.data_user.isLoading,

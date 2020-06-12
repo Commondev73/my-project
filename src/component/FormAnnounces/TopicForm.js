@@ -9,9 +9,9 @@ import {
   Label,
   Input,
   FormGroup,
-  Button
+  Button,
 } from "reactstrap";
-
+import { FaArrowCircleRight } from "react-icons/fa";
 class TopicForm extends React.Component {
   Continue = () => {
     // event.preventDefault();
@@ -47,12 +47,12 @@ class TopicForm extends React.Component {
       amphoe_isLoading,
       amphoe,
       district_isLoading,
-      district
+      district,
     } = this.props;
 
     const propertyType = [
       { value: "บ้าน", label: "บ้าน" },
-      { value: "คอนโด", label: "คอนโด" }
+      { value: "คอนโด", label: "คอนโด" },
     ];
 
     return (
@@ -128,10 +128,10 @@ class TopicForm extends React.Component {
                     placeholder={"จังหวัด"}
                     options={
                       province &&
-                      province.map(province => {
+                      province.map((province) => {
                         return {
                           label: province.province,
-                          value: province.province_code
+                          value: province.province_code,
                         };
                       })
                     }
@@ -146,10 +146,10 @@ class TopicForm extends React.Component {
                     placeholder={"อำเภอ"}
                     options={
                       amphoe &&
-                      amphoe.map(amphoe => {
+                      amphoe.map((amphoe) => {
                         return {
                           label: amphoe.amphoe,
-                          value: amphoe.amphoe_code
+                          value: amphoe.amphoe_code,
                         };
                       })
                     }
@@ -164,10 +164,10 @@ class TopicForm extends React.Component {
                     placeholder={"ตำบล"}
                     options={
                       district &&
-                      district.map(district => {
+                      district.map((district) => {
                         return {
                           label: district.district,
-                          value: district.district_code
+                          value: district.district_code,
                         };
                       })
                     }
@@ -213,6 +213,7 @@ class TopicForm extends React.Component {
                 disabled={this.nextStep()}
               >
                 ถัดไป
+                <FaArrowCircleRight className="ml-1 pb-1" size="23" />
               </Button>
             </Col>
           </Row>

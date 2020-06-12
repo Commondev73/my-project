@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import Header from "../component/Header/Header";
 import Loading from "../component/Loading/Loading";
 import ModalErr from "../component/ModalErr/ModalErr";
 import ReactPaginate from "react-paginate";
@@ -97,6 +98,10 @@ class MailSave extends React.Component {
 
       delete_err,
       redirect,
+
+      userSet,
+      isAuthenticated,
+      match,
     } = this.props;
 
     if (redirect) {
@@ -105,79 +110,90 @@ class MailSave extends React.Component {
 
     return (
       <Fragment>
-        {/* <Loading isLoading={true} /> */}
-        {isLoading &&
-          mail_isLoading &&
-          count_isLoading &&
-          !count &&
-          !user &&
-          !mail && <Loading isLoading={isLoading} />}
-        {user && mail && count && (
-          <Fragment>
-            <UserMenu user={user} />
-            <Container className="mt-2">
-              <Breadcrumb style={{ backgroundColor: "white" }}>
-                <BreadcrumbItem>
-                  <FaHome className="mr-1" />
-                  <a href="/">หน้าแรก</a>
-                </BreadcrumbItem>
-                <BreadcrumbItem>
-                  <a href="/member">หน้าสมาชิก</a>
-                </BreadcrumbItem>
-                <BreadcrumbItem active>ช้อความ</BreadcrumbItem>
-              </Breadcrumb>
-              <Alert
-                className="text-center"
-                color="success "
-                isOpen={this.state.success}
-                toggle={this.toggleSuccess}
-              >
-                <FaRegCheckCircle size="20" />
-                <h6 className="d-inline ml-1">ทํารายการสําเร็จ</h6>
-              </Alert>
-              <Alert
-                className="text-center"
-                color="danger"
-                isOpen={this.state.err}
-                toggle={this.toggleErr}
-              >
-                <FaRegTimesCircle size="20" />
-                <h6 className="d-inline ml-1">
-                  เกิดข้อผิดพลาด กรุณาทำรายการใหม่
-                </h6>
-              </Alert>
-            </Container>
-            <MailList
-              activeTab={4}
-              read={this.handleRead}
-              mail={mail}
-              count={count}
-              save={this.handleSave}
-              unread={this.handleUnread}
-              deleteMail={this.handleDelete}
-            />
+        <Header
+          user={userSet}
+          isAuthenticated={isAuthenticated}
+          match={match}
+        />
+        <div className="content">
+          {isLoading &&
+            mail_isLoading &&
+            count_isLoading &&
+            !count &&
+            !user &&
+            !mail && <Loading isLoading={isLoading} />}
+          {user && mail && count && (
+            <Fragment>
+              <UserMenu user={user} />
+              <Container className="mt-2">
+                <Breadcrumb style={{ backgroundColor: "white" }}>
+                  <BreadcrumbItem>
+                    <FaHome className="mr-1" />
+                    <a href="/">หน้าแรก</a>
+                  </BreadcrumbItem>
+                  <BreadcrumbItem>
+                    <a href="/member">หน้าสมาชิก</a>
+                  </BreadcrumbItem>
+                  <BreadcrumbItem active>ช้อความ</BreadcrumbItem>
+                </Breadcrumb>
+                <Alert
+                  className="text-center"
+                  color="success "
+                  isOpen={this.state.success}
+                  toggle={this.toggleSuccess}
+                >
+                  <FaRegCheckCircle size="20" />
+                  <h6 className="d-inline ml-1">ทํารายการสําเร็จ</h6>
+                </Alert>
+                <Alert
+                  className="text-center"
+                  color="danger"
+                  isOpen={this.state.err}
+                  toggle={this.toggleErr}
+                >
+                  <FaRegTimesCircle size="20" />
+                  <h6 className="d-inline ml-1">
+                    เกิดข้อผิดพลาด กรุณาทำรายการใหม่
+                  </h6>
+                </Alert>
+              </Container>
+              <MailList
+                match={match}
+                activeTab={4}
+                read={this.handleRead}
+                mail={mail}
+                count={count}
+                save={this.handleSave}
+                unread={this.handleUnread}
+                deleteMail={this.handleDelete}
+              />
 
-            {mail.last_page > 1 && (
-              <Col xs="12">
-                <ReactPaginate
-                  previousLabel={"previous"}
-                  nextLabel={"next"}
-                  breakLabel={"..."}
-                  breakClassName={"break-me"}
-                  pageCount={mail.last_page}
-                  marginPagesDisplayed={2}
-                  pageRangeDisplayed={5}
-                  forcePage={this.props.match.params.page - 1}
-                  onPageChange={(data) => this.getData(data.selected + 1)}
-                  containerClassName={"pagination"}
-                  subContainerClassName={"pages pagination"}
-                  activeClassName={"active"}
-                />
-              </Col>
-            )}
-          </Fragment>
-        )}
-        {err || mail_err || count_err || delete_err || read_err && <ModalErr />}
+              {mail.last_page > 1 && (
+                <Col xs="12">
+                  <ReactPaginate
+                    previousLabel={"previous"}
+                    nextLabel={"next"}
+                    breakLabel={"..."}
+                    breakClassName={"break-me"}
+                    pageCount={mail.last_page}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={5}
+                    forcePage={this.props.match.params.page - 1}
+                    onPageChange={(data) => this.getData(data.selected + 1)}
+                    containerClassName={"pagination"}
+                    subContainerClassName={"pages pagination"}
+                    activeClassName={"active"}
+                  />
+                </Col>
+              )}
+            </Fragment>
+          )}
+          {err ||
+            mail_err ||
+            count_err ||
+            delete_err ||
+            (read_err && <ModalErr />)}
+        </div>
       </Fragment>
     );
   }
@@ -185,6 +201,9 @@ class MailSave extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    isAuthenticated: state.user.authenticated,
+    userSet: state.user,
+
     user: state.data_user.data,
     err: state.data_user.err,
     isLoading: state.data_user.isLoading,
@@ -196,7 +215,7 @@ const mapStateToProps = (state) => {
     count: state.countMail.data,
     count_err: state.countMail.err,
     count_isLoading: state.countMail.isLoading,
- 
+
     read: state.readMail.data,
     read_err: state.readMail.err,
     read_isLoading: state.readMail.isLoading,
@@ -225,4 +244,7 @@ const mapDispatchToProps = {
   deleteMessage,
 };
 
-export default MailSave = connect(mapStateToProps, mapDispatchToProps)(MailSave);
+export default MailSave = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MailSave);

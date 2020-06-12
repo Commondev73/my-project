@@ -29,13 +29,14 @@ class UserAnnouncesList extends React.Component {
         ))}
         {announces.last_page > 1 && (
           <ReactPaginate
-            previousLabel={"previous"}
-            nextLabel={"next"}
+            previousLabel={"ย้อนกลับ"}
+            nextLabel={"ถัดไป"}
             breakLabel={"..."}
             breakClassName={"break-me"}
             pageCount={announces.last_page}
             marginPagesDisplayed={2}
             pageRangeDisplayed={5}
+            forcePage={this.props.match.params.page - 1}
             onPageChange={(data) =>
               this.props.getData(data.selected + 1)
             }
@@ -63,7 +64,7 @@ class UserAnnouncesList extends React.Component {
   };
 
   render() {
-    const { announces, count } = this.props;
+    const { announces, count , match } = this.props;
     return (
       <Container>
         <div className="tabs">
@@ -111,7 +112,7 @@ class UserAnnouncesList extends React.Component {
             </ul>
           </nav>
           <Container className="pt-3 pb-3 border table-user-announces">
-            <SearchUserAnnounces />
+            <SearchUserAnnounces match={match} status={this.state.activeTab}/>
             {this.handleAnnounces(announces)}
           </Container>
         </div>

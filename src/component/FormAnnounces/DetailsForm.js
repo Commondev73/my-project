@@ -1,7 +1,11 @@
 import React from "react";
 import "./DetailsForm.css";
 import { Container, Row, Col, Input, Button } from "reactstrap";
-import { FaTrashAlt } from "react-icons/fa";
+import {
+  FaTrashAlt,
+  FaArrowCircleLeft,
+  FaArrowCircleRight,
+} from "react-icons/fa";
 
 class DetailsForm extends React.Component {
   constructor(props) {
@@ -9,7 +13,7 @@ class DetailsForm extends React.Component {
     this.onFileLoad = this.onFileLoad.bind(this);
   }
 
-  DragOver = e => {
+  DragOver = (e) => {
     e.preventDefault();
     e.stopPropagation();
   };
@@ -26,24 +30,24 @@ class DetailsForm extends React.Component {
     return new File([u8arr], filename, { type: mime });
   }
 
-  onFileLoad = e => {
+  onFileLoad = (e) => {
     let fileImg = e.target.files;
     for (let i = 0; i < fileImg.length; i++) {
       const name = fileImg[i].name;
       const size = (fileImg[i].size / 1048576).toFixed(2);
       const type = fileImg[i].type;
       let fileReader = new FileReader();
-      fileReader.onload = e => {
+      fileReader.onload = (e) => {
         //Resize - image
-        if (size > 5) {
+        if (size > 2) {
           const img = document.createElement("img");
           img.onload = () => {
             const canvas = document.createElement("canvas");
             let ctx = canvas.getContext("2d");
             ctx.drawImage(img, 0, 0);
 
-            const MAX_WIDTH = 100;
-            const MAX_HEIGHT = 100;
+            const MAX_WIDTH = 720;
+            const MAX_HEIGHT = 480;
             let width = img.width;
             let height = img.height;
 
@@ -63,21 +67,30 @@ class DetailsForm extends React.Component {
             ctx.drawImage(img, 0, 0, width, height);
             const dataurl = canvas.toDataURL(type);
             const Newfile = this.dataURLtoFile(dataurl, `image${i}.png`);
-            file.File = Newfile;
+            const file = {
+              File: Newfile,
+              imageData: {
+                name: Newfile.name,
+                data: fileReader.result,
+                size: Newfile.size,
+                isUploading: false,
+              },
+            };
+            this.props.addLoadedFile(file);
           };
           img.src = e.target.result;
+        } else {
+          const file = {
+            File: fileImg[i],
+            imageData: {
+              name: name,
+              data: fileReader.result,
+              size: size,
+              isUploading: false,
+            },
+          };
+          this.props.addLoadedFile(file);
         }
-        //Add File
-        const file = {
-          File: fileImg[i],
-          imageData: {
-            name: name,
-            data: fileReader.result,
-            size: size,
-            isUploading: false
-          }
-        };
-        this.props.addLoadedFile(file);
       };
       fileReader.onabort = () => {
         alert("");
@@ -123,7 +136,6 @@ class DetailsForm extends React.Component {
   };
   render() {
     const { values, changeHandler } = this.props;
-    // const { loadedFiles } = this.state;
     return (
       <div>
         <Container>
@@ -191,7 +203,10 @@ class DetailsForm extends React.Component {
                   />
                 </Col>
                 <Col md="6" className="mt-1">
-                  <h5>ขนาดพื้นที่ (ตร.ม.)</h5>
+                  <h5>
+                    ขนาดพื้นที่{" "}
+                    {values.propertyType.value === "บ้าน" ? "ตร.ว." : "ตร.ม."}
+                  </h5>
                   <Input
                     type="number"
                     min="0"
@@ -218,7 +233,7 @@ class DetailsForm extends React.Component {
                     type="file"
                     id="file-browser-input"
                     name="file-browser-input"
-                    ref={input => (this.fileInput = input)}
+                    ref={(input) => (this.fileInput = input)}
                     onDragOver={this.DragOver}
                     onDrag={this.onFileLoad}
                     onChange={this.onFileLoad}
@@ -277,6 +292,7 @@ class DetailsForm extends React.Component {
                     className="rounded-pill"
                     onClick={this.Back}
                   >
+                    <FaArrowCircleLeft className="mr-1 pb-1" size="23" />
                     ย้อนกลับ
                   </Button>
                 </Col>
@@ -289,6 +305,7 @@ class DetailsForm extends React.Component {
                     disabled={this.nextStep()}
                   >
                     ถัดไป
+                    <FaArrowCircleRight className="ml-1 pb-1" size="23" />
                   </Button>
                 </Col>
               </Row>

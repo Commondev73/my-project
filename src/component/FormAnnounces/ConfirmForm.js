@@ -1,12 +1,26 @@
 import React from "react";
 import ImageGallery from "react-image-gallery";
-import { FaBed, FaBath, FaBullhorn, FaMapMarkerAlt } from "react-icons/fa";
+import {
+  FaBed,
+  FaBath,
+  FaBullhorn,
+  FaMapMarkerAlt,
+  FaHome,
+  FaBuilding,
+  FaFileAlt,
+  FaGlobeAmericas,
+  FaArrowCircleLeft,
+} from "react-icons/fa";
 import { MdHome, MdSettingsOverscan } from "react-icons/md";
 import { Container, Row, Col, Input, Button } from "reactstrap";
 
 class ConfirmForm extends React.Component {
   Back = () => {
     this.props.prevStep();
+  };
+
+  StyleType = (type) => {
+    return type === "เช่า" ? "rounded-pill type1" : "rounded-pill type2";
   };
 
   replaceHTMLWithLineBreaks = (detail) => {
@@ -35,10 +49,15 @@ class ConfirmForm extends React.Component {
             </h5>
           </Col>
           <Col xs="12" md="6" className="mb-3">
-            <Button outline color="primary" className="rounded-pill">
+            <Button className={this.StyleType(values.announceType)}>
               <FaBullhorn /> {values.announceType}
             </Button>
-            <Button outline color="success" className="rounded-pill ml-3">
+            <Button color="info" className="rounded-pill ml-3">
+              {values.propertyType === "บ้าน" ? (
+                <FaHome className="mr-1 pb-1" size="20" />
+              ) : (
+                <FaBuilding className="mr-1 pb-1" size="20" />
+              )}
               {values.propertyType.value}
             </Button>
           </Col>
@@ -65,7 +84,8 @@ class ConfirmForm extends React.Component {
                 style={{ color: "#138799" }}
               />
             </h4>
-            &nbsp;พื้นที่&nbsp;{values.area}&nbsp;(ตร.ม.)
+            &nbsp;พื้นที่&nbsp;{values.area}&nbsp;
+            {values.propertyType.value === "บ้าน" ? "ตร.ว." : "ตร.ม."}
           </Col>
           <Col xs="12" className="mt-3 mb-3">
             <Row>
@@ -125,6 +145,7 @@ class ConfirmForm extends React.Component {
                   className="rounded-pill"
                   onClick={this.Back}
                 >
+                  <FaArrowCircleLeft className="mr-1 pb-1" size="23" />
                   ย้อนกลับ
                 </Button>
               </Col>
@@ -134,6 +155,7 @@ class ConfirmForm extends React.Component {
                   className="rounded-pill"
                   onClick={this.props.draft}
                 >
+                  <FaFileAlt className="mr-1 pb-1" size="23" />
                   แบบร่าง
                 </Button>
               </Col>
@@ -144,6 +166,7 @@ class ConfirmForm extends React.Component {
                   className="rounded-pill"
                   onClick={this.props.submit}
                 >
+                  <FaGlobeAmericas className="mr-1 pb-1" size="23" />
                   ยืนยัน
                 </Button>
               </Col>

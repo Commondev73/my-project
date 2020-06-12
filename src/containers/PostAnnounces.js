@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import Header from "../component/Header/Header";
 import Loading from "../component/Loading/Loading";
 import UserMenu from "../component/UserMenu/UserMenu";
 import ModalErr from "../component/ModalErr/ModalErr";
@@ -171,7 +172,7 @@ class PostAnnounces extends React.Component {
   handleRedirect = () => {
     const { redirect } = this.props;
     if (redirect) {
-      return this.props.history.push("/member/announces");
+      return (window.location.href = "/member/announces/online/1");
     }
   };
 
@@ -192,77 +193,90 @@ class PostAnnounces extends React.Component {
       province_err,
       amphoe_err,
       district_err,
+
+      userSet,
+      isAuthenticated,
+      match,
     } = this.props;
     const values = { ...this.state.formInputs };
     return (
       <Fragment>
-        {isLoading && !user && <Loading isLoading={isLoading} />}
-        {user && (
-          <Fragment>
-            <UserMenu user={user} />
-            <Container className="mt-2">
-              <Breadcrumb style={{ backgroundColor: "white" }}>
-                <BreadcrumbItem>
-                  <FaHome className="mr-1" />
-                  <a href="/">หน้าแรก</a>
-                </BreadcrumbItem>
-                <BreadcrumbItem>
-                  <a href="/member">หน้าสมาชิก</a>
-                </BreadcrumbItem>
-                <BreadcrumbItem active>เพิ่มประกาศ</BreadcrumbItem>
-              </Breadcrumb>
-            </Container>
-            <FormAnnounces
-              changeHandler={this.changeHandler}
-              values={values}
-              province={province}
-              province_isLoading={province_isLoading}
-              amphoe={amphoe}
-              amphoe_isLoading={amphoe_isLoading}
-              district={district}
-              district_isLoading={district_isLoading}
-              handlerSelectedOption={this.handlerSelectedOption}
-              handlerSelectedOptionAmphoe={this.handlerSelectedOptionAmphoe}
-              handlerSelectedOptionProvince={this.handlerSelectedOptionProvince}
-              addLoadedFile={this.addLoadedFile}
-              removeLoadedFile={this.removeLoadedFile}
-              removeAllLoadedFile={this.removeAllLoadedFile}
-              submit={this.handleSubmit}
-              draft={this.handleDraft}
-            />
-          </Fragment>
-        )}
-        {err ||
-          postAnnounces_err ||
-          province_err ||
-          amphoe_err ||
-          district_err && <ModalErr />}
-        {redirect && (
-          <Modal isOpen={true}>
-            <ModalHeader
-              style={{
-                backgroundColor: "#01D26C",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <FaRegCheckCircle style={{ color: "white" }} size={32} />
-            </ModalHeader>
-            <ModalBody className="text-center">
-              <h3>เพิ่มประกาศสำเร็จ</h3>
-            </ModalBody>
-            <ModalFooter>
-              <Button
-                size="lg"
-                color="success m-auto"
-                onClick={this.handleRedirect}
-                className="rounded-pill"
+        <Header
+          user={userSet}
+          isAuthenticated={isAuthenticated}
+          match={match}
+        />
+        <div className="content">
+          {isLoading && !user && <Loading isLoading={isLoading} />}
+          {user && (
+            <Fragment>
+              <UserMenu user={user} />
+              <Container className="mt-2">
+                <Breadcrumb style={{ backgroundColor: "white" }}>
+                  <BreadcrumbItem>
+                    <FaHome className="mr-1" />
+                    <a href="/">หน้าแรก</a>
+                  </BreadcrumbItem>
+                  <BreadcrumbItem>
+                    <a href="/member">หน้าสมาชิก</a>
+                  </BreadcrumbItem>
+                  <BreadcrumbItem active>เพิ่มประกาศ</BreadcrumbItem>
+                </Breadcrumb>
+              </Container>
+              <FormAnnounces
+                changeHandler={this.changeHandler}
+                values={values}
+                province={province}
+                province_isLoading={province_isLoading}
+                amphoe={amphoe}
+                amphoe_isLoading={amphoe_isLoading}
+                district={district}
+                district_isLoading={district_isLoading}
+                handlerSelectedOption={this.handlerSelectedOption}
+                handlerSelectedOptionAmphoe={this.handlerSelectedOptionAmphoe}
+                handlerSelectedOptionProvince={
+                  this.handlerSelectedOptionProvince
+                }
+                addLoadedFile={this.addLoadedFile}
+                removeLoadedFile={this.removeLoadedFile}
+                removeAllLoadedFile={this.removeAllLoadedFile}
+                submit={this.handleSubmit}
+                draft={this.handleDraft}
+              />
+            </Fragment>
+          )}
+          {err ||
+            postAnnounces_err ||
+            province_err ||
+            amphoe_err ||
+            (district_err && <ModalErr />)}
+          {redirect && (
+            <Modal isOpen={true}>
+              <ModalHeader
+                style={{
+                  backgroundColor: "#01D26C",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
               >
-                ตกลง
-              </Button>
-            </ModalFooter>
-          </Modal>
-        )}
+                <FaRegCheckCircle style={{ color: "white" }} size={32} />
+              </ModalHeader>
+              <ModalBody className="text-center">
+                <h3>เพิ่มประกาศสำเร็จ</h3>
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  size="lg"
+                  color="success m-auto"
+                  onClick={this.handleRedirect}
+                  className="rounded-pill"
+                >
+                  ตกลง
+                </Button>
+              </ModalFooter>
+            </Modal>
+          )}
+        </div>
       </Fragment>
     );
   }
@@ -270,6 +284,9 @@ class PostAnnounces extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    isAuthenticated: state.user.authenticated,
+    userSet: state.user,
+
     user: state.data_user.data,
     err: state.data_user.err,
     isLoading: state.data_user.isLoading,

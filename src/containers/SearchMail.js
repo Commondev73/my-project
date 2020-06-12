@@ -10,7 +10,7 @@ import { FaHome, FaRegCheckCircle, FaRegTimesCircle } from "react-icons/fa";
 import { connect } from "react-redux";
 import {
   fetchDataUser,
-  fetchMail,
+  fetchSearchMail,
   countMail,
   readMail,
   unreadMail,
@@ -19,19 +19,20 @@ import {
 } from "../actions";
 import { Col } from "reactstrap";
 
-class Mail extends React.Component {
+class SearchMail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       success: false,
       err: false,
+      keyword: this.props.match.params.mkeyword,
     };
   }
 
   componentDidMount = () => {
     const page = this.props.match.params.page;
     this.props.fetchDataUser();
-    this.props.fetchMail(page);
+    this.props.fetchSearchMail(this.state.keyword, page);
     this.props.countMail();
   };
 
@@ -159,7 +160,7 @@ class Mail extends React.Component {
               </Container>
               <MailList
                 match={match}
-                activeTab={1}
+                activeTab={0}
                 read={this.handleRead}
                 mail={mail}
                 count={count}
@@ -208,9 +209,9 @@ const mapStateToProps = (state) => {
     err: state.data_user.err,
     isLoading: state.data_user.isLoading,
 
-    mail: state.mail.data,
-    mail_err: state.mail.err,
-    mail_isLoading: state.mail.isLoading,
+    mail: state.searchMail.data,
+    mail_err: state.searchMail.err,
+    mail_isLoading: state.searchMail.isLoading,
 
     count: state.countMail.data,
     count_err: state.countMail.err,
@@ -236,7 +237,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   fetchDataUser,
-  fetchMail,
+  fetchSearchMail,
   countMail,
   unreadMail,
   readMail,
@@ -244,4 +245,7 @@ const mapDispatchToProps = {
   deleteMessage,
 };
 
-export default Mail = connect(mapStateToProps, mapDispatchToProps)(Mail);
+export default SearchMail = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SearchMail);

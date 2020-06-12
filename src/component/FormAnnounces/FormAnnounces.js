@@ -178,7 +178,7 @@ class FormAnnounces extends React.Component {
     return (
       <Container className="pt-3 pb-3 border border-radius">
         <Row>
-          <Col md="12">
+          <Col md="12" className="position-sticky">
             <Progress step={this.state.step} />
           </Col>
           <Col md="12" className="form-announces">

@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import Header from "../component/Header/Header";
 import Announce from "../component/Announce/Announce";
 import ModalErr from "../component/ModalErr/ModalErr";
 import Loading from "../component/Loading/Loading";
@@ -127,82 +128,97 @@ class AnnounceShow extends React.Component {
   };
 
   render() {
-    const { announce, isLoading, message, err, message_err } = this.props;
+    const {
+      isAuthenticated,
+      user,
+      announce,
+      isLoading,
+      message,
+      err,
+      message_err,
+      match,
+    } = this.props;
     const { invalid } = this.state;
     const value = { ...this.state.message };
     return (
       <Fragment>
-        <Container className="mt-2">
-          <Breadcrumb style={{ backgroundColor: "white" }}>
-            <BreadcrumbItem>
-              <FaHome className="mr-1" />
-              <a href="/">หน้าแรก</a>
-            </BreadcrumbItem>
-            <BreadcrumbItem>
-              {announce && <Fragment>{announce.property_type}</Fragment>}
-            </BreadcrumbItem>
-            <BreadcrumbItem>
-              {announce && <Fragment>{announce.announcement_type}</Fragment>}
-            </BreadcrumbItem>
-            <BreadcrumbItem active>
-              {announce && <Fragment>{announce.topic}</Fragment>}
-            </BreadcrumbItem>
-            {/* <BreadcrumbItem active>{announce.topic}</BreadcrumbItem> */}
-          </Breadcrumb>
-        </Container>
-        {isLoading && !announce && <Loading isLoading={isLoading} />}
-        {announce && (
-          <Announce
-            announce={announce}
-            value={value}
-            invalid={invalid}
-            changeHandler={this.changeHandler}
-            submit={this.handleSubmit}
-          />
-        )}
-        {err || message_err && <ModalErr />}
-        <Modal isOpen={this.state.messageErr} className="modal-dialog-centered">
-          <ModalBody className="text-center">
-            <FaRegTimesCircle style={{ color: "red" }} size={32} />
-            <h4>เกิดข้อผิดพลาด กรุณาทำรายการใหม่</h4>
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              color="success m-auto"
-              onClick={this.messageErr}
-              className="rounded-pill"
-            >
-              ตกลง
-            </Button>
-          </ModalFooter>
-        </Modal>
-
-        <Modal
-          isOpen={this.state.messageSuccess}
-          className="modal-dialog-centered"
-        >
-          <ModalHeader
-            style={{
-              backgroundColor: "#01D26C",
-              display: "flex",
-              justifyContent: "center",
-            }}
+        <Header user={user} isAuthenticated={isAuthenticated} match={match} />
+        <div className="content">
+          <Container className="mt-2">
+            <Breadcrumb style={{ backgroundColor: "white" }}>
+              <BreadcrumbItem>
+                <FaHome className="mr-1" />
+                <a href="/">หน้าแรก</a>
+              </BreadcrumbItem>
+              <BreadcrumbItem>
+                {announce && <Fragment>{announce.property_type}</Fragment>}
+              </BreadcrumbItem>
+              <BreadcrumbItem>
+                {announce && <Fragment>{announce.announcement_type}</Fragment>}
+              </BreadcrumbItem>
+              <BreadcrumbItem active>
+                {announce && <Fragment>{announce.topic}</Fragment>}
+              </BreadcrumbItem>
+              {/* <BreadcrumbItem active>{announce.topic}</BreadcrumbItem> */}
+            </Breadcrumb>
+          </Container>
+          {isLoading && !announce && <Loading isLoading={isLoading} />}
+          {announce && (
+            <Announce
+              announce={announce}
+              value={value}
+              invalid={invalid}
+              changeHandler={this.changeHandler}
+              submit={this.handleSubmit}
+            />
+          )}
+          {err || (message_err && <ModalErr />)}
+          <Modal
+            isOpen={this.state.messageErr}
+            className="modal-dialog-centered"
           >
-            <FaRegCheckCircle style={{ color: "white" }} size={32} />
-          </ModalHeader>
-          <ModalBody className="text-center">
-            <h3>ส่งข้อความสำเร็จ</h3>
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              color="success m-auto"
-              onClick={this.sendMessage}
-              className="rounded-pill"
+            <ModalBody className="text-center">
+              <FaRegTimesCircle style={{ color: "red" }} size={32} />
+              <h4>เกิดข้อผิดพลาด กรุณาทำรายการใหม่</h4>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                color="success m-auto"
+                onClick={this.messageErr}
+                className="rounded-pill"
+              >
+                ตกลง
+              </Button>
+            </ModalFooter>
+          </Modal>
+
+          <Modal
+            isOpen={this.state.messageSuccess}
+            className="modal-dialog-centered"
+          >
+            <ModalHeader
+              style={{
+                backgroundColor: "#01D26C",
+                display: "flex",
+                justifyContent: "center",
+              }}
             >
-              ตกลง
-            </Button>
-          </ModalFooter>
-        </Modal>
+              <FaRegCheckCircle style={{ color: "white" }} size={32} />
+            </ModalHeader>
+            <ModalBody className="text-center">
+              <h3>ส่งข้อความสำเร็จ</h3>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                color="success m-auto"
+                onClick={this.sendMessage}
+                className="rounded-pill"
+              >
+                ตกลง
+              </Button>
+            </ModalFooter>
+          </Modal>
+        </div>
       </Fragment>
     );
   }
@@ -211,6 +227,9 @@ class AnnounceShow extends React.Component {
 const mapStateToProps = (state, props) => {
   const announce = state.announce[props.match.params.id] || {};
   return {
+    isAuthenticated: state.user.authenticated,
+    user: state.user,
+
     isLoading: announce.isLoading,
     announce: announce.data,
     err: announce.err,

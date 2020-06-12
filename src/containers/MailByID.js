@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import Header from "../component/Header/Header";
 import Loading from "../component/Loading/Loading";
 import ModalErr from "../component/ModalErr/ModalErr";
 import UserMenu from "../component/UserMenu/UserMenu";
@@ -120,6 +121,10 @@ class MailByID extends React.Component {
       message_err,
       redirect,
       delete_err,
+
+      userSet,
+      isAuthenticated,
+      match,
     } = this.props;
 
     if (redirect) {
@@ -128,87 +133,94 @@ class MailByID extends React.Component {
 
     return (
       <Fragment>
-        {isLoading && message_isLoading && !user && !message && (
-          <Loading isLoading={isLoading} />
-        )}
-        {user && message && (
-          <Fragment>
-            <UserMenu user={user} />
-            <Container className="mt-2">
-              <Breadcrumb style={{ backgroundColor: "white" }}>
-                <BreadcrumbItem>
-                  <FaHome className="mr-1" />
-                  <a href="/">หน้าแรก</a>
-                </BreadcrumbItem>
-                <BreadcrumbItem>
-                  <a href="/member">หน้าสมาชิก</a>
-                </BreadcrumbItem>
-                <BreadcrumbItem>
-                  <a href="/member/mail">ช้อความ</a>
-                </BreadcrumbItem>
-                <BreadcrumbItem active>{message.message}</BreadcrumbItem>
-              </Breadcrumb>
-            </Container>
-            <Container>
-              <Alert
-                className="text-center"
-                color="success "
-                isOpen={this.state.success}
-                toggle={this.toggleSuccess}
+        <Header
+          user={userSet}
+          isAuthenticated={isAuthenticated}
+          match={match}
+        />
+        <div className="content">
+          {isLoading && message_isLoading && !user && !message && (
+            <Loading isLoading={isLoading} />
+          )}
+          {user && message && (
+            <Fragment>
+              <UserMenu user={user} />
+              <Container className="mt-2">
+                <Breadcrumb style={{ backgroundColor: "white" }}>
+                  <BreadcrumbItem>
+                    <FaHome className="mr-1" />
+                    <a href="/">หน้าแรก</a>
+                  </BreadcrumbItem>
+                  <BreadcrumbItem>
+                    <a href="/member">หน้าสมาชิก</a>
+                  </BreadcrumbItem>
+                  <BreadcrumbItem>
+                    <a href="/member/mail">ช้อความ</a>
+                  </BreadcrumbItem>
+                  <BreadcrumbItem active>{message.message}</BreadcrumbItem>
+                </Breadcrumb>
+              </Container>
+              <Container>
+                <Alert
+                  className="text-center"
+                  color="success "
+                  isOpen={this.state.success}
+                  toggle={this.toggleSuccess}
+                >
+                  <FaRegCheckCircle size="20" />
+                  <h6 className="d-inline ml-1">ทํารายการสําเร็จ</h6>
+                </Alert>
+                <Alert
+                  className="text-center"
+                  color="danger"
+                  isOpen={this.state.err}
+                  toggle={this.toggleErr}
+                >
+                  <FaRegTimesCircle size="20" />
+                  <h6 className="d-inline ml-1">
+                    เกิดข้อผิดพลาด กรุณาทำรายการใหม่
+                  </h6>
+                </Alert>
+                {this.handleRead(message.reading_status)}
+                <MailDetail
+                  read={this.handleRead}
+                  message={message}
+                  Unread={this.handleUnread}
+                  Save={this.handleSave}
+                  deleteMail={this.confirmDelete}
+                />
+              </Container>
+            </Fragment>
+          )}
+          {err || delete_err || (message_err && <ModalErr />)}
+          <Modal isOpen={this.state.confirmDelete}>
+            <ModalBody className="text-center confirm-delete">
+              <h1>
+                <FaTimes className="mt-3 mb-3" />
+              </h1>
+              <h3>รายการนี้จะถูกลบทันทีและกู้คืนไม่ได้</h3>
+              <h3>คุณต้องการลบใช่หรือไม่?</h3>
+            </ModalBody>
+            <ModalFooter className="border-0">
+              <Button
+                color="secondary"
+                onClick={this.confirmDelete}
+                className="rounded-pill m-auto"
               >
-                <FaRegCheckCircle size="20" />
-                <h6 className="d-inline ml-1">ทํารายการสําเร็จ</h6>
-              </Alert>
-              <Alert
-                className="text-center"
+                <FaTimes className="mr-2" />
+                ยกเลิก
+              </Button>
+              <Button
                 color="danger"
-                isOpen={this.state.err}
-                toggle={this.toggleErr}
+                className="rounded-pill m-auto"
+                onClick={this.handleDelete}
               >
-                <FaRegTimesCircle size="20" />
-                <h6 className="d-inline ml-1">
-                  เกิดข้อผิดพลาด กรุณาทำรายการใหม่
-                </h6>
-              </Alert>
-              {this.handleRead(message.reading_status)}
-              <MailDetail
-                read={this.handleRead}
-                message={message}
-                Unread={this.handleUnread}
-                Save={this.handleSave}
-                deleteMail={this.confirmDelete}
-              />
-            </Container>
-          </Fragment>
-        )}
-        {err || delete_err || (message_err && <ModalErr />)}
-        <Modal isOpen={this.state.confirmDelete}>
-          <ModalBody className="text-center confirm-delete">
-            <h1>
-              <FaTimes className="mt-3 mb-3" />
-            </h1>
-            <h3>รายการนี้จะถูกลบทันทีและกู้คืนไม่ได้</h3>
-            <h3>คุณต้องการลบใช่หรือไม่?</h3>
-          </ModalBody>
-          <ModalFooter className="border-0">
-            <Button
-              color="secondary"
-              onClick={this.confirmDelete}
-              className="rounded-pill m-auto"
-            >
-              <FaTimes className="mr-2" />
-              ยกเลิก
-            </Button>
-            <Button
-              color="danger"
-              className="rounded-pill m-auto"
-              onClick={this.handleDelete}
-            >
-              <FaTrashAlt className="mr-2" />
-              ตกลง
-            </Button>
-          </ModalFooter>
-        </Modal>
+                <FaTrashAlt className="mr-2" />
+                ตกลง
+              </Button>
+            </ModalFooter>
+          </Modal>
+        </div>
       </Fragment>
     );
   }
@@ -216,6 +228,9 @@ class MailByID extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    isAuthenticated: state.user.authenticated,
+    userSet: state.user,
+    
     user: state.data_user.data,
     err: state.data_user.err,
     isLoading: state.data_user.isLoading,

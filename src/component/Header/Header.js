@@ -88,10 +88,10 @@ class Header extends React.Component {
                   <NavLink className="rounded-pill font-menu" href="/">
                     <span className="font-menu">หน้าแรก</span>
                   </NavLink>
-                  <NavLink className="rounded-pill font-menu" href="#">
+                  <NavLink className="rounded-pill font-menu" href="/search/null/null/คอนโด/null/null/null/null/1">
                     <span className="font-menu">คอนโด</span>
                   </NavLink>
-                  <NavLink className="rounded-pill font-menu" href="#">
+                  <NavLink className="rounded-pill font-menu" href="/search/null/null/บ้าน/null/null/null/null/1">
                     <span className="font-menu">บ้าน</span>
                   </NavLink>
                   {/* <NavLink className="rounded-pill font-menu" href="#">
@@ -138,7 +138,7 @@ class Header extends React.Component {
             </Container>
           </Navbar>
         </div>
-        <Search />
+        <Search match={this.props.match}/>
       </header>
     );
   }

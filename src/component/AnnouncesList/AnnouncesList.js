@@ -16,9 +16,10 @@ import { MdHome, MdSettingsOverscan } from "react-icons/md";
 import {
   FaBed,
   FaBath,
-  FaBullhorn,
+  FaBuilding,
   FaMapMarkerAlt,
   FaEdit,
+  FaHome
 } from "react-icons/fa";
 import { TiHeartFullOutline } from "react-icons/ti";
 
@@ -46,6 +47,10 @@ class AnnouncesList extends React.Component {
     return result ? "heart-mark" : "heart";
   };
 
+  StyleType = (type) => {
+    return type === 'เช่า' ? "mt-2 rounded-pill border-white type1" : "mt-2 rounded-pill border-white type2";
+  }
+  
   dateFormat = (date) => {
     const months = [
       "ม.ค",
@@ -104,7 +109,7 @@ class AnnouncesList extends React.Component {
                         style={{ color: "#D74B3F" }}
                       />
                       &nbsp;
-                      {announce.province_name} &nbsp;{announce.amphoe_name}
+                      {announce.province_name === 'กรุงเทพมหานคร'? 'กทม' : announce.province_name} &nbsp;{announce.amphoe_name}
                     </div>
                     <Row>
                       <Col
@@ -132,7 +137,7 @@ class AnnouncesList extends React.Component {
                           className="mr-2"
                           style={{ color: "#138799" }}
                         />
-                        {Math.round(announce.area * 100) / 100}&nbsp;ตร.ว.
+                        {Math.round(announce.area * 100) / 100}&nbsp;{announce.property_type === 'บ้าน' ? 'ตร.ว.' : 'ตร.ม.'}
                       </Col>
                       <Col xs="12">
                         <div className="time announce-details mt-1">
@@ -157,10 +162,9 @@ class AnnouncesList extends React.Component {
           <div className="announcement-type">
             <Button
               color="primary"
-              className="mt-2 rounded-pill border-white"
-              style={{ backgroundColor: "#6ea7ec" }}
+              className={this.StyleType(announce.announcement_type)}
             >
-              <FaBullhorn className="mr-1" />
+              {announce.property_type === 'บ้าน' ? <FaHome className="mr-1 pb-1" size="20"/> :<FaBuilding className="mr-1 pb-1" size="20"/>}
               <span>{announce.announcement_type}</span>
             </Button>
           </div>

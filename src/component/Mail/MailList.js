@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import "./MailList.css";
 import { Row, Col, Container, Input, Button } from "reactstrap";
 import Inbox from "./Inbox";
-import NoData from "../UserAnnouncesList/NoData/NoData"
+import NoData from "../UserAnnouncesList/NoData/NoData";
 import {
   FaMailBulk,
   FaRegEnvelopeOpen,
@@ -14,21 +14,47 @@ import {
 class MailList extends React.Component {
   constructor(props) {
     super(props);
+    const { match } = this.props;
     this.state = {
       activeTab: this.props.activeTab,
+      formInputs: {
+        keyword:
+          match.params.mkeyword === undefined || match.params.mkeyword === null
+            ? "null"
+            : match.params.mkeyword,
+      },
     };
   }
 
+  handleResult = () => {
+    const { formInputs } = this.state;
+    return (window.location.href = `/member/search/mail/${formInputs.keyword}/1`);
+  };
+
+  changeHandler = (event) => {
+    const name = event.target.name;
+    const value = event.target.value.trim();
+
+    this.setState({
+      ...this.state,
+      formInputs: {
+        ...this.state.formInputs,
+        [name]: value === "" ? "null" : value,
+      },
+    });
+  };
+
   mailAll = () => {
     const { count } = this.props;
-    const read = Number(count.read)
-    const unread = Number(count.unread)
-    const save = Number(count.save)
-    return read + unread + save
-  }
+    const read = Number(count.read);
+    const unread = Number(count.unread);
+    const save = Number(count.save);
+    return read + unread + save;
+  };
 
   render() {
-    const { mail, count, unread, save, deleteMail, read } = this.props;
+    const { formInputs } = this.state;
+    const { mail, count, unread, save, deleteMail, read, match } = this.props;
     return (
       <Container>
         <div className="tabs">
@@ -89,14 +115,23 @@ class MailList extends React.Component {
               <Col className="mb-3" md="10">
                 <Input
                   className="rounded-pill"
-                  type="Search"
-                  name="Search"
-                  id="Search"
+                  type="text"
+                  name="keyword"
+                  id="keyword"
                   placeholder="ค้นหา"
+                  value={
+                    formInputs.keyword === "null" ? "" : formInputs.keyword
+                  }
+                  onChange={this.changeHandler}
                 />
               </Col>
               <Col md="2">
-                <Button color="info" className="rounded-pill" block>
+                <Button
+                  color="info"
+                  className="rounded-pill"
+                  block
+                  onClick={() => this.handleResult()}
+                >
                   <FaSearch className="mr-1" />
                   ค้นหา
                 </Button>

@@ -8,7 +8,7 @@ import {
   Input,
   Container,
   Row,
-  Col
+  Col,
 } from "reactstrap";
 import { FaUserAlt } from "react-icons/fa";
 
@@ -21,19 +21,13 @@ class Login extends React.Component {
     this.state = {
       formInputs: {
         email: "",
-        password: ""
-      },
-      formErrors: {
-        email: "",
-        password: ""
+        password: "",
       },
       invalid: {
         invalidEmail: false,
-        invalidPassword: false
-      }
+        invalidPassword: false,
+      },
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.changeHandler = this.changeHandler.bind(this);
   }
 
   componentDidUpdate(nextProps) {
@@ -41,25 +35,28 @@ class Login extends React.Component {
     if (nextProps.err !== err) {
       if (err) {
         this.setState({
-          invalid: { invalidEmail: true, invalidPassword: true }
+          formInputs: {
+            ...this.state.formInputs,
+            password: "",
+          },
         });
       }
     }
   }
 
-  changeHandler = event => {
+  changeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value.trim();
 
     this.setState({
       formInputs: {
         ...this.state.formInputs,
-        [name]: value
-      }
+        [name]: value,
+      },
     });
   };
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
     this.props.submit(this.state.formInputs);
   };
@@ -88,9 +85,9 @@ class Login extends React.Component {
                     name="email"
                     id="Email"
                     placeholder="ชื่อผู้ใช้ / อีเมล"
-                    value={this.state.formInputs.email.value}
+                    value={this.state.formInputs.email}
                     onChange={this.changeHandler}
-                    invalid={this.state.invalid.invalidEmail}
+                    invalid={this.props.err ? true : false}
                   />
                 </FormGroup>
                 <FormGroup>
@@ -100,9 +97,9 @@ class Login extends React.Component {
                     name="password"
                     id="Password"
                     placeholder="รหัสผ่าน"
-                    value={this.state.formInputs.password.value}
+                    value={this.state.formInputs.password}
                     onChange={this.changeHandler}
-                    invalid={this.state.invalid.invalidPassword}
+                    invalid={this.props.err ? true : false}
                   />
                   <FormFeedback className="text-center">
                     อีเมล หรือ รหัสไม่ถูกต้อง *
@@ -112,7 +109,6 @@ class Login extends React.Component {
                   className="rounded-pill border-white"
                   size="lg"
                   block
-                  // style={{ backgroundColor: "#1AD588" }}
                   color="success"
                   type="submit"
                 >

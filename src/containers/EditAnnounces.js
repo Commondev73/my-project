@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import Loading from "../component/Loading/Loading";
+import Header from "../component/Header/Header";
 import UserMenu from "../component/UserMenu/UserMenu";
 import ModalErr from "../component/ModalErr/ModalErr";
 import FormAnnounces from "../component/FormAnnounces/FormAnnounces";
@@ -256,7 +257,7 @@ class EditAnnounces extends React.Component {
     const { redirect } = this.props;
     if (redirect) {
       // return this.props.history.push("/member/announces");
-      return (window.location.href = "/member/announces");
+      return (window.location.href = "/member/announces/online/1");
     }
   };
 
@@ -272,7 +273,7 @@ class EditAnnounces extends React.Component {
       //
       updateAnnounces_err,
       redirect,
-      //  
+      //
       province_isLoading,
       province,
       province_err,
@@ -284,97 +285,111 @@ class EditAnnounces extends React.Component {
       district_isLoading,
       district,
       district_err,
+
+      userSet,
+      isAuthenticated,
+      match,
     } = this.props;
     const values = { ...this.state.formInputs };
     return (
       <Fragment>
-        {isLoading && isLoading_announce && !user && !announce && (
-          <Loading isLoading={isLoading} />
-        )}
-        {user && announce && (
-          <Fragment>
-            <UserMenu user={user} />
-            <Container className="mt-2">
-              <Breadcrumb style={{ backgroundColor: "white" }}>
-                <BreadcrumbItem>
-                  <FaHome className="mr-1" />
-                  <a href="/">หน้าแรก</a>
-                </BreadcrumbItem>
-                <BreadcrumbItem>
-                  <a href="/member">หน้าสมาชิก</a>
-                </BreadcrumbItem>
-                <BreadcrumbItem active>แก้ไขประกาศ</BreadcrumbItem>
-              </Breadcrumb>
-            </Container>
-            <FormAnnounces
-              changeHandler={this.changeHandler}
-              values={values}
-              province={province}
-              province_isLoading={province_isLoading}
-              amphoe={amphoe}
-              amphoe_isLoading={amphoe_isLoading}
-              district={district}
-              district_isLoading={district_isLoading}
-              handlerSelectedOption={this.handlerSelectedOption}
-              handlerSelectedOptionAmphoe={this.handlerSelectedOptionAmphoe}
-              handlerSelectedOptionProvince={this.handlerSelectedOptionProvince}
-              addLoadedFile={this.addLoadedFile}
-              removeLoadedFile={this.removeLoadedFile}
-              removeAllLoadedFile={this.removeAllLoadedFile}
-              submit={this.handleSubmit}
-              draft={this.handleDraft}
-            />
-          </Fragment>
-        )}
-        {err || err_announce ||
-          updateAnnounces_err ||
-          province_err ||
-          amphoe_err ||
-          district_err && <ModalErr />}
-        {redirect && (
-          <Modal isOpen={true}>
-            <ModalHeader
-              style={{
-                backgroundColor: "#01D26C",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <FaRegCheckCircle style={{ color: "white" }} size={32} />
-            </ModalHeader>
-            <ModalBody className="text-center">
-              <h3>แก้ไขประกาศสำเร็จ</h3>
-            </ModalBody>
-            <ModalFooter>
-              <Button
-                size="lg"
-                color="success m-auto"
-                onClick={this.handleRedirect}
-                className="rounded-pill"
+        <Header
+          user={userSet}
+          isAuthenticated={isAuthenticated}
+          match={match}
+        />
+        <div className="content">
+          {isLoading && isLoading_announce && !user && !announce && (
+            <Loading isLoading={isLoading} />
+          )}
+          {user && announce && (
+            <Fragment>
+              <UserMenu user={user} />
+              <Container className="mt-2">
+                <Breadcrumb style={{ backgroundColor: "white" }}>
+                  <BreadcrumbItem>
+                    <FaHome className="mr-1" />
+                    <a href="/">หน้าแรก</a>
+                  </BreadcrumbItem>
+                  <BreadcrumbItem>
+                    <a href="/member">หน้าสมาชิก</a>
+                  </BreadcrumbItem>
+                  <BreadcrumbItem active>แก้ไขประกาศ</BreadcrumbItem>
+                </Breadcrumb>
+              </Container>
+              <FormAnnounces
+                changeHandler={this.changeHandler}
+                values={values}
+                province={province}
+                province_isLoading={province_isLoading}
+                amphoe={amphoe}
+                amphoe_isLoading={amphoe_isLoading}
+                district={district}
+                district_isLoading={district_isLoading}
+                handlerSelectedOption={this.handlerSelectedOption}
+                handlerSelectedOptionAmphoe={this.handlerSelectedOptionAmphoe}
+                handlerSelectedOptionProvince={
+                  this.handlerSelectedOptionProvince
+                }
+                addLoadedFile={this.addLoadedFile}
+                removeLoadedFile={this.removeLoadedFile}
+                removeAllLoadedFile={this.removeAllLoadedFile}
+                submit={this.handleSubmit}
+                draft={this.handleDraft}
+              />
+            </Fragment>
+          )}
+          {err ||
+            err_announce ||
+            updateAnnounces_err ||
+            province_err ||
+            amphoe_err ||
+            (district_err && <ModalErr />)}
+          {redirect && (
+            <Modal isOpen={true}>
+              <ModalHeader
+                style={{
+                  backgroundColor: "#01D26C",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
               >
-                ตกลง
-              </Button>
-            </ModalFooter>
-          </Modal>
-        )}
+                <FaRegCheckCircle style={{ color: "white" }} size={32} />
+              </ModalHeader>
+              <ModalBody className="text-center">
+                <h3>แก้ไขประกาศสำเร็จ</h3>
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  size="lg"
+                  color="success m-auto"
+                  onClick={this.handleRedirect}
+                  className="rounded-pill"
+                >
+                  ตกลง
+                </Button>
+              </ModalFooter>
+            </Modal>
+          )}
 
-        {updateAnnounces_err && (
-          <Modal isOpen={true} className="modal-dialog-centered">
-            <ModalBody className="text-center">
-              <FaRegTimesCircle style={{ color: "red" }} size={32} />
-              <h4>เกิดข้อผิดพลาด กรุณาทำรายการใหม่</h4>
-            </ModalBody>
-            <ModalFooter>
-              <Button
-                color="success m-auto"
-                onClick={() => window.location.reload()}
-                className="rounded-pill"
-              >
-                ตกลง
-              </Button>
-            </ModalFooter>
-          </Modal>
-        )}
+          {updateAnnounces_err && (
+            <Modal isOpen={true} className="modal-dialog-centered">
+              <ModalBody className="text-center">
+                <FaRegTimesCircle style={{ color: "red" }} size={32} />
+                <h4>เกิดข้อผิดพลาด กรุณาทำรายการใหม่</h4>
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  color="success m-auto"
+                  onClick={() => window.location.reload()}
+                  className="rounded-pill"
+                >
+                  ตกลง
+                </Button>
+              </ModalFooter>
+            </Modal>
+          )}
+        </div>
       </Fragment>
     );
   }
@@ -383,6 +398,9 @@ class EditAnnounces extends React.Component {
 const mapStateToProps = (state, props) => {
   const announce = state.announce[props.match.params.id] || {};
   return {
+    isAuthenticated: state.user.authenticated,
+    userSet: state.user,
+
     user: state.data_user.data,
     err: state.data_user.err,
     isLoading: state.data_user.isLoading,

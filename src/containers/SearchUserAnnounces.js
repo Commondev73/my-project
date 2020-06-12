@@ -8,21 +8,29 @@ import { Container, Breadcrumb, BreadcrumbItem } from "reactstrap";
 import { FaHome } from "react-icons/fa";
 import { connect } from "react-redux";
 import {
-  fetchUserAnnouncesCorrect,
+  fetchSearchAnnouncesUser,
   fetchDataUser,
   fetchCountAnnounces,
   deleteAnnounces,
 } from "../actions";
 
-class UserAnnouncesCorrect extends React.Component {
+class SearchUserAnnounces extends React.Component {
   constructor(props) {
     super(props);
+    const { match } = this.props;
+    this.state = {
+      keyword: match.params.ukeyword,
+      atype: match.params.uatype,
+      ptype: match.params.uptype,
+      bedroom: match.params.ubedroom,
+      toilet: match.params.utoilet,
+    };
   }
   componentDidMount = () => {
     const page = this.props.match.params.page;
     this.props.fetchDataUser();
     this.props.fetchCountAnnounces();
-    this.props.fetchUserAnnouncesCorrect(page);
+    this.props.fetchSearchAnnouncesUser(this.state, page);
   };
 
   getData = async (pageNumber) => {
@@ -85,9 +93,10 @@ class UserAnnouncesCorrect extends React.Component {
                 </Breadcrumb>
               </Container>
               <UserAnnouncesList
+                match={match}
                 count={count}
                 announces={announces}
-                tab={3}
+                tab={0}
                 delete={this.handleDelete}
                 getData={this.getData}
               />
@@ -112,9 +121,9 @@ const mapStateToProps = (state) => {
     err: state.data_user.err,
     isLoading: state.data_user.isLoading,
 
-    announces: state.correct_announces_user.data,
-    isLoading_announces: state.correct_announces_user.isLoading,
-    announces_err: state.correct_announces_user.err,
+    announces: state.searchAnnouncesUser.data,
+    isLoading_announces: state.searchAnnouncesUser.isLoading,
+    announces_err: state.searchAnnouncesUser.err,
 
     count: state.countAnnounces.data,
     count_err: state.countAnnounces.err,
@@ -129,12 +138,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   fetchDataUser,
-  fetchUserAnnouncesCorrect,
+  fetchSearchAnnouncesUser,
   fetchCountAnnounces,
   deleteAnnounces,
 };
 
-export default UserAnnouncesCorrect = connect(
+export default SearchUserAnnounces = connect(
   mapStateToProps,
   mapDispatchToProps
-)(UserAnnouncesCorrect);
+)(SearchUserAnnounces);

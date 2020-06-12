@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import Header from "../component/Header/Header";
 import Loading from "../component/Loading/Loading";
 import UserMenu from "../component/UserMenu/UserMenu";
 import ModalErr from "../component/ModalErr/ModalErr";
@@ -6,7 +7,12 @@ import UserAnnouncesList from "../component/UserAnnouncesList/UserAnnouncesList"
 import { Container, Breadcrumb, BreadcrumbItem } from "reactstrap";
 import { FaHome } from "react-icons/fa";
 import { connect } from "react-redux";
-import { fetchUserAnnounces, fetchDataUser, fetchCountAnnounces, deleteAnnounces } from "../actions";
+import {
+  fetchUserAnnounces,
+  fetchDataUser,
+  fetchCountAnnounces,
+  deleteAnnounces,
+} from "../actions";
 
 class UserAnnouncesOnline extends React.Component {
   constructor(props) {
@@ -23,7 +29,7 @@ class UserAnnouncesOnline extends React.Component {
     window.location.replace(`${pageNumber}`);
   };
 
-  handleDelete = id => {
+  handleDelete = (id) => {
     this.props.deleteAnnounces(id);
   };
 
@@ -39,7 +45,11 @@ class UserAnnouncesOnline extends React.Component {
       count_isLoading,
       count_err,
       deleteAnnounces_err,
-      redirect
+      redirect,
+
+      userSet,
+      isAuthenticated,
+      match,
     } = this.props;
 
     if (redirect) {
@@ -47,43 +57,57 @@ class UserAnnouncesOnline extends React.Component {
     }
     return (
       <Fragment>
-        {/* <Loading isLoading={true} /> */}
-        {isLoading && isLoading_announces && count_isLoading &&
-          !count && !user && !announces && (
-            <Loading isLoading={isLoading} />
+        <Header
+          user={userSet}
+          isAuthenticated={isAuthenticated}
+          match={match}
+        />
+        <div className="content">
+          {isLoading &&
+            isLoading_announces &&
+            count_isLoading &&
+            !count &&
+            !user &&
+            !announces && <Loading isLoading={isLoading} />}
+          {user && announces && count && (
+            <Fragment>
+              <UserMenu user={user} />
+              <Container className="mt-2">
+                <Breadcrumb style={{ backgroundColor: "white" }}>
+                  <BreadcrumbItem>
+                    <FaHome className="mr-1" />
+                    <a href="/">หน้าแรก</a>
+                  </BreadcrumbItem>
+                  <BreadcrumbItem>
+                    <a href="/member">หน้าสมาชิก</a>
+                  </BreadcrumbItem>
+                  <BreadcrumbItem active>ประกาศของฉัน</BreadcrumbItem>
+                </Breadcrumb>
+              </Container>
+              <UserAnnouncesList
+                count={count}
+                announces={announces}
+                tab={1}
+                delete={this.handleDelete}
+                getData={this.getData}
+              />
+            </Fragment>
           )}
-        {user && announces && count && (
-          <Fragment>
-            <UserMenu user={user} />
-            <Container className="mt-2">
-              <Breadcrumb style={{ backgroundColor: "white" }}>
-                <BreadcrumbItem>
-                  <FaHome className="mr-1" />
-                  <a href="/">หน้าแรก</a>
-                </BreadcrumbItem>
-                <BreadcrumbItem>
-                  <a href="/member">หน้าสมาชิก</a>
-                </BreadcrumbItem>
-                <BreadcrumbItem active>ประกาศของฉัน</BreadcrumbItem>
-              </Breadcrumb>
-            </Container>
-            <UserAnnouncesList
-              count={count}
-              announces={announces}
-              tab={1}
-              delete={this.handleDelete}
-              getData={this.getData}
-            />
-          </Fragment>
-        )}
-        {err || announces_err || deleteAnnounces_err || count_err && <ModalErr />}
+          {err ||
+            announces_err ||
+            deleteAnnounces_err ||
+            (count_err && <ModalErr />)}
+        </div>
       </Fragment>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
+    isAuthenticated: state.user.authenticated,
+    userSet: state.user,
+    
     user: state.data_user.data,
     err: state.data_user.err,
     isLoading: state.data_user.isLoading,
@@ -99,7 +123,7 @@ const mapStateToProps = state => {
     deleteAnnounces: state.deleteAnnounces.data,
     isLoading_deleteAnnounces: state.deleteAnnounces.isLoading,
     deleteAnnounces_err: state.deleteAnnounces.err,
-    redirect: state.deleteAnnounces.redirect
+    redirect: state.deleteAnnounces.redirect,
   };
 };
 
@@ -107,7 +131,7 @@ const mapDispatchToProps = {
   fetchDataUser,
   fetchUserAnnounces,
   fetchCountAnnounces,
-  deleteAnnounces
+  deleteAnnounces,
 };
 
 export default UserAnnouncesOnline = connect(

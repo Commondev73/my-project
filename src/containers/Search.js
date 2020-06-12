@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import Loading from "../component/Loading/Loading";
 import Header from "../component/Header/Header";
 import ModalErr from "../component/ModalErr/ModalErr";
+import NoData from "../component/UserAnnouncesList/NoData/NoData";
 import ReactPaginate from "react-paginate";
 import AnnouncesList from "../component/AnnouncesList/AnnouncesList";
 import { connect } from "react-redux";
@@ -10,22 +11,30 @@ import {
   addBookMark,
   deleteBookMark,
   fetchBookMarksID,
+  fetchSearch,
 } from "../actions";
 import { Container, Row, Breadcrumb, BreadcrumbItem, Col } from "reactstrap";
 import { FaHome } from "react-icons/fa";
 
-class Home extends React.Component {
+class Search extends React.Component {
   constructor(props) {
     super(props);
+    const { match } = this.props;
     this.state = {
-      bookmarks: [],
+      keyword: match.params.keyword,
+      atype: match.params.atype,
+      ptype: match.params.ptype,
+      bedroom: match.params.bedroom,
+      toilet: match.params.toilet,
+      price: match.params.price,
+      toprice: match.params.toprice,
     };
   }
 
   componentDidMount = () => {
     document.title = "บ้าน คอนโด ตลาดซื้อขาย-เช่า";
     const page = this.props.match.params.page;
-    this.props.fetchAnnounces(page);
+    this.props.fetchSearch(this.state, page);
     if (this.props.isAuthenticated) {
       this.props.fetchBookMarksID();
     }
@@ -64,12 +73,12 @@ class Home extends React.Component {
       BookmarkIDErr,
       addBookmarkErr,
       deleteBookmarkErr,
-      match
+      match,
     } = this.props;
 
     return (
       <Fragment>
-        <Header user={user} isAuthenticated={isAuthenticated}  match={match}/>
+        <Header user={user} isAuthenticated={isAuthenticated} match={match} />
         <div className="content">
           <Container className="mt-1">
             <Breadcrumb>
@@ -99,11 +108,14 @@ class Home extends React.Component {
                           mark={this.handleBookMark(announce.id)}
                         />
                       ))}
+
+                      {announces.data.length === 0 && <NoData />}
+
                       {announces.last_page > 1 && (
                         <Col xs="12">
                           <ReactPaginate
-                            previousLabel={"ย้อนกลับ"}
-                            nextLabel={"ถัดไป"}
+                            previousLabel={"previous"}
+                            nextLabel={"next"}
                             breakLabel={"..."}
                             breakClassName={"break-me"}
                             pageCount={announces.last_page}
@@ -137,11 +149,14 @@ class Home extends React.Component {
                           mark={false}
                         />
                       ))}
+
+                      {announces.data.length === 0 && <NoData />}
+
                       {announces.last_page > 1 && (
                         <Col xs="12">
                           <ReactPaginate
-                            previousLabel={"ย้อนกลับ"}
-                            nextLabel={"ถัดไป"}
+                            previousLabel={"previous"}
+                            nextLabel={"next"}
                             breakLabel={"..."}
                             breakClassName={"break-me"}
                             pageCount={announces.last_page}
@@ -178,9 +193,9 @@ const mapStateToProps = (state) => {
     isAuthenticated: state.user.authenticated,
     user: state.user,
 
-    announces: state.announces.data,
-    err: state.announces.err,
-    isLoading: state.announces.isLoading,
+    announces: state.search.data,
+    err: state.search.err,
+    isLoading: state.search.isLoading,
 
     BookmarkID: state.bookmarksID.data,
     BookmarkIDErr: state.bookmarksID.err,
@@ -201,6 +216,7 @@ const mapDispatchToProps = {
   addBookMark,
   deleteBookMark,
   fetchBookMarksID,
+  fetchSearch,
 };
 
-export default Home = connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Search = connect(mapStateToProps, mapDispatchToProps)(Search);
