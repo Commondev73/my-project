@@ -94,7 +94,7 @@ class Inbox extends React.Component {
     const { mail } = this.props;
     return (
       <Fragment>
-        <table className="mail-list mt-2">
+        <table className="mail-list mt-2 mb-4">
           <tbody>
             {mail.data.map((detail, i) => (
               <tr

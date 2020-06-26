@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import ReactPaginate from "react-paginate";
 import "./MailList.css";
 import { Row, Col, Container, Input, Button } from "reactstrap";
 import Inbox from "./Inbox";
@@ -145,6 +146,25 @@ class MailList extends React.Component {
               deleteMail={deleteMail}
             />
             {mail.data.length === 0 && <NoData />}
+
+            {mail.last_page > 1 && (
+              <Col xs="12">
+                <ReactPaginate
+                  previousLabel={"ย้อนกลับ"}
+                  nextLabel={"ถัดไป"}
+                  breakLabel={"..."}
+                  breakClassName={"break-me"}
+                  pageCount={mail.last_page}
+                  marginPagesDisplayed={2}
+                  pageRangeDisplayed={5}
+                  forcePage={this.props.match.params.page - 1}
+                  onPageChange={(data) => this.props.getData(data.selected + 1)}
+                  containerClassName={"pagination"}
+                  subContainerClassName={"pages pagination"}
+                  activeClassName={"active"}
+                />
+              </Col>
+            )}
           </Container>
         </div>
       </Container>

@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 import Header from "../component/Header/Header";
 import Loading from "../component/Loading/Loading";
 import ModalErr from "../component/ModalErr/ModalErr";
-import ReactPaginate from "react-paginate";
 import UserMenu from "../component/UserMenu/UserMenu";
 import MailList from "../component/Mail/MailList";
 import { Container, Breadcrumb, BreadcrumbItem, Alert } from "reactstrap";
@@ -158,6 +157,7 @@ class Mail extends React.Component {
                 </Alert>
               </Container>
               <MailList
+                getData={this.getData}
                 match={match}
                 activeTab={1}
                 read={this.handleRead}
@@ -167,25 +167,6 @@ class Mail extends React.Component {
                 unread={this.handleUnread}
                 deleteMail={this.handleDelete}
               />
-
-              {mail.last_page > 1 && (
-                <Col xs="12">
-                  <ReactPaginate
-                    previousLabel={"previous"}
-                    nextLabel={"next"}
-                    breakLabel={"..."}
-                    breakClassName={"break-me"}
-                    pageCount={mail.last_page}
-                    marginPagesDisplayed={2}
-                    pageRangeDisplayed={5}
-                    forcePage={this.props.match.params.page - 1}
-                    onPageChange={(data) => this.getData(data.selected + 1)}
-                    containerClassName={"pagination"}
-                    subContainerClassName={"pages pagination"}
-                    activeClassName={"active"}
-                  />
-                </Col>
-              )}
             </Fragment>
           )}
           {err ||
