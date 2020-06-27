@@ -1,5 +1,13 @@
 import React, { Fragment } from "react";
-import { Container, Row, Col, Button, FormGroup, Input, FormFeedback } from "reactstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  FormGroup,
+  Input,
+  FormFeedback,
+} from "reactstrap";
 import ImageGallery from "react-image-gallery";
 import "./Announce.css";
 // import "../../../node_modules/react-image-gallery/styles/css/image-gallery.css";
@@ -7,7 +15,7 @@ import {
   MdHome,
   MdSettingsOverscan,
   MdLocationOn,
-  MdEmail
+  MdEmail,
 } from "react-icons/md";
 import {
   FaBed,
@@ -15,9 +23,9 @@ import {
   FaBullhorn,
   FaLine,
   FaPhone,
-  FaBitcoin
+  FaBitcoin,
 } from "react-icons/fa";
-// import { TiHeartFullOutline } from "react-icons/ti";
+import { TiHeartFullOutline } from "react-icons/ti";
 import ImageProfile from "../ImageProfile/ImageProfile";
 
 class Announce extends React.Component {
@@ -26,42 +34,69 @@ class Announce extends React.Component {
     this.state = {
       showPhone: false,
       showLine: false,
-      showEmail: false
+      showEmail: false,
+      mark: this.props.mark,
     };
-
     this.ShowPhone = this.ShowPhone.bind(this);
     this.ShowLine = this.ShowLine.bind(this);
     this.ShowEmail = this.ShowEmail.bind(this);
   }
 
-  replaceHTMLWithLineBreaks = detail => {
+  ItemStyle = () => {
+    const result = this.state.mark;
+    return result === "true" ? "heart-mark" : "heart-2";
+  };
+
+  handleBookMark = async (id) => {
+    await this.setState((prevState) => {
+      let result;
+      const mark = this.state.mark;
+      mark === "true"
+        ? this.props.deleteBookMark(id)
+        : this.props.addBookMark(id);
+      switch (this.state.mark) {
+        case "true":
+          result = "false";
+          break;
+        case "false":
+          result = "true";
+          break;
+      }
+      return {
+        ...prevState,
+        mark: result,
+      };
+    });
+  };
+
+  replaceHTMLWithLineBreaks = (detail) => {
     return detail.replace(/\n/g, "<br />");
   };
 
   ShowPhone() {
     this.setState({
-      showPhone: !this.state.showPhone
+      showPhone: !this.state.showPhone,
     });
   }
 
   ShowLine() {
     this.setState({
-      showLine: !this.state.showLine
+      showLine: !this.state.showLine,
     });
   }
 
   ShowEmail() {
     this.setState({
-      showEmail: !this.state.showEmail
+      showEmail: !this.state.showEmail,
     });
   }
 
   render() {
     const { announce, changeHandler, invalid, value } = this.props;
     const { showPhone, showEmail, showLine } = this.state;
-    const images = announce.image.map(image => ({
+    const images = announce.image.map((image) => ({
       original: image.image_name,
-      thumbnail: image.image_name
+      thumbnail: image.image_name,
     }));
     // const images = [
     //   {
@@ -110,7 +145,7 @@ class Announce extends React.Component {
               <ImageGallery
                 showPlayButton={false}
                 showFullscreenButton={true}
-                // autoPlay={true}
+                autoPlay={true}
                 items={images}
               />
             </Container>
@@ -182,23 +217,36 @@ class Announce extends React.Component {
             </Container>
           </Col>
           <Col md="8" xs="12">
-            <Row>
-              <Container className="border border-radius pt-3 pb-3 mt-3">
-                <Col xs="12">
-                  <h4 style={{ color: "#17A2BB" }}>รายละเอียด</h4>
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: this.replaceHTMLWithLineBreaks(announce.detail)
-                    }}
-                  ></div>
-                </Col>
-                <Col md={{ size: "4", offset: "4" }} xs="12" className="mt-3">
-                  <Button block className="rounded-pill mt-3" color="danger">
-                    แจ้งประกาศไม่เหมาะสม
-                  </Button>
-                </Col>
-              </Container>
-            </Row>
+            <Container>
+              <Row>
+                <Container className="border border-radius pt-3 pb-3 mt-3">
+                  <Col xs="12">
+                    <div className="d-flex justify-content-between">
+                      <h4 className="d-inline " style={{ color: "#17A2BB" }}>
+                        รายละเอียด
+                      </h4>
+                      <TiHeartFullOutline
+                        className={this.ItemStyle()}
+                        size="32"
+                        onClick={() => {
+                          this.handleBookMark(announce.id);
+                        }}
+                      />
+                    </div>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: this.replaceHTMLWithLineBreaks(announce.detail),
+                      }}
+                    ></div>
+                  </Col>
+                  <Col md={{ size: "4", offset: "4" }} xs="12" className="mt-3">
+                    <Button block className="rounded-pill mt-3" color="danger">
+                      แจ้งประกาศไม่เหมาะสม
+                    </Button>
+                  </Col>
+                </Container>
+              </Row>
+            </Container>
           </Col>
 
           <Col md="4" xs="12">
@@ -221,14 +269,14 @@ class Announce extends React.Component {
                           style={{
                             width: "15px",
                             height: "15px",
-                            marginRight: "5px"
+                            marginRight: "5px",
                           }}
                         />
                         {showPhone ? (
                           <Fragment>{announce.user.phone}</Fragment>
                         ) : (
-                            <Fragment>ดูเบอร์โทร</Fragment>
-                          )}
+                          <Fragment>ดูเบอร์โทร</Fragment>
+                        )}
                       </Button>
                     </Col>
                     <Col md="12" className="mb-2">
@@ -243,14 +291,14 @@ class Announce extends React.Component {
                           style={{
                             width: "15px",
                             height: "15px",
-                            marginRight: "5px"
+                            marginRight: "5px",
                           }}
                         />
                         {showEmail ? (
                           <Fragment>{announce.user.email}</Fragment>
                         ) : (
-                            <Fragment>ดูอีเมล์</Fragment>
-                          )}
+                          <Fragment>ดูอีเมล์</Fragment>
+                        )}
                       </Button>
                     </Col>
 
@@ -265,14 +313,14 @@ class Announce extends React.Component {
                           style={{
                             width: "15px",
                             height: "15px",
-                            marginRight: "5px"
+                            marginRight: "5px",
                           }}
                         />
                         {showLine ? (
                           <Fragment>{announce.user.line}</Fragment>
                         ) : (
-                            <Fragment>ดูไลน์</Fragment>
-                          )}
+                          <Fragment>ดูไลน์</Fragment>
+                        )}
                       </Button>
                     </Col>
                   </Row>
@@ -311,7 +359,7 @@ class Announce extends React.Component {
                     />
                     <FormFeedback className="text-center">
                       กรุณากรอกเบอรฺ์โทรให้ครบ 10 ตัวอักษร
-                  </FormFeedback>
+                    </FormFeedback>
                   </FormGroup>
                   <FormGroup>
                     {/* <Label for="Email">ชื่อผู้ใช้ / อีเมล</Label> */}
@@ -327,7 +375,7 @@ class Announce extends React.Component {
                     />
                     <FormFeedback className="text-center">
                       กรุณากรอก อีเมลให้ถูกต้อง
-                  </FormFeedback>
+                    </FormFeedback>
                   </FormGroup>
                   <FormGroup>
                     <Input
@@ -342,7 +390,7 @@ class Announce extends React.Component {
                     />
                     <FormFeedback className="text-center">
                       กรุณากรอก ข้อความ
-                  </FormFeedback>
+                    </FormFeedback>
                   </FormGroup>
                   <FormGroup>
                     <Button

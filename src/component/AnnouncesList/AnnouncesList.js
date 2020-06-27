@@ -82,7 +82,7 @@ class AnnouncesList extends React.Component {
       <Fragment>
         {/* <Link to={`/announce/${announce.id}`}></Link> */}
         <Col sm="4" md="3" xs="6" className="mb-3">
-          <Link className="announces-link" to={`/announce/${announce.id}`}>
+          <Link className="announces-link" to={`/announce/${announce.id}/${this.props.mark}`}>
             <div className="announces-list ">
               <Card style={{ borderRadius: "10px" }}>
                 <div className="img-box">

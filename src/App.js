@@ -49,7 +49,7 @@ class App extends React.Component {
           <Route path="/all/:page" exact component={Home} />
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegisterPage} />
-          <Route path="/announce/:id" component={AnnounceShow} />
+          <Route path="/announce/:id/:mark" component={AnnounceShow} />
           <Route
             path="/search/:keyword/:atype/:ptype/:bedroom/:toilet/:price/:toprice/:page"
             component={Search}

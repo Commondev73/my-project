@@ -5,7 +5,12 @@ import ModalErr from "../component/ModalErr/ModalErr";
 import Loading from "../component/Loading/Loading";
 
 import { connect } from "react-redux";
-import { fetchAnnounce, message } from "../actions";
+import {
+  fetchAnnounce,
+  message,
+  addBookMark,
+  deleteBookMark,
+} from "../actions";
 import {
   Container,
   Breadcrumb,
@@ -127,6 +132,14 @@ class AnnounceShow extends React.Component {
     }
   };
 
+  handleAddBookMark = (id) => {
+    this.props.addBookMark(id);
+  };
+
+  handleDeleteBookMark = (id) => {
+    this.props.deleteBookMark(id);
+  };
+
   render() {
     const {
       isAuthenticated,
@@ -165,11 +178,14 @@ class AnnounceShow extends React.Component {
           {isLoading && !announce && <Loading isLoading={isLoading} />}
           {announce && (
             <Announce
+              mark={match.params.mark}
               announce={announce}
               value={value}
               invalid={invalid}
               changeHandler={this.changeHandler}
               submit={this.handleSubmit}
+              addBookMark={this.handleAddBookMark}
+              deleteBookMark={this.handleDeleteBookMark}
             />
           )}
           {err || (message_err && <ModalErr />)}
@@ -236,12 +252,22 @@ const mapStateToProps = (state, props) => {
 
     message: state.message.data,
     message_err: state.message.err,
+
+    addBookmark: state.addBookmark.data,
+    addBookmarkErr: state.addBookmark.err,
+    addBookmarkIsLoading: state.addBookmark.isLoading,
+
+    deleteBookmark: state.deleteBookmark.data,
+    deleteBookmarkErr: state.deleteBookmark.err,
+    deleteBookmarkIsLoading: state.deleteBookmark.isLoading,
   };
 };
 
 const mapDispatchToProps = {
   fetchAnnounce,
   message,
+  addBookMark,
+  deleteBookMark,
 };
 
 export default AnnounceShow = connect(
