@@ -68,6 +68,22 @@ class Announce extends React.Component {
       };
     });
   };
+  
+  phoneReplace = (value) => {
+    const input = value.replace(/\D/g, "").substring(0, 10);
+    const first = input.substring(0, 3);
+    const middle = input.substring(3, 6);
+    const last = input.substring(6, 10);
+    let result;
+    if (input.length > 6) {
+      result = `${first}-${middle}-${last}`;
+    } else if (input.length > 3) {
+      result = `${first}-${middle}`;
+    } else if (input.length >= 0) {
+      result = input;
+    }
+    return result;
+  };
 
   replaceHTMLWithLineBreaks = (detail) => {
     return detail.replace(/\n/g, "<br />");
@@ -273,7 +289,7 @@ class Announce extends React.Component {
                           }}
                         />
                         {showPhone ? (
-                          <Fragment>{announce.user.phone}</Fragment>
+                          <Fragment>{this.phoneReplace(announce.user.phone)}</Fragment>
                         ) : (
                           <Fragment>ดูเบอร์โทร</Fragment>
                         )}

@@ -278,7 +278,7 @@ export const postRegister = (data) => async (dispatch) => {
     const formdata = new FormData();
     formdata.append("first_name", data.first_name);
     formdata.append("last_name", data.last_name);
-    formdata.append("phone", data.phone);
+    formdata.append("phone", data.phone.replace(/-/g, ''));
     formdata.append("email", data.email);
     formdata.append("password", data.password);
     formdata.append("password_confirm", data.password_confirm);
@@ -379,7 +379,7 @@ export const UpdateProfile = (data) => async (dispatch) => {
     const formdata = new FormData();
     formdata.append("first_name", data.first_name);
     formdata.append("last_name", data.last_name);
-    formdata.append("phone", data.phone);
+    formdata.append("phone", data.phone.replace(/-/g, ''));
     formdata.append("email", data.email);
     formdata.append("line", data.line);
     const response = await httpClient.post(
@@ -644,7 +644,7 @@ export const message = (data) => async (dispatch) => {
   try {
     const formdata = new FormData();
     formdata.append("name", data.name);
-    formdata.append("phone", data.phone);
+    formdata.append("phone", data.phone.replace(/-/g, ''));
     formdata.append("email", data.email);
     formdata.append("message", data.message);
     formdata.append("id_user", data.idUser);

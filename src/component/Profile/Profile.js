@@ -11,7 +11,7 @@ import {
   FormGroup,
   Label,
   Input,
-  FormFeedback
+  FormFeedback,
 } from "reactstrap";
 import { MdMailOutline } from "react-icons/md";
 
@@ -31,15 +31,15 @@ class Profile extends React.Component {
         phone: user.phone,
         first_name: user.first_name,
         last_name: user.last_name,
-        line: user.line
+        line: user.line,
       },
       invalid: {
         invalidEmail: false,
         invalidPhone: false,
         invalidFirst_name: false,
         invalidLast_name: false,
-        invalidLine: false
-      }
+        invalidLine: false,
+      },
     };
     this.handleImageChange = this.handleImageChange.bind(this);
     this.SaveSubmit = this.SaveSubmit.bind(this);
@@ -52,6 +52,22 @@ class Profile extends React.Component {
     console.log(this.state.imagePreview);
     //TODO - save > this.state.imagePreview_Url in you DB using your API logic.
   }
+
+  phoneReplaceHandler = (value) => {
+    const input = value.replace(/\D/g, "").substring(0, 10);
+    const first = input.substring(0, 3);
+    const middle = input.substring(3, 6);
+    const last = input.substring(6, 10);
+    let result;
+    if (input.length > 6) {
+      result = `${first}-${middle}-${last}`;
+    } else if (input.length > 3) {
+      result = `${first}-${middle}`;
+    } else if (input.length >= 0) {
+      result = input;
+    }
+    return result;
+  };
 
   dataURLtoFile(dataurl, filename) {
     let arr = dataurl.split(","),
@@ -80,11 +96,11 @@ class Profile extends React.Component {
   //   render.readAsDataURL(fileImagerProfile);
   // }
 
-  handleImageChange = e => {
+  handleImageChange = (e) => {
     e.preventDefault();
     const file = e.target.files[0];
     let reader = new FileReader();
-    reader.onload = e => {
+    reader.onload = (e) => {
       const img = document.createElement("img");
       img.onload = () => {
         const canvas = document.createElement("canvas");
@@ -118,21 +134,21 @@ class Profile extends React.Component {
       img.src = e.target.result;
       this.setState({
         imagerProfile: file,
-        imagePreview: e.target.result
+        imagePreview: e.target.result,
       });
     };
     if (file) reader.readAsDataURL(file);
   };
 
-  changeHandler = event => {
+  changeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value.trim();
 
     this.setState({
       formInputs: {
         ...this.state.formInputs,
-        [name]: value
-      }
+        [name]: value,
+      },
     });
   };
 
@@ -141,7 +157,7 @@ class Profile extends React.Component {
     if (nextProps.err_update !== err_update) {
       if (err_update.response.data.email) {
         this.setState({
-          invalid: { invalidEmail: true }
+          invalid: { invalidEmail: true },
         });
       }
     }
@@ -155,7 +171,7 @@ class Profile extends React.Component {
     invalid.invalidLast_name = formInputs.last_name <= 1 ? true : false;
     invalid.invalidEmail = !emailRegex.test(formInputs.email) ? true : false;
     invalid.invalidPhone =
-      formInputs.phone.toString().length !== 10 ? true : false;
+      formInputs.phone.toString().length !== 12 ? true : false;
     invalid.invalidLine = formInputs.line <= 2 ? true : false;
 
     if (
@@ -169,18 +185,18 @@ class Profile extends React.Component {
 
     this.setState({
       invalid: {
-        ...this.state.invalid
-      }
+        ...this.state.invalid,
+      },
     });
     return isError;
   };
 
-  handleProfileImage = data => {
+  handleProfileImage = (data) => {
     console.log("data", data);
     // this.props.UpdateProfileImage(data)
   };
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
     const { formInputs } = this.state;
     const err = this.validation();
@@ -309,11 +325,11 @@ class Profile extends React.Component {
                   {/* <Label for="Password">รหัสผ่าน</Label> */}
                   <Input
                     className="rounded-pill"
-                    type="number"
+                    type="text"
                     name="phone"
                     id="phone"
                     placeholder="เบอร์โทร 10 ตัวอักษร *"
-                    value={formInputs.phone}
+                    value={this.phoneReplaceHandler(formInputs.phone)}
                     onChange={this.changeHandler}
                     invalid={this.state.invalid.invalidPhone}
                   />

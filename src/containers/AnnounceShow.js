@@ -57,7 +57,23 @@ class AnnounceShow extends React.Component {
 
   changeHandler = (event) => {
     const name = event.target.name;
-    const value = event.target.value.trim();
+    let value = event.target.value.trim();
+
+    if (name === "phone") {
+      const input = value.replace(/\D/g, "").substring(0, 10);
+      const first = input.substring(0, 3);
+      const middle = input.substring(3, 6);
+      const last = input.substring(6, 10);
+      let result;
+      if (input.length > 6) {
+        result = `${first}-${middle}-${last}`;
+      } else if (input.length > 3) {
+        result = `${first}-${middle}`;
+      } else if (input.length >= 0) {
+        result = input;
+      }
+      value = result;
+    }
 
     this.setState({
       message: {
@@ -75,7 +91,7 @@ class AnnounceShow extends React.Component {
     invalid.invalidName = message.name <= 1 ? true : false;
     invalid.invalidEmail = !emailRegex.test(message.email) ? true : false;
     invalid.invalidPhone =
-      message.phone.toString().length !== 10 ? true : false;
+      message.phone.toString().length !== 12 ? true : false;
     invalid.invalidMessage = message.message <= 2 ? true : false;
 
     if (
@@ -93,11 +109,13 @@ class AnnounceShow extends React.Component {
     });
     return isError;
   };
+
   messageErr = () => {
     this.setState({
       messageErr: !this.state.messageErr,
     });
   };
+
   sendMessage = () => {
     this.setState({
       messageSuccess: !this.state.messageSuccess,
