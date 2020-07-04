@@ -112,7 +112,7 @@ class Header extends React.Component {
                           alt="Cinque Terre"
                         />
                       </div> */}
-                      <NavLink className="rounded-pill" href="/member">
+                      <NavLink className="rounded-pill" href="/member/announces/online">
                         <span className="font-menu">หน้าสมาชิก</span>
                       </NavLink>
                       <NavLink

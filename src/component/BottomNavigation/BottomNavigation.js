@@ -1,13 +1,6 @@
 import React from "react";
 import "./BottomNavigation.css";
-import {
-  FaBullhorn,
-  FaUser,
-  FaRegEnvelope,
-  FaTachometerAlt,
-} from "react-icons/fa";
-import { TiHeartFullOutline } from "react-icons/ti";
-import {} from "reactstrap";
+import { FcTemplate , FcBusinessman ,FcLike ,FcViewDetails ,FcInvite } from "react-icons/fc";
 class BottomNavigation extends React.Component {
   render() {
     return (
@@ -16,17 +9,9 @@ class BottomNavigation extends React.Component {
           <nav>
             <ul>
               <li className="border-white">
-                <a href="/member">
-                  <h5>
-                    <FaTachometerAlt />
-                  </h5>
-                  <p>แดชบอร์ด</p>
-                </a>
-              </li>
-              <li className="border-white">
                 <a href="/profile">
                   <h5>
-                    <FaUser />
+                    <FcBusinessman />
                   </h5>
                   <p>ฉัน</p>
                 </a>
@@ -34,7 +19,7 @@ class BottomNavigation extends React.Component {
               <li className="border-white">
                 <a href="/member/announces/online">
                   <h5>
-                    <FaBullhorn />
+                    <FcViewDetails />
                   </h5>
                   <p>ประกาศของฉัน</p>
                 </a>
@@ -42,7 +27,7 @@ class BottomNavigation extends React.Component {
               <li className="border-white">
                 <a href="/member/bookmarks">
                   <h5>
-                    <TiHeartFullOutline className="" />
+                    <FcLike />
                   </h5>
                   <p>ถูกใจ</p>
                 </a>
@@ -50,7 +35,7 @@ class BottomNavigation extends React.Component {
               <li className="">
                 <a href="/member/mail">
                   <h5>
-                    <FaRegEnvelope />
+                    <FcInvite />
                   </h5>
                   <p>ข้อความ</p>
                 </a>

@@ -11,7 +11,6 @@ import RegisterPage from "./containers/RegisterPage";
 import AnnounceShow from "./containers/AnnounceShow";
 import Search from "./containers/Search";
 
-import MemberArea from "./containers/MemberArea";
 import ProfilePage from "./containers/ProfilePage";
 import UserChangePassword from "./containers/UserChangePassword";
 import PostAnnounces from "./containers/PostAnnounces";
@@ -55,12 +54,6 @@ class App extends React.Component {
             component={Search}
           />
           {/* MemberArea */}
-          <PrivateRoute
-            isAuthenticated={isAuthenticated}
-            exact
-            path="/member"
-            component={MemberArea}
-          />
           <PrivateRoute
             isAuthenticated={isAuthenticated}
             exact

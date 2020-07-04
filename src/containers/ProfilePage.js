@@ -91,9 +91,7 @@ class ProfilePage extends React.Component {
                     <FaHome className="mr-1" />
                     <a href="/">หน้าแรก</a>
                   </BreadcrumbItem>
-                  <BreadcrumbItem>
-                    <a href="/member">หน้าสมาชิก</a>
-                  </BreadcrumbItem>
+                  <BreadcrumbItem>หน้าสมาชิก</BreadcrumbItem>
                   <BreadcrumbItem active>โปรไฟล์</BreadcrumbItem>
                 </Breadcrumb>
               </Container>

@@ -16,7 +16,6 @@ import {
   saveMail,
   deleteMessage,
 } from "../actions";
-import { Col } from "reactstrap";
 
 class MailUnread extends React.Component {
   constructor(props) {
@@ -130,9 +129,7 @@ class MailUnread extends React.Component {
                     <FaHome className="mr-1" />
                     <a href="/">หน้าแรก</a>
                   </BreadcrumbItem>
-                  <BreadcrumbItem>
-                    <a href="/member">หน้าสมาชิก</a>
-                  </BreadcrumbItem>
+                  <BreadcrumbItem>หน้าสมาชิก</BreadcrumbItem>
                   <BreadcrumbItem active>ช้อความ</BreadcrumbItem>
                 </Breadcrumb>
                 <Alert

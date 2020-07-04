@@ -20,7 +20,7 @@ class LoginPage extends React.Component {
   render() {
     const { err, redirect, isAuthenticated, user, match } = this.props;
     if (redirect) {
-      return <Redirect to="/member" />;
+      return <Redirect to="/member/announces/online/1" />;
     }
     return (
       <Fragment>

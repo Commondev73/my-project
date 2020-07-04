@@ -82,7 +82,7 @@ class Bookmarks extends React.Component {
                     <a href="/">หน้าแรก</a>
                   </BreadcrumbItem>
                   <BreadcrumbItem>
-                    <a href="/member">หน้าสมาชิก</a>
+                   หน้าสมาชิก
                   </BreadcrumbItem>
                   <BreadcrumbItem active>รายการโปรด</BreadcrumbItem>
                 </Breadcrumb>

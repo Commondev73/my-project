@@ -151,12 +151,8 @@ class MailByID extends React.Component {
                     <FaHome className="mr-1" />
                     <a href="/">หน้าแรก</a>
                   </BreadcrumbItem>
-                  <BreadcrumbItem>
-                    <a href="/member">หน้าสมาชิก</a>
-                  </BreadcrumbItem>
-                  <BreadcrumbItem>
-                    <a href="/member/mail">ช้อความ</a>
-                  </BreadcrumbItem>
+                  <BreadcrumbItem>หน้าสมาชิก</BreadcrumbItem>
+                  <BreadcrumbItem>ช้อความ</BreadcrumbItem>
                   <BreadcrumbItem active>{message.message}</BreadcrumbItem>
                 </Breadcrumb>
               </Container>
@@ -230,7 +226,7 @@ const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.user.authenticated,
     userSet: state.user,
-    
+
     user: state.data_user.data,
     err: state.data_user.err,
     isLoading: state.data_user.isLoading,

@@ -2,13 +2,7 @@ import React from "react";
 import "./UserMenu.css";
 import ImageProfile from "../ImageProfile/ImageProfile";
 import { Container } from "reactstrap";
-import {
-  FaBullhorn,
-  FaUser,
-  FaRegEnvelope,
-  FaTachometerAlt,
-} from "react-icons/fa";
-import { TiHeartFullOutline } from "react-icons/ti";
+import { FcTemplate , FcBusinessman ,FcLike ,FcViewDetails ,FcInvite } from "react-icons/fc";
 
 class UserMenu extends React.Component {
   render() {
@@ -23,17 +17,9 @@ class UserMenu extends React.Component {
                 <ImageProfile user={user} />
               </li>
               <li className="icon">
-                <a href="/member">
-                  <h2>
-                    <FaTachometerAlt />
-                  </h2>
-                  <p>แดชบอร์ด</p>
-                </a>
-              </li>
-              <li className="icon">
                 <a href="/profile">
                   <h2>
-                    <FaUser />
+                    <FcBusinessman />
                   </h2>
                   <p>โปรไฟล์</p>
                 </a>
@@ -41,7 +27,7 @@ class UserMenu extends React.Component {
               <li className="icon">
                 <a href="/member/announces/online">
                   <h2>
-                    <FaBullhorn />
+                    <FcViewDetails />
                   </h2>
                   <p>ประกาศของฉัน</p>
                 </a>
@@ -49,7 +35,7 @@ class UserMenu extends React.Component {
               <li className="icon">
                 <a href="/member/bookmarks">
                   <h2>
-                    <TiHeartFullOutline className="heart" />
+                    <FcLike />
                   </h2>
                   <p>รายการโปรด</p>
                 </a>
@@ -57,7 +43,7 @@ class UserMenu extends React.Component {
               <li className="icon">
                 <a href="/member/mail">
                   <h2>
-                    <FaRegEnvelope />
+                    <FcInvite />
                   </h2>
                   <p>ข้อความ</p>
                 </a>
