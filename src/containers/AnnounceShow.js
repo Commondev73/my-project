@@ -50,6 +50,7 @@ class AnnounceShow extends React.Component {
   }
 
   componentDidMount = async () => {
+    document.title = "บ้าน คอนโด ตลาดซื้อขาย-เช่า";
     const id = this.props.match.params.id;
     this.props.fetchAnnounce(id);
   };

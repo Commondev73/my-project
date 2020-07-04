@@ -13,6 +13,10 @@ class LoginPage extends React.Component {
     super(props);
   }
 
+  componentDidMount = () => {
+    document.title = "เข้าสู่ระบบ";
+  };
+
   handleSubmit = (data) => {
     this.props.login(data);
   };

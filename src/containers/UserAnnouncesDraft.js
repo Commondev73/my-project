@@ -14,6 +14,7 @@ class UserAnnouncesCorrect extends React.Component {
     super(props);
   }
   componentDidMount = () => {
+    document.title = "แบบร่าง";
     const page = this.props.match.params.page;
     this.props.fetchDataUser();
     this.props.fetchCountAnnounces();
@@ -74,7 +75,8 @@ class UserAnnouncesCorrect extends React.Component {
                 <BreadcrumbItem>
                   หน้าสมาชิก
                 </BreadcrumbItem>
-                <BreadcrumbItem active>ประกาศของฉัน</BreadcrumbItem>
+                <BreadcrumbItem >ประกาศของฉัน</BreadcrumbItem>
+                <BreadcrumbItem active>แบบร่าง</BreadcrumbItem>
               </Breadcrumb>
             </Container>
             <UserAnnouncesList

@@ -27,6 +27,7 @@ class ProfilePage extends React.Component {
   }
 
   componentDidMount = () => {
+    document.title = "ข้อมูลของฉัน";
     this.props.fetchDataUser();
   };
 

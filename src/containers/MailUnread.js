@@ -27,6 +27,7 @@ class MailUnread extends React.Component {
   }
 
   componentDidMount = () => {
+    document.title = "จดหมาย-ไม่ได้อ่าน";
     const page = this.props.match.params.page;
     this.props.fetchDataUser();
     this.props.fetchUserMailUnread(page);
@@ -130,7 +131,7 @@ class MailUnread extends React.Component {
                     <a href="/">หน้าแรก</a>
                   </BreadcrumbItem>
                   <BreadcrumbItem>หน้าสมาชิก</BreadcrumbItem>
-                  <BreadcrumbItem active>ช้อความ</BreadcrumbItem>
+                  <BreadcrumbItem active>จดหมาย-ยังไม่ได้อ่าน</BreadcrumbItem>
                 </Breadcrumb>
                 <Alert
                   className="text-center"

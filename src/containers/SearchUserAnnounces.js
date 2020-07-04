@@ -27,6 +27,7 @@ class SearchUserAnnounces extends React.Component {
     };
   }
   componentDidMount = () => {
+    document.title = "ค้นหา ประกาศของฉัน";
     const page = this.props.match.params.page;
     this.props.fetchDataUser();
     this.props.fetchCountAnnounces();

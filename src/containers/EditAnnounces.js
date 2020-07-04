@@ -57,6 +57,7 @@ class EditAnnounces extends React.Component {
   }
 
   componentDidMount = () => {
+    document.title = "แก้ไขประกาศ";
     const id = this.props.match.params.id;
     this.props.fetchDataUser();
     this.props.fetchProvince();

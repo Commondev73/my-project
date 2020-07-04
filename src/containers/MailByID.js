@@ -43,6 +43,7 @@ class MailByID extends React.Component {
   }
 
   componentDidMount = () => {
+    document.title = "ข้อความ";
     const id = this.props.match.params.id;
     this.props.fetchDataUser();
     this.props.fetchMessage(id);

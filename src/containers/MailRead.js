@@ -28,6 +28,7 @@ class MailRead extends React.Component {
   }
 
   componentDidMount = () => {
+    document.title = "จดหมาย-อ่านแล้ว";
     const page = this.props.match.params.page;
     this.props.fetchDataUser();
     this.props.fetchUserMailRead(page);
@@ -131,7 +132,7 @@ class MailRead extends React.Component {
                     <a href="/">หน้าแรก</a>
                   </BreadcrumbItem>
                   <BreadcrumbItem>หน้าสมาชิก</BreadcrumbItem>
-                  <BreadcrumbItem active>ช้อความ</BreadcrumbItem>
+                  <BreadcrumbItem active>จดหมาย-อ่านแล้ว</BreadcrumbItem>
                 </Breadcrumb>
                 <Alert
                   className="text-center"

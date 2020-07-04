@@ -22,6 +22,7 @@ class UserChangePassword extends React.Component {
     super(props);
   }
   componentDidMount = () => {
+    document.title = "เปลี่ยนรหัสผ่าน";
     this.props.fetchDataUser();
   };
   handleSubmit = (data) => {

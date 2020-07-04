@@ -37,7 +37,7 @@ class BottomNavigation extends React.Component {
                   <h5>
                     <FcInvite />
                   </h5>
-                  <p>ข้อความ</p>
+                  <p>จดหมาย</p>
                 </a>
               </li>
             </ul>

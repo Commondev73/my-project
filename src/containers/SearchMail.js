@@ -30,6 +30,7 @@ class SearchMail extends React.Component {
   }
 
   componentDidMount = () => {
+    document.title = "ค้นหา จดหมายของฉัน";
     const page = this.props.match.params.page;
     this.props.fetchDataUser();
     this.props.fetchSearchMail(this.state.keyword, page);

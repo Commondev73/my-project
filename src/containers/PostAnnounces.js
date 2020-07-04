@@ -54,6 +54,7 @@ class PostAnnounces extends React.Component {
   }
 
   componentDidMount = () => {
+    document.title = "เพิ่มประกาศ";
     this.props.fetchDataUser();
     this.props.fetchProvince();
   };

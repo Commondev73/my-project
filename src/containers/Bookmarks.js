@@ -29,6 +29,7 @@ class Bookmarks extends React.Component {
   }
 
   componentDidMount = () => {
+    document.title = "รายการโปรด";
     const page = this.props.match.params.page;
     this.props.fetchDataUser();
     this.props.fetchBookMarks(page);
@@ -81,9 +82,7 @@ class Bookmarks extends React.Component {
                     <FaHome className="mr-1" />
                     <a href="/">หน้าแรก</a>
                   </BreadcrumbItem>
-                  <BreadcrumbItem>
-                   หน้าสมาชิก
-                  </BreadcrumbItem>
+                  <BreadcrumbItem>หน้าสมาชิก</BreadcrumbItem>
                   <BreadcrumbItem active>รายการโปรด</BreadcrumbItem>
                 </Breadcrumb>
                 <Container className="pt-3 border" style={BookMarkBorder}>

@@ -45,7 +45,7 @@ class UserMenu extends React.Component {
                   <h2>
                     <FcInvite />
                   </h2>
-                  <p>ข้อความ</p>
+                  <p>จดหมาย</p>
                 </a>
               </li>
             </ul>

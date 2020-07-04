@@ -28,6 +28,7 @@ class Mail extends React.Component {
   }
 
   componentDidMount = () => {
+    document.title = "จดหมายทั้งหมด";
     const page = this.props.match.params.page;
     this.props.fetchDataUser();
     this.props.fetchMail(page);
@@ -133,7 +134,7 @@ class Mail extends React.Component {
                   <BreadcrumbItem>
                    หน้าสมาชิก
                   </BreadcrumbItem>
-                  <BreadcrumbItem active>ช้อความ</BreadcrumbItem>
+                  <BreadcrumbItem active>จดหมายทั้งหมด</BreadcrumbItem>
                 </Breadcrumb>
                 <Alert
                   className="text-center"

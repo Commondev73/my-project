@@ -19,6 +19,7 @@ class UserAnnouncesOnline extends React.Component {
     super(props);
   }
   componentDidMount = () => {
+    document.title = "ประกาศของฉัน";
     const page = this.props.match.params.page;
     this.props.fetchDataUser();
     this.props.fetchCountAnnounces();
@@ -81,7 +82,8 @@ class UserAnnouncesOnline extends React.Component {
                   <BreadcrumbItem>
                     หน้าสมาชิก
                   </BreadcrumbItem>
-                  <BreadcrumbItem active>ประกาศของฉัน</BreadcrumbItem>
+                  <BreadcrumbItem>ประกาศของฉัน</BreadcrumbItem>
+                  <BreadcrumbItem active>ออนไลน์</BreadcrumbItem>
                 </Breadcrumb>
               </Container>
               <UserAnnouncesList

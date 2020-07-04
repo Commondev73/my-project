@@ -21,6 +21,11 @@ class RegisterPage extends React.Component {
     super(props);
     this.handleRedirect = this.handleRedirect.bind(this);
   }
+
+  componentDidMount = () => {
+    document.title = "สมัครสมาชิก";
+  };
+
   handleSubmit = (data) => {
     this.props.postRegister(data);
   };
