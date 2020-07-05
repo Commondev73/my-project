@@ -68,7 +68,7 @@ class Announce extends React.Component {
       };
     });
   };
-  
+
   phoneReplace = (value) => {
     const input = value.replace(/\D/g, "").substring(0, 10);
     const first = input.substring(0, 3);
@@ -255,10 +255,13 @@ class Announce extends React.Component {
                       }}
                     ></div>
                   </Col>
-                  <Col md={{ size: "4", offset: "4" }} xs="12" className="mt-3">
-                    <Button block className="rounded-pill mt-3" color="danger">
-                      แจ้งประกาศไม่เหมาะสม
-                    </Button>
+                  <Col
+                    md={{ size: "6", offset: "3" }}
+                    sm={{ size: "6", offset: "3" }}
+                    xs="12"
+                    className="mt-3"
+                  >
+                    <Button block className="rounded-pill" color="danger">แจ้งประกาศไม่เหมาะสม</Button>
                   </Col>
                 </Container>
               </Row>
@@ -289,7 +292,9 @@ class Announce extends React.Component {
                           }}
                         />
                         {showPhone ? (
-                          <Fragment>{this.phoneReplace(announce.user.phone)}</Fragment>
+                          <Fragment>
+                            {this.phoneReplace(announce.user.phone)}
+                          </Fragment>
                         ) : (
                           <Fragment>ดูเบอร์โทร</Fragment>
                         )}

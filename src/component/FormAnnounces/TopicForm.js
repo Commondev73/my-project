@@ -204,7 +204,7 @@ class TopicForm extends React.Component {
                 />
               </FormGroup>
             </Col>
-            <Col xs="12" md={{ size: "2", offset: "5" }}>
+            <Col md={{ size: "4", offset: "4" }} sm={{ size: "8", offset: "2" }} xs="12">
               <Button
                 block
                 color="info"

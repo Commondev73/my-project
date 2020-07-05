@@ -2,7 +2,7 @@ import React from "react";
 import "./UserMenu.css";
 import ImageProfile from "../ImageProfile/ImageProfile";
 import { Container } from "reactstrap";
-import { FcTemplate , FcBusinessman ,FcLike ,FcViewDetails ,FcInvite } from "react-icons/fc";
+import { FcBusinessman ,FcLike ,FcViewDetails ,FcFeedback } from "react-icons/fc";
 
 class UserMenu extends React.Component {
   render() {
@@ -43,7 +43,7 @@ class UserMenu extends React.Component {
               <li className="icon">
                 <a href="/member/mail">
                   <h2>
-                    <FcInvite />
+                    <FcFeedback />
                   </h2>
                   <p>จดหมาย</p>
                 </a>

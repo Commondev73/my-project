@@ -47,7 +47,7 @@ ol.breadcrumb {
   background-color: white;
 }
 
-@media only screen and (max-width: 1024px) and (min-width: 768px) {
+/* @media only screen and (max-width: 1024px) and (min-width: 768px) {
   .content {
     font-size: 12px;
   }
@@ -63,7 +63,7 @@ ol.breadcrumb {
   .content {
     font-size: 11px;
   }
-}
+} */
 .pagination {
   flex-wrap: wrap;
   justify-content: center;

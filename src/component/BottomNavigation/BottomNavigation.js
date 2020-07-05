@@ -1,6 +1,6 @@
 import React from "react";
 import "./BottomNavigation.css";
-import { FcTemplate , FcBusinessman ,FcLike ,FcViewDetails ,FcInvite } from "react-icons/fc";
+import { FcTemplate , FcBusinessman ,FcLike ,FcViewDetails ,FcFeedback } from "react-icons/fc";
 class BottomNavigation extends React.Component {
   render() {
     return (
@@ -35,7 +35,7 @@ class BottomNavigation extends React.Component {
               <li className="">
                 <a href="/member/mail">
                   <h5>
-                    <FcInvite />
+                    <FcFeedback />
                   </h5>
                   <p>จดหมาย</p>
                 </a>

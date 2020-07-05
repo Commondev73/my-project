@@ -138,7 +138,7 @@ class ConfirmForm extends React.Component {
           </Col>
           <Col xs="12">
             <Row className="btn-step mt-3">
-              <Col md={{ size: "2" }} className="mb-3">
+              <Col md={{ size: "3" }} sm={{ size: "4" }} className="mb-3">
                 <Button
                   block
                   color="danger"
@@ -149,7 +149,7 @@ class ConfirmForm extends React.Component {
                   ย้อนกลับ
                 </Button>
               </Col>
-              <Col md={{ size: "2" }} className="mb-3">
+              <Col md={{ size: "3" }} sm={{ size: "4" }} className="mb-3">
                 <Button
                   block
                   className="rounded-pill"
@@ -159,7 +159,7 @@ class ConfirmForm extends React.Component {
                   แบบร่าง
                 </Button>
               </Col>
-              <Col md={{ size: "2" }}>
+              <Col md={{ size: "3" }} sm={{ size: "4" }}>
                 <Button
                   block
                   color="success"

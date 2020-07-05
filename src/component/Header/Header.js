@@ -1,7 +1,8 @@
 import React, { Fragment } from "react";
 import Search from "../Search/Search";
 import "./Header.css";
-import logo from '../image/logoPage.png'
+import logo from "../image/logoPage.png";
+import imageUser from "../image/user-img.jpg";
 import {
   Collapse,
   Navbar,
@@ -13,6 +14,7 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { logout } from "../../actions";
+import { FaHome, FaBuilding } from "react-icons/fa";
 
 class Header extends React.Component {
   constructor(props) {
@@ -36,17 +38,18 @@ class Header extends React.Component {
   }
 
   NavbarTogglerSpan = (data) => {
-    const { user, isAuthenticated } = this.props
+    const { user, isAuthenticated } = this.props;
     const NoAuth = {
-      backgroundImage: 'url(https://www.livinginsider.com/assets18/images/xno-user.png.pagespeed.ic.7d6lssbtJ3.webp)'
+      backgroundImage:
+        "url(https://www.livinginsider.com/assets18/images/xno-user.png.pagespeed.ic.7d6lssbtJ3.webp)",
     };
     const Auth = {
       backgroundImage: `url(${user.image})`,
-      backgroundSize: 'cover'
-    }
+      backgroundSize: "cover",
+    };
     const Style = isAuthenticated ? Auth : NoAuth;
-    return Style
-  }
+    return Style;
+  };
 
   toggle2() {
     this.setState({
@@ -73,15 +76,15 @@ class Header extends React.Component {
               <NavbarBrand className="font-menu text-light" href="/">
                 {/* <img className="logo" src={logo} alt="" /> */}
                 <div className="logo">
-                  <img
-                    src={logo}
-                    alt=""
-                  />
+                  <img src={logo} alt="" />
                 </div>
               </NavbarBrand>
 
               <NavbarToggler onClick={this.toggle2} className="user border-0">
-                <span className="navbar-toggler-icon rounded-circle" style={this.NavbarTogglerSpan()}></span>
+                <span
+                  className="navbar-toggler-icon rounded-circle"
+                  style={this.NavbarTogglerSpan()}
+                ></span>
               </NavbarToggler>
 
               <Collapse isOpen={this.state.isOpen} navbar>
@@ -89,10 +92,16 @@ class Header extends React.Component {
                   <NavLink className="rounded-pill font-menu" href="/">
                     <span className="font-menu">หน้าแรก</span>
                   </NavLink>
-                  <NavLink className="rounded-pill font-menu" href="/search/null/null/คอนโด/null/null/null/null/1">
+                  <NavLink
+                    className="rounded-pill font-menu"
+                    href="/search/null/null/คอนโด/null/null/null/null/1"
+                  >
                     <span className="font-menu">คอนโด</span>
                   </NavLink>
-                  <NavLink className="rounded-pill font-menu" href="/search/null/null/บ้าน/null/null/null/null/1">
+                  <NavLink
+                    className="rounded-pill font-menu"
+                    href="/search/null/null/บ้าน/null/null/null/null/1"
+                  >
                     <span className="font-menu">บ้าน</span>
                   </NavLink>
                   {/* <NavLink className="rounded-pill font-menu" href="#">
@@ -113,8 +122,19 @@ class Header extends React.Component {
                           alt="Cinque Terre"
                         />
                       </div> */}
-                      <NavLink className="rounded-pill" href="/member/announces/online">
-                        <span className="font-menu">หน้าสมาชิก</span>
+                      <NavLink
+                        className="rounded-pill"
+                        href="/member/announces/online"
+                      >
+                        <div className="image-user d-flex">
+                          <img
+                            className="rounded mx-auto d-block rounded-circle"
+                            src={user.image ? `${user.image}` : imageUser}
+                            alt="Cinque Terre"
+                          />
+                         <span className="font-menu d-sm-none d-sm-block d-md-none">หน้าสมาชิก</span>
+                        </div>
+                        {/* <span className="font-menu">หน้าสมาชิก</span> */}
                       </NavLink>
                       <NavLink
                         className="rounded-pill"
@@ -139,7 +159,7 @@ class Header extends React.Component {
             </Container>
           </Navbar>
         </div>
-        <Search match={this.props.match}/>
+        <Search match={this.props.match} />
       </header>
     );
   }

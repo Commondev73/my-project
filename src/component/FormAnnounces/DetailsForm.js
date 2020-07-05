@@ -264,7 +264,7 @@ class DetailsForm extends React.Component {
                   <div className="helper-text">
                     คลิก หรือ ลากรูปภาพวางที่นี้
                   </div>
-                  <div className="file-browser-container">
+                  <div className="file-browser-container w-100 d-flex justify-content-center">
                     <Button
                       className="rounded-pill"
                       color="info"
@@ -285,7 +285,7 @@ class DetailsForm extends React.Component {
             </Col>
             <Col xs="12">
               <Row className="btn-step mt-3">
-                <Col md={{ size: "2" }} className="mb-3">
+                <Col md={{ size: "3" }} sm={{ size: "4" }} className="mb-3">
                   <Button
                     block
                     color="danger"
@@ -296,7 +296,7 @@ class DetailsForm extends React.Component {
                     ย้อนกลับ
                   </Button>
                 </Col>
-                <Col md={{ size: "2" }}>
+                <Col md={{ size: "3" }} sm={{ size: "4" }}>
                   <Button
                     block
                     color="info"
