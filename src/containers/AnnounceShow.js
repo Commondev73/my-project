@@ -1,11 +1,12 @@
 import React, { Fragment } from "react";
 import Header from "../component/Header/Header";
+import BottomNavigation from "../component/BottomNavigation/BottomNavigation";
 import Announce from "../component/Announce/Announce";
 import ModalErr from "../component/ModalErr/ModalErr";
 import Loading from "../component/Loading/Loading";
-
 import { connect } from "react-redux";
 import {
+  countMail,
   fetchAnnounce,
   message,
   addBookMark,
@@ -53,6 +54,9 @@ class AnnounceShow extends React.Component {
     document.title = "บ้าน คอนโด ตลาดซื้อขาย-เช่า";
     const id = this.props.match.params.id;
     this.props.fetchAnnounce(id);
+    if (this.props.isAuthenticated) {
+      this.props.countMail();
+    }
   };
 
   changeHandler = (event) => {
@@ -169,6 +173,10 @@ class AnnounceShow extends React.Component {
       err,
       message_err,
       match,
+
+      count,
+      count_isLoading,
+      count_err,
     } = this.props;
     const { invalid } = this.state;
     const value = { ...this.state.message };
@@ -208,6 +216,9 @@ class AnnounceShow extends React.Component {
             />
           )}
           {err || (message_err && <ModalErr />)}
+          {isAuthenticated && (
+            <Fragment>{count && <BottomNavigation count={count} />}</Fragment>
+          )}
           <Modal
             isOpen={this.state.messageErr}
             className="modal-dialog-centered"
@@ -269,6 +280,10 @@ const mapStateToProps = (state, props) => {
     announce: announce.data,
     err: announce.err,
 
+    count: state.countMail.data,
+    count_err: state.countMail.err,
+    count_isLoading: state.countMail.isLoading,
+
     message: state.message.data,
     message_err: state.message.err,
 
@@ -283,6 +298,7 @@ const mapStateToProps = (state, props) => {
 };
 
 const mapDispatchToProps = {
+  countMail,
   fetchAnnounce,
   message,
   addBookMark,

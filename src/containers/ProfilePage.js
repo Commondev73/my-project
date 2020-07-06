@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import Loading from "../component/Loading/Loading";
 import Header from "../component/Header/Header";
+import BottomNavigation from "../component/BottomNavigation/BottomNavigation";
 import Profile from "../component/Profile/Profile";
 import ModalErr from "../component/ModalErr/ModalErr";
 import UserMenu from "../component/UserMenu/UserMenu";
@@ -16,7 +17,12 @@ import {
 } from "reactstrap";
 import { FaHome, FaRegCheckCircle } from "react-icons/fa";
 import { connect } from "react-redux";
-import { fetchDataUser, UpdateProfile, UpdateProfileImage } from "../actions";
+import {
+  countMail,
+  fetchDataUser,
+  UpdateProfile,
+  UpdateProfileImage,
+} from "../actions";
 
 class ProfilePage extends React.Component {
   constructor(props) {
@@ -29,6 +35,7 @@ class ProfilePage extends React.Component {
   componentDidMount = () => {
     document.title = "ข้อมูลของฉัน";
     this.props.fetchDataUser();
+    this.props.countMail();
   };
 
   componentDidUpdate(nextProps) {
@@ -65,6 +72,11 @@ class ProfilePage extends React.Component {
       user,
       isLoading,
       update_profile,
+      //
+      count,
+      count_isLoading,
+      count_err,
+      //
       err_update,
       update_profile_image,
       update_profile_image_err,
@@ -82,10 +94,12 @@ class ProfilePage extends React.Component {
           match={match}
         />
         <div className="content">
-          {isLoading && !user && <Loading isLoading={isLoading} />}
-          {user && (
+          {isLoading && count_isLoading && !count && !user && (
+            <Loading isLoading={isLoading} />
+          )}
+          {user && count && (
             <Fragment>
-              <UserMenu user={user} />
+              <UserMenu user={user} count={count}/>
               <Container className="mt-2">
                 <Breadcrumb style={{ backgroundColor: "white" }}>
                   <BreadcrumbItem>
@@ -102,6 +116,7 @@ class ProfilePage extends React.Component {
                 user={user}
                 err_update={err_update}
               />
+              <BottomNavigation count={count} />
             </Fragment>
           )}
 
@@ -159,7 +174,7 @@ class ProfilePage extends React.Component {
             </ModalFooter>
           </Modal>
 
-          {update_profile_image_err || (err && <ModalErr />)}
+          {count_err || update_profile_image_err || (err && <ModalErr />)}
         </div>
       </Fragment>
     );
@@ -169,6 +184,10 @@ const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.user.authenticated,
     userSet: state.user,
+
+    count: state.countMail.data,
+    count_err: state.countMail.err,
+    count_isLoading: state.countMail.isLoading,
 
     user: state.data_user.data,
     err: state.data_user.err,
@@ -182,6 +201,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
+  countMail,
   fetchDataUser,
   UpdateProfile,
   UpdateProfileImage,

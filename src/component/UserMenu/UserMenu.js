@@ -2,11 +2,16 @@ import React from "react";
 import "./UserMenu.css";
 import ImageProfile from "../ImageProfile/ImageProfile";
 import { Container } from "reactstrap";
-import { FcBusinessman ,FcLike ,FcViewDetails ,FcFeedback } from "react-icons/fc";
+import {
+  FcBusinessman,
+  FcLike,
+  FcViewDetails,
+  FcFeedback,
+} from "react-icons/fc";
 
 class UserMenu extends React.Component {
   render() {
-    const { user } = this.props;
+    const { user, count } = this.props;
     return (
       <div className="d-none d-sm-block set-top">
         <div className="usermenu">
@@ -42,10 +47,15 @@ class UserMenu extends React.Component {
               </li>
               <li className="icon">
                 <a href="/member/mail">
-                  <h2>
-                    <FcFeedback />
-                  </h2>
-                  <p>จดหมาย</p>
+                  <div className="icon-mail">
+                    {count.unread !== 0 && (
+                      <div className="mail-notify">{count.unread}</div>
+                    )}
+                    <h2>
+                      <FcFeedback />
+                    </h2>
+                    <p>จดหมาย</p>
+                  </div>
                 </a>
               </li>
             </ul>

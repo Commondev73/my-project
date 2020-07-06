@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import Loading from "../component/Loading/Loading";
 import Header from "../component/Header/Header";
+import BottomNavigation from "../component/BottomNavigation/BottomNavigation";
 import ModalErr from "../component/ModalErr/ModalErr";
 import UserMenu from "../component/UserMenu/UserMenu";
 import AnnouncesList from "../component/AnnouncesList/AnnouncesList";
@@ -10,6 +11,7 @@ import { Container, Breadcrumb, BreadcrumbItem, Col, Row } from "reactstrap";
 import { FaHome } from "react-icons/fa";
 import { connect } from "react-redux";
 import {
+  countMail,
   fetchDataUser,
   fetchBookMarks,
   addBookMark,
@@ -33,6 +35,7 @@ class Bookmarks extends React.Component {
     const page = this.props.match.params.page;
     this.props.fetchDataUser();
     this.props.fetchBookMarks(page);
+    this.props.countMail();
   };
 
   getData = async (pageNumber) => {
@@ -52,6 +55,11 @@ class Bookmarks extends React.Component {
       user,
       isLoading,
       err,
+
+      count,
+      count_isLoading,
+      count_err,
+
       bookmarks,
       bookmarksErr,
       bookmarksIsLoading,
@@ -70,12 +78,15 @@ class Bookmarks extends React.Component {
           match={match}
         />
         <div className="content">
-          {isLoading && bookmarksIsLoading && !user && !bookmarks && (
-            <Loading isLoading={isLoading} />
-          )}
-          {user && bookmarks && (
+          {isLoading &&
+            bookmarksIsLoading &&
+            count_isLoading &&
+            !count &&
+            !user &&
+            !bookmarks && <Loading isLoading={isLoading} />}
+          {user && bookmarks && count && (
             <Fragment>
-              <UserMenu user={user} />
+              <UserMenu user={user} count={count} />
               <Container className="mt-2">
                 <Breadcrumb style={{ backgroundColor: "white" }}>
                   <BreadcrumbItem>
@@ -120,12 +131,14 @@ class Bookmarks extends React.Component {
                   </Row>
                 </Container>
               </Container>
+              <BottomNavigation count={count} />
             </Fragment>
           )}
           {err ||
             bookmarksErr ||
             addBookmarkErr ||
-            (deleteBookmarkErr && <ModalErr />)}
+            deleteBookmarkErr ||
+            (count_err && <ModalErr />)}
         </div>
       </Fragment>
     );
@@ -140,6 +153,10 @@ const mapStateToProps = (state) => {
     user: state.data_user.data,
     err: state.data_user.err,
     isLoading: state.data_user.isLoading,
+
+    count: state.countMail.data,
+    count_err: state.countMail.err,
+    count_isLoading: state.countMail.isLoading,
 
     bookmarks: state.bookmarks.data,
     bookmarksErr: state.bookmarks.err,
@@ -156,6 +173,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
+  countMail,
   fetchDataUser,
   fetchBookMarks,
   addBookMark,

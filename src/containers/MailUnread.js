@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import Header from "../component/Header/Header";
+import BottomNavigation from "../component/BottomNavigation/BottomNavigation";
 import Loading from "../component/Loading/Loading";
 import ModalErr from "../component/ModalErr/ModalErr";
 import UserMenu from "../component/UserMenu/UserMenu";
@@ -123,7 +124,7 @@ class MailUnread extends React.Component {
             !mail && <Loading isLoading={isLoading} />}
           {user && mail && count && (
             <Fragment>
-              <UserMenu user={user} />
+              <UserMenu user={user} count={count} />
               <Container className="mt-2">
                 <Breadcrumb style={{ backgroundColor: "white" }}>
                   <BreadcrumbItem>
@@ -165,6 +166,7 @@ class MailUnread extends React.Component {
                 unread={this.handleUnread}
                 deleteMail={this.handleDelete}
               />
+              <BottomNavigation count={count} />
             </Fragment>
           )}
           {err ||

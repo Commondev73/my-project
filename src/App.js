@@ -1,9 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import Header from "./component/Header/Header";
 import Footer from "./component/Footer/Footer";
-import BottomNavigation from "./component/BottomNavigation/BottomNavigation";
 
 import Home from "./containers/Home";
 import LoginPage from "./containers/LoginPage";
@@ -183,8 +181,6 @@ class App extends React.Component {
 
           <Route component={NotFoundPage} />
         </Switch>
-        {/* </div> */}
-        {isAuthenticated ? <BottomNavigation /> : null}
         <Footer />
       </Router>
     );

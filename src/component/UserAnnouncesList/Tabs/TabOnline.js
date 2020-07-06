@@ -46,7 +46,6 @@ class TabOnline extends React.Component {
 
   render() {
     const { announce } = this.props;
-    console.log("announce", this.props.announce);
     return (
       <Fragment>
         <Row className="m-auto border user-announces">

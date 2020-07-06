@@ -1,8 +1,16 @@
 import React from "react";
 import "./BottomNavigation.css";
-import { FcTemplate , FcBusinessman ,FcLike ,FcViewDetails ,FcFeedback } from "react-icons/fc";
+import {
+  FcTemplate,
+  FcBusinessman,
+  FcLike,
+  FcViewDetails,
+  FcFeedback,
+} from "react-icons/fc";
 class BottomNavigation extends React.Component {
   render() {
+    const { count } = this.props;
+    console.log('count',count)
     return (
       <div className="d-block d-sm-none fixed-bottom">
         <div className="navigation-menu">
@@ -10,34 +18,39 @@ class BottomNavigation extends React.Component {
             <ul>
               <li className="border-white">
                 <a href="/profile">
-                  <h5>
+                  <h3>
                     <FcBusinessman />
-                  </h5>
+                  </h3>
                   <p>ฉัน</p>
                 </a>
               </li>
               <li className="border-white">
                 <a href="/member/announces/online">
-                  <h5>
+                  <h3>
                     <FcViewDetails />
-                  </h5>
+                  </h3>
                   <p>ประกาศของฉัน</p>
                 </a>
               </li>
               <li className="border-white">
                 <a href="/member/bookmarks">
-                  <h5>
+                  <h3>
                     <FcLike />
-                  </h5>
-                  <p>ถูกใจ</p>
+                  </h3>
+                  <p>รายการโปรด</p>
                 </a>
               </li>
               <li className="">
                 <a href="/member/mail">
-                  <h5>
-                    <FcFeedback />
-                  </h5>
-                  <p>จดหมาย</p>
+                  <div className="icon-mail-mobile">
+                    {count.unread !== 0 && (
+                      <div className="mail-notify-mobile">{count.unread}</div>
+                    )}
+                    <h3>
+                      <FcFeedback />
+                    </h3>
+                    <p>จดหมาย</p>
+                  </div>
                 </a>
               </li>
             </ul>

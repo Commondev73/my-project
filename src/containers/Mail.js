@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import Header from "../component/Header/Header";
+import BottomNavigation from "../component/BottomNavigation/BottomNavigation";
 import Loading from "../component/Loading/Loading";
 import ModalErr from "../component/ModalErr/ModalErr";
 import UserMenu from "../component/UserMenu/UserMenu";
@@ -16,7 +17,6 @@ import {
   saveMail,
   deleteMessage,
 } from "../actions";
-import { Col } from "reactstrap";
 
 class Mail extends React.Component {
   constructor(props) {
@@ -124,16 +124,14 @@ class Mail extends React.Component {
             !mail && <Loading isLoading={isLoading} />}
           {user && mail && count && (
             <Fragment>
-              <UserMenu user={user} />
+              <UserMenu user={user} count={count} />
               <Container className="mt-2">
                 <Breadcrumb style={{ backgroundColor: "white" }}>
                   <BreadcrumbItem>
                     <FaHome className="mr-1" />
                     <a href="/">หน้าแรก</a>
                   </BreadcrumbItem>
-                  <BreadcrumbItem>
-                   หน้าสมาชิก
-                  </BreadcrumbItem>
+                  <BreadcrumbItem>หน้าสมาชิก</BreadcrumbItem>
                   <BreadcrumbItem active>จดหมายทั้งหมด</BreadcrumbItem>
                 </Breadcrumb>
                 <Alert
@@ -168,6 +166,7 @@ class Mail extends React.Component {
                 unread={this.handleUnread}
                 deleteMail={this.handleDelete}
               />
+              <BottomNavigation count={count} />
             </Fragment>
           )}
           {err ||

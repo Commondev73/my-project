@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import Header from "../component/Header/Header";
+import BottomNavigation from "../component/BottomNavigation/BottomNavigation";
 import Loading from "../component/Loading/Loading";
 import ModalErr from "../component/ModalErr/ModalErr";
 import ReactPaginate from "react-paginate";
@@ -126,7 +127,7 @@ class SearchMail extends React.Component {
             !mail && <Loading isLoading={isLoading} />}
           {user && mail && count && (
             <Fragment>
-              <UserMenu user={user} />
+              <UserMenu user={user} count={count} />
               <Container className="mt-2">
                 <Breadcrumb style={{ backgroundColor: "white" }}>
                   <BreadcrumbItem>
@@ -188,6 +189,7 @@ class SearchMail extends React.Component {
                   />
                 </Col>
               )}
+              <BottomNavigation count={count} />
             </Fragment>
           )}
           {err ||

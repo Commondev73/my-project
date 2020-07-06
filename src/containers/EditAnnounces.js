@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import Loading from "../component/Loading/Loading";
 import Header from "../component/Header/Header";
+import BottomNavigation from "../component/BottomNavigation/BottomNavigation";
 import UserMenu from "../component/UserMenu/UserMenu";
 import ModalErr from "../component/ModalErr/ModalErr";
 import FormAnnounces from "../component/FormAnnounces/FormAnnounces";
@@ -17,6 +18,7 @@ import {
 import { FaHome, FaRegCheckCircle, FaRegTimesCircle } from "react-icons/fa";
 import { connect } from "react-redux";
 import {
+  countMail,
   fetchUserAnnounce,
   updateAnnounces,
   fetchDataUser,
@@ -62,6 +64,7 @@ class EditAnnounces extends React.Component {
     this.props.fetchDataUser();
     this.props.fetchProvince();
     this.props.fetchUserAnnounce(id);
+    this.props.countMail();
   };
 
   componentDidUpdate = (nextProps) => {
@@ -268,6 +271,10 @@ class EditAnnounces extends React.Component {
       isLoading,
       err,
       //
+      count,
+      count_isLoading,
+      count_err,
+      //
       isLoading_announce,
       announce,
       err_announce,
@@ -300,21 +307,22 @@ class EditAnnounces extends React.Component {
           match={match}
         />
         <div className="content">
-          {isLoading && isLoading_announce && !user && !announce && (
-            <Loading isLoading={isLoading} />
-          )}
-          {user && announce && (
+          {isLoading &&
+            isLoading_announce &&
+            count_isLoading &&
+            !count &&
+            !user &&
+            !announce && <Loading isLoading={isLoading} />}
+          {user && announce && count && (
             <Fragment>
-              <UserMenu user={user} />
+              <UserMenu user={user} count={count} />
               <Container className="mt-2">
                 <Breadcrumb style={{ backgroundColor: "white" }}>
                   <BreadcrumbItem>
                     <FaHome className="mr-1" />
                     <a href="/">หน้าแรก</a>
                   </BreadcrumbItem>
-                  <BreadcrumbItem>
-                   หน้าสมาชิก
-                  </BreadcrumbItem>
+                  <BreadcrumbItem>หน้าสมาชิก</BreadcrumbItem>
                   <BreadcrumbItem active>แก้ไขประกาศ</BreadcrumbItem>
                 </Breadcrumb>
               </Container>
@@ -338,9 +346,11 @@ class EditAnnounces extends React.Component {
                 submit={this.handleSubmit}
                 draft={this.handleDraft}
               />
+               <BottomNavigation count={count} />
             </Fragment>
           )}
-          {err ||
+          {count_err ||
+            err ||
             err_announce ||
             updateAnnounces_err ||
             province_err ||
@@ -406,6 +416,10 @@ const mapStateToProps = (state, props) => {
     err: state.data_user.err,
     isLoading: state.data_user.isLoading,
 
+    count: state.countMail.data,
+    count_err: state.countMail.err,
+    count_isLoading: state.countMail.isLoading,
+
     isLoading_announce: state.announce_user.isLoading,
     announce: state.announce_user.data,
     err_announce: state.announce_user.err,
@@ -428,6 +442,8 @@ const mapStateToProps = (state, props) => {
 };
 
 const mapDispatchToProps = {
+  countMail,
+
   fetchUserAnnounce,
   updateAnnounces,
 

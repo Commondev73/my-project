@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import Header from "../component/Header/Header";
+import BottomNavigation from "../component/BottomNavigation/BottomNavigation";
 import Loading from "../component/Loading/Loading";
 import UserMenu from "../component/UserMenu/UserMenu";
 import ModalErr from "../component/ModalErr/ModalErr";
@@ -17,6 +18,7 @@ import {
 import { FaHome, FaRegCheckCircle } from "react-icons/fa";
 import { connect } from "react-redux";
 import {
+  countMail,
   fetchDataUser,
   postAnnounces,
   fetchProvince,
@@ -57,6 +59,7 @@ class PostAnnounces extends React.Component {
     document.title = "เพิ่มประกาศ";
     this.props.fetchDataUser();
     this.props.fetchProvince();
+    this.props.countMail();
   };
 
   changeHandler = (input) => (event) => {
@@ -182,6 +185,11 @@ class PostAnnounces extends React.Component {
       user,
       isLoading,
       err,
+
+      count,
+      count_isLoading,
+      count_err,
+
       redirect,
       province_isLoading,
       province,
@@ -208,10 +216,12 @@ class PostAnnounces extends React.Component {
           match={match}
         />
         <div className="content">
-          {isLoading && !user && <Loading isLoading={isLoading} />}
-          {user && (
+          {isLoading && count_isLoading && !count && !user && (
+            <Loading isLoading={isLoading} />
+          )}
+          {user && count && (
             <Fragment>
-              <UserMenu user={user} />
+              <UserMenu user={user} count={count} />
               <Container className="mt-2">
                 <Breadcrumb style={{ backgroundColor: "white" }}>
                   <BreadcrumbItem>
@@ -242,12 +252,14 @@ class PostAnnounces extends React.Component {
                 submit={this.handleSubmit}
                 draft={this.handleDraft}
               />
+              <BottomNavigation count={count} />
             </Fragment>
           )}
           {err ||
             postAnnounces_err ||
             province_err ||
             amphoe_err ||
+            count_err ||
             (district_err && <ModalErr />)}
           {redirect && (
             <Modal isOpen={true}>
@@ -290,6 +302,10 @@ const mapStateToProps = (state) => {
     err: state.data_user.err,
     isLoading: state.data_user.isLoading,
 
+    count: state.countMail.data,
+    count_err: state.countMail.err,
+    count_isLoading: state.countMail.isLoading,
+
     postAnnounces: state.postAnnounces.data,
     postAnnounces_err: state.postAnnounces.err,
     postAnnounces_isLoading: state.postAnnounces.isLoading,
@@ -308,6 +324,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
+  countMail,
   fetchDataUser,
   postAnnounces,
 

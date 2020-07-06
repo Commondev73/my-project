@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import Header from "../component/Header/Header";
+import BottomNavigation from "../component/BottomNavigation/BottomNavigation";
 import Loading from "../component/Loading/Loading";
 import UserMenu from "../component/UserMenu/UserMenu";
 import ModalErr from "../component/ModalErr/ModalErr";
@@ -7,7 +8,13 @@ import UserAnnouncesList from "../component/UserAnnouncesList/UserAnnouncesList"
 import { Container, Breadcrumb, BreadcrumbItem } from "reactstrap";
 import { FaHome } from "react-icons/fa";
 import { connect } from "react-redux";
-import { fetchUserAnnouncesDraft, fetchDataUser, fetchCountAnnounces, deleteAnnounces } from "../actions";
+import {
+  countMail,
+  fetchUserAnnouncesDraft,
+  fetchDataUser,
+  fetchCountAnnounces,
+  deleteAnnounces,
+} from "../actions";
 
 class UserAnnouncesCorrect extends React.Component {
   constructor(props) {
@@ -19,13 +26,14 @@ class UserAnnouncesCorrect extends React.Component {
     this.props.fetchDataUser();
     this.props.fetchCountAnnounces();
     this.props.fetchUserAnnouncesDraft(page);
+    this.props.countMail();
   };
 
   getData = async (pageNumber) => {
     window.location.replace(`${pageNumber}`);
   };
 
-  handleDelete = id => {
+  handleDelete = (id) => {
     this.props.deleteAnnounces(id);
   };
 
@@ -37,6 +45,11 @@ class UserAnnouncesCorrect extends React.Component {
       announces,
       isLoading_announces,
       announces_err,
+
+      count_mail,
+      count__mail_err,
+      count__mail_isLoading,
+
       count,
       count_isLoading,
       count_err,
@@ -59,43 +72,50 @@ class UserAnnouncesCorrect extends React.Component {
           match={match}
         />
         <div className="content">
-        {isLoading && isLoading_announces && count_isLoading &&
-          !count && !user && !announces && (
-            <Loading isLoading={isLoading} />
+          {isLoading &&
+            isLoading_announces &&
+            count_isLoading &&
+            count__mail_isLoading &&
+            !count_mail &&
+            !count &&
+            !user &&
+            !announces && <Loading isLoading={isLoading} />}
+          {user && announces && count && count_mail && (
+            <Fragment>
+              <UserMenu user={user} count={count_mail} />
+              <Container className="mt-2">
+                <Breadcrumb style={{ backgroundColor: "white" }}>
+                  <BreadcrumbItem>
+                    <FaHome className="mr-1" />
+                    <a href="/">หน้าแรก</a>
+                  </BreadcrumbItem>
+                  <BreadcrumbItem>หน้าสมาชิก</BreadcrumbItem>
+                  <BreadcrumbItem>ประกาศของฉัน</BreadcrumbItem>
+                  <BreadcrumbItem active>แบบร่าง</BreadcrumbItem>
+                </Breadcrumb>
+              </Container>
+              <UserAnnouncesList
+                count={count}
+                announces={announces}
+                tab={2}
+                delete={this.handleDelete}
+                getData={this.getData}
+              />
+              <BottomNavigation count={count_mail} />
+            </Fragment>
           )}
-        {user && announces &&  count && (
-          <Fragment>
-            <UserMenu user={user} />
-            <Container className="mt-2">
-              <Breadcrumb style={{ backgroundColor: "white" }}>
-                <BreadcrumbItem>
-                  <FaHome className="mr-1" />
-                  <a href="/">หน้าแรก</a>
-                </BreadcrumbItem>
-                <BreadcrumbItem>
-                  หน้าสมาชิก
-                </BreadcrumbItem>
-                <BreadcrumbItem >ประกาศของฉัน</BreadcrumbItem>
-                <BreadcrumbItem active>แบบร่าง</BreadcrumbItem>
-              </Breadcrumb>
-            </Container>
-            <UserAnnouncesList
-              count={count}
-              announces={announces}
-              tab={2}
-              delete={this.handleDelete}
-              getData={this.getData}
-            />
-          </Fragment>
-        )}
-        {err || announces_err || deleteAnnounces_err || count_err && <ModalErr />}
+          {err ||
+            announces_err ||
+            deleteAnnounces_err ||
+            count__mail_err ||
+            (count_err && <ModalErr />)}
         </div>
       </Fragment>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.user.authenticated,
     userSet: state.user,
@@ -112,18 +132,23 @@ const mapStateToProps = state => {
     count_err: state.countAnnounces.err,
     count_isLoading: state.countAnnounces.isLoading,
 
+    count_mail: state.countMail.data,
+    count__mail_err: state.countMail.err,
+    count__mail_isLoading: state.countMail.isLoading,
+
     deleteAnnounces: state.deleteAnnounces.data,
     isLoading_deleteAnnounces: state.deleteAnnounces.isLoading,
     deleteAnnounces_err: state.deleteAnnounces.err,
-    redirect: state.deleteAnnounces.redirect
+    redirect: state.deleteAnnounces.redirect,
   };
 };
 
 const mapDispatchToProps = {
+  countMail,
   fetchDataUser,
   fetchUserAnnouncesDraft,
   fetchCountAnnounces,
-  deleteAnnounces
+  deleteAnnounces,
 };
 
 export default UserAnnouncesCorrect = connect(

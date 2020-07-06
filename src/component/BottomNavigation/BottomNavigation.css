@@ -21,3 +21,18 @@
     color: white;
     margin: 0;
 }
+
+.icon-mail-mobile {
+  position: relative;
+}
+
+.mail-notify-mobile {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: red;
+  text-align: center;
+  color: white;
+  right: 0;
+}

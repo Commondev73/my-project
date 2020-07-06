@@ -1,6 +1,8 @@
 import React, { Fragment } from "react";
 import UserMenu from "../component/UserMenu/UserMenu";
 import Header from "../component/Header/Header";
+import BottomNavigation from "../component/BottomNavigation/BottomNavigation";
+import ModalErr from "../component/ModalErr/ModalErr";
 import Loading from "../component/Loading/Loading";
 import ChangePassword from "../component/ChangePassword/ChangePassword";
 import {
@@ -15,7 +17,7 @@ import {
 } from "reactstrap";
 import { FaHome, FaRegCheckCircle } from "react-icons/fa";
 import { connect } from "react-redux";
-import { changePassword, fetchDataUser } from "../actions";
+import { countMail, changePassword, fetchDataUser } from "../actions";
 
 class UserChangePassword extends React.Component {
   constructor(props) {
@@ -24,6 +26,7 @@ class UserChangePassword extends React.Component {
   componentDidMount = () => {
     document.title = "เปลี่ยนรหัสผ่าน";
     this.props.fetchDataUser();
+    this.props.countMail();
   };
   handleSubmit = (data) => {
     this.props.changePassword(data);
@@ -41,7 +44,13 @@ class UserChangePassword extends React.Component {
     const {
       user,
       isLoading,
+      err,
       err_change_password,
+
+      count,
+      count_isLoading,
+      count_err,
+
       redirect,
       userSet,
       isAuthenticated,
@@ -55,19 +64,19 @@ class UserChangePassword extends React.Component {
           match={match}
         />
         <div className="content">
-          {isLoading && !user && <Loading isLoading={isLoading} />}
-          {user && (
+          {isLoading && count_isLoading && !count && !user && (
+            <Loading isLoading={isLoading} />
+          )}
+          {user && count && (
             <Fragment>
-              <UserMenu user={user} />
+              <UserMenu user={user} count={count} />
               <Container className="mt-2">
                 <Breadcrumb style={{ backgroundColor: "white" }}>
                   <BreadcrumbItem>
                     <FaHome className="mr-1" />
                     <a href="/">หน้าแรก</a>
                   </BreadcrumbItem>
-                  <BreadcrumbItem>
-                    หน้าสมาชิก
-                  </BreadcrumbItem>
+                  <BreadcrumbItem>หน้าสมาชิก</BreadcrumbItem>
                   <BreadcrumbItem active>เปลี่ยนรหัสผ่าน</BreadcrumbItem>
                 </Breadcrumb>
               </Container>
@@ -104,9 +113,11 @@ class UserChangePassword extends React.Component {
                   </ModalFooter>
                 </Modal>
               )}
+              <BottomNavigation count={count} />
             </Fragment>
           )}
         </div>
+        {err || err_change_password || (count_err && <ModalErr />)}
       </Fragment>
     );
   }
@@ -116,6 +127,10 @@ const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.user.authenticated,
     userSet: state.user,
+
+    count: state.countMail.data,
+    count_err: state.countMail.err,
+    count_isLoading: state.countMail.isLoading,
 
     user: state.data_user.data,
     err: state.data_user.err,
@@ -128,6 +143,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
+  countMail,
   fetchDataUser,
   changePassword,
 };

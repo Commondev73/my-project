@@ -1,11 +1,13 @@
 import React, { Fragment } from "react";
 import Loading from "../component/Loading/Loading";
 import Header from "../component/Header/Header";
+import BottomNavigation from "../component/BottomNavigation/BottomNavigation";
 import ModalErr from "../component/ModalErr/ModalErr";
 import ReactPaginate from "react-paginate";
 import AnnouncesList from "../component/AnnouncesList/AnnouncesList";
 import { connect } from "react-redux";
 import {
+  countMail,
   fetchAnnounces,
   addBookMark,
   deleteBookMark,
@@ -28,6 +30,7 @@ class Home extends React.Component {
     this.props.fetchAnnounces(page);
     if (this.props.isAuthenticated) {
       this.props.fetchBookMarksID();
+      this.props.countMail();
     }
   };
 
@@ -64,12 +67,16 @@ class Home extends React.Component {
       BookmarkIDErr,
       addBookmarkErr,
       deleteBookmarkErr,
-      match
+      match,
+
+      count,
+      count_isLoading,
+      count_err,
     } = this.props;
 
     return (
       <Fragment>
-        <Header user={user} isAuthenticated={isAuthenticated}  match={match}/>
+        <Header user={user} isAuthenticated={isAuthenticated} match={match} />
         <div className="content">
           <Container className="mt-1">
             <Breadcrumb>
@@ -86,9 +93,11 @@ class Home extends React.Component {
                 <Fragment>
                   {isLoading &&
                     BookmarkIDIsLoading &&
+                    count_isLoading &&
+                    !count &&
                     !BookmarkID &&
                     !announces && <Loading isLoading={isLoading} />}
-                  {announces && BookmarkID && (
+                  {announces && BookmarkID && count && (
                     <Fragment>
                       {announces.data.map((announce) => (
                         <AnnouncesList
@@ -119,6 +128,7 @@ class Home extends React.Component {
                           />
                         </Col>
                       )}
+                      <BottomNavigation count={count} />
                     </Fragment>
                   )}
                 </Fragment>
@@ -164,6 +174,7 @@ class Home extends React.Component {
               {err ||
                 addBookmarkErr ||
                 deleteBookmarkErr ||
+                count_err ||
                 (BookmarkIDErr && <ModalErr />)}
             </Row>
           </Container>
@@ -182,6 +193,10 @@ const mapStateToProps = (state) => {
     err: state.announces.err,
     isLoading: state.announces.isLoading,
 
+    count: state.countMail.data,
+    count_err: state.countMail.err,
+    count_isLoading: state.countMail.isLoading,
+
     BookmarkID: state.bookmarksID.data,
     BookmarkIDErr: state.bookmarksID.err,
     BookmarkIDIsLoading: state.bookmarksID.isLoading,
@@ -197,6 +212,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
+  countMail,
   fetchAnnounces,
   addBookMark,
   deleteBookMark,

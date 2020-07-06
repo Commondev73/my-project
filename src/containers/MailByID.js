@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import Header from "../component/Header/Header";
+import BottomNavigation from "../component/BottomNavigation/BottomNavigation";
 import Loading from "../component/Loading/Loading";
 import ModalErr from "../component/ModalErr/ModalErr";
 import UserMenu from "../component/UserMenu/UserMenu";
@@ -23,6 +24,7 @@ import {
 } from "react-icons/fa";
 import { connect } from "react-redux";
 import {
+  countMail,
   fetchDataUser,
   fetchMessage,
   readMail,
@@ -47,6 +49,7 @@ class MailByID extends React.Component {
     const id = this.props.match.params.id;
     this.props.fetchDataUser();
     this.props.fetchMessage(id);
+    this.props.countMail();
   };
 
   componentDidUpdate(nextProps) {
@@ -117,6 +120,10 @@ class MailByID extends React.Component {
       user,
       isLoading,
       err,
+      count,
+      count_isLoading,
+      count_err,
+
       message,
       message_isLoading,
       message_err,
@@ -140,12 +147,15 @@ class MailByID extends React.Component {
           match={match}
         />
         <div className="content">
-          {isLoading && message_isLoading && !user && !message && (
-            <Loading isLoading={isLoading} />
-          )}
-          {user && message && (
+          {isLoading &&
+            message_isLoading &&
+            count_isLoading &&
+            !count &&
+            !user &&
+            !message && <Loading isLoading={isLoading} />}
+          {user && message && count && (
             <Fragment>
-              <UserMenu user={user} />
+              <UserMenu user={user} count={count} />
               <Container className="mt-2">
                 <Breadcrumb style={{ backgroundColor: "white" }}>
                   <BreadcrumbItem>
@@ -154,7 +164,7 @@ class MailByID extends React.Component {
                   </BreadcrumbItem>
                   <BreadcrumbItem>หน้าสมาชิก</BreadcrumbItem>
                   <BreadcrumbItem>ช้อความ</BreadcrumbItem>
-                  <BreadcrumbItem active>{message.message}</BreadcrumbItem>
+                  <BreadcrumbItem active>{message.name}</BreadcrumbItem>
                 </Breadcrumb>
               </Container>
               <Container>
@@ -187,9 +197,10 @@ class MailByID extends React.Component {
                   deleteMail={this.confirmDelete}
                 />
               </Container>
+              <BottomNavigation count={count} />
             </Fragment>
           )}
-          {err || delete_err || (message_err && <ModalErr />)}
+          {err || delete_err || message_err || (count_err && <ModalErr />)}
           <Modal isOpen={this.state.confirmDelete}>
             <ModalBody className="text-center confirm-delete">
               <h1>
@@ -236,6 +247,10 @@ const mapStateToProps = (state) => {
     message_err: state.messageID.err,
     message_isLoading: state.messageID.isLoading,
 
+    count: state.countMail.data,
+    count_err: state.countMail.err,
+    count_isLoading: state.countMail.isLoading,
+
     // read: state.readMail.data,
     // read_err: state.readMail.err,
     // read_isLoading: state.readMail.isLoading,
@@ -256,6 +271,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   fetchDataUser,
+  countMail,
   fetchMessage,
   readMail,
   unreadMail,

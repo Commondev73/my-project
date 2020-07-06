@@ -1,8 +1,8 @@
 .usermenu {
   width: 100%;
   text-align: center;
-  height: 100px;
-  background-color: #6EA7EC;
+  height: 105px;
+  background-color: #6ea7ec;
 }
 /* div.set-top {
   padding-top: 18px;
@@ -55,4 +55,38 @@ svg:hover {
 
 a:hover {
   text-decoration: none;
+}
+
+.icon-mail {
+  position: relative;
+}
+
+.mail-notify {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: red;
+  text-align: center;
+  color: white;
+  right: 35%;
+}
+
+
+@media only screen and (max-width: 1024px) and (min-width: 768px) {
+  .mail-notify {
+    right: 35%;
+  }
+}
+
+@media only screen and (max-width: 767px) and (min-width: 576px) {
+  .mail-notify {
+    right: 20%;
+  }
+}
+
+@media only screen and (max-width: 991px) and (min-width: 768px) {
+  .mail-notify {
+    right: 30%;
+  }
 }
