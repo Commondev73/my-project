@@ -117,7 +117,7 @@ class UserChangePassword extends React.Component {
             </Fragment>
           )}
         </div>
-        {err || err_change_password || (count_err && <ModalErr />)}
+        {err || (count_err && <ModalErr />)}
       </Fragment>
     );
   }

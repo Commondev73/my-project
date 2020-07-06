@@ -9,7 +9,7 @@ import {
   Container,
   Row,
   Col,
-  FormFeedback
+  FormFeedback,
 } from "reactstrap";
 
 class ChangePassword extends React.Component {
@@ -19,29 +19,29 @@ class ChangePassword extends React.Component {
       formInputs: {
         password: "",
         new_password: "",
-        Cnew_password: ""
+        Cnew_password: "",
       },
       formErrors: {
         password: "",
         new_password: "",
-        Cnew_password: ""
+        Cnew_password: "",
       },
       invalid: {
         invalidPassword: false,
         invalidNew_password: false,
-        invalidCnew_password: false
+        invalidCnew_password: false,
       },
       valid: {
         validPassword: false,
         validNew_password: false,
-        validCnew_password: false
-      }
+        validCnew_password: false,
+      },
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
   }
 
-  changeHandler = async event => {
+  changeHandler = async (event) => {
     const name = event.target.name;
     const value = event.target.value;
     const { formInputs, invalid, valid, formErrors } = this.state;
@@ -62,8 +62,8 @@ class ChangePassword extends React.Component {
     this.setState({
       formInputs: {
         ...this.state.formInputs,
-        [name]: value
-      }
+        [name]: value,
+      },
     });
   };
 
@@ -73,7 +73,15 @@ class ChangePassword extends React.Component {
       // console.log("err", err.response.status);
       if (err) {
         this.setState({
-          invalid: { invalidPassword: true }
+          ...this.state,
+          formInputs: {
+            ...this.state.formInputs,
+            password: "",
+          },
+          invalid: {
+            ...this.state.invalid,
+            invalidPassword: true,
+          },
         });
       }
     }
@@ -97,12 +105,12 @@ class ChangePassword extends React.Component {
     const {
       invalidPassword,
       invalidNew_password,
-      invalidCnew_password
+      invalidCnew_password,
     } = this.state.invalid;
     const {
       validPassword,
       validNew_password,
-      validCnew_password
+      validCnew_password,
     } = this.state.valid;
     return (
       <div>
@@ -124,7 +132,7 @@ class ChangePassword extends React.Component {
                     name="password"
                     id="password"
                     placeholder="รหัสผ่าน"
-                    value={password.value}
+                    value={password}
                     onChange={this.changeHandler}
                     valid={validPassword}
                     invalid={invalidPassword}
