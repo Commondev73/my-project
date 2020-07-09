@@ -21,8 +21,12 @@ import {
   ModalBody,
   ModalFooter,
   Button,
+  FormGroup,
+  Label,
+  Input,
 } from "reactstrap";
 import { FaHome, FaRegTimesCircle, FaRegCheckCircle } from "react-icons/fa";
+import { MdClose, MdCheck } from "react-icons/md";
 
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -32,6 +36,8 @@ class AnnounceShow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      rePort: false,
+      rePortSuccess: false,
       messageErr: false,
       messageSuccess: false,
       message: {
@@ -117,6 +123,24 @@ class AnnounceShow extends React.Component {
   messageErr = () => {
     this.setState({
       messageErr: !this.state.messageErr,
+    });
+  };
+
+  rePort = () => {
+    this.setState({
+      rePort: !this.state.rePort,
+    });
+  };
+
+  sendReport = () => {
+    this.setState({
+      rePort: !this.state.rePort,
+      rePortSuccess: true,
+    });
+  }
+  rePortSuccess = () => {
+    this.setState({
+      rePortSuccess: !this.state.rePortSuccess,
     });
   };
 
@@ -213,9 +237,10 @@ class AnnounceShow extends React.Component {
               submit={this.handleSubmit}
               addBookMark={this.handleAddBookMark}
               deleteBookMark={this.handleDeleteBookMark}
+              rePort={this.rePort}
             />
           )}
-          {err || (message_err && <ModalErr />)}
+          {err && <ModalErr />}
           {isAuthenticated && (
             <Fragment>{count && <BottomNavigation count={count} />}</Fragment>
           )}
@@ -258,6 +283,64 @@ class AnnounceShow extends React.Component {
               <Button
                 color="success m-auto"
                 onClick={this.sendMessage}
+                className="rounded-pill"
+              >
+                ตกลง
+              </Button>
+            </ModalFooter>
+          </Modal>
+
+          <Modal isOpen={this.state.rePort} className="modal-dialog-centered">
+            <ModalHeader toggle={this.rePort}>
+              สาเหตุที่รายงานประกาศนี้?
+            </ModalHeader>
+            <ModalBody className="text-center">
+              <FormGroup>
+                <Label for="exampleText">* โปรดระบุเหตุผล</Label>
+                <Input type="textarea" name="text" id="exampleText" />
+              </FormGroup>
+              <p style={{ color: "#a94442" }}>
+                * รายงานนี้จะถูกตรวจสอบความถูกต้อง
+                โดยผู้ถูกรายงานจะไม่ทราบตัวตนของผู้ส่งรายงาน
+              </p>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                color="secondary"
+                onClick={this.rePort}
+                className="rounded-pill"
+              >
+                <MdClose size="22" className="mr-1" />
+                ยกเลิก
+              </Button>
+              <Button
+                color="danger"
+                onClick={this.sendReport}
+                className="rounded-pill"
+              >
+                <MdCheck size="22" className="mr-1" />
+                ยืนยัน
+              </Button>
+            </ModalFooter>
+          </Modal>
+
+          <Modal isOpen={this.state.rePortSuccess} className="modal-dialog-centered">
+            <ModalHeader
+              style={{
+                backgroundColor: "#01D26C",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <FaRegCheckCircle style={{ color: "white" }} size={32} />
+            </ModalHeader>
+            <ModalBody className="text-center">
+              <h3>ส่งรายงานสำเร็จ</h3>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                color="success m-auto"
+                onClick={this.rePortSuccess}
                 className="rounded-pill"
               >
                 ตกลง

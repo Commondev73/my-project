@@ -108,7 +108,7 @@ class Announce extends React.Component {
   }
 
   render() {
-    const { announce, changeHandler, invalid, value } = this.props;
+    const { announce, changeHandler, invalid, value ,rePort } = this.props;
     const { showPhone, showEmail, showLine } = this.state;
     const images = announce.image.map((image) => ({
       original: image.image_name,
@@ -261,7 +261,7 @@ class Announce extends React.Component {
                     xs="12"
                     className="mt-3"
                   >
-                    <Button block className="rounded-pill" color="danger">แจ้งประกาศไม่เหมาะสม</Button>
+                    <Button block className="rounded-pill" onClick={rePort} color="danger">แจ้งประกาศไม่เหมาะสม</Button>
                   </Col>
                 </Container>
               </Row>
