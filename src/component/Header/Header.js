@@ -132,9 +132,8 @@ class Header extends React.Component {
                             src={user.image ? `${user.image}` : imageUser}
                             alt="Cinque Terre"
                           />
-                         <span className="font-menu d-sm-none d-sm-block d-md-none">หน้าสมาชิก</span>
+                         <span className="font-menu ">หน้าสมาชิก</span>
                         </div>
-                        {/* <span className="font-menu">หน้าสมาชิก</span> */}
                       </NavLink>
                       <NavLink
                         className="rounded-pill"

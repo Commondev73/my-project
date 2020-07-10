@@ -98,8 +98,11 @@ class TabOnline extends React.Component {
                 </p>
               </Col>
               <Col xs="6" md="6" className="mt-2">
-                <p style={{ color: "gray" }}>
-                  <FaEdit className="mr-1 pb-1" />{" "}
+                <p style={{ color: "gray" }} className="d-flex">
+                  <FaEdit
+                    className="d-none d-md-block d-sm-block"
+                    style={{ marginTop: "4px" ,marginRight:"5px"}}
+                  />
                   {this.dateFormat(announce.created_at)}
                 </p>
               </Col>

@@ -43,7 +43,7 @@ ul.main-menu {
 }
 
 .image-user {
-  width: 25px;
+  width: 110px;
   height: 25px;
   margin: auto;
 }
@@ -58,6 +58,11 @@ div.image-user img{
 @media only screen and (max-width: 768px) and (min-width: 320px) {
   .navbar-brand img {
     height: 24px;
+  }
+}
+@media only screen and (max-width: 991px) and (min-width: 769px) {
+  .navbar-brand img {
+    height: 28px;
   }
 }
 
