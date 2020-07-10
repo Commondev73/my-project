@@ -14,7 +14,7 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { logout } from "../../actions";
-import { FaHome, FaBuilding } from "react-icons/fa";
+import { FaUser ,FaSignOutAlt} from "react-icons/fa";
 
 class Header extends React.Component {
   constructor(props) {
@@ -140,7 +140,7 @@ class Header extends React.Component {
                         className="rounded-pill"
                         onClick={this.handleLogout}
                       >
-                        <span className="font-menu">ออกจากระบบ</span>
+                        <span className="font-menu">ออกจากระบบ<FaSignOutAlt className="ml-1"/></span>
                       </NavLink>
                     </Fragment>
                   )}
@@ -150,7 +150,7 @@ class Header extends React.Component {
                         <span className="font-menu">สมัครสมาชิก</span>
                       </NavLink>
                       <NavLink className="rounded-pill" href="/login">
-                        <span className="font-menu">เข้าสู่ระบบ</span>
+                        <span className="font-menu"><FaUser className="mr-1 mb-1" />เข้าสู่ระบบ</span>
                       </NavLink>
                     </Fragment>
                   )}
