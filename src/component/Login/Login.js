@@ -74,10 +74,7 @@ class Login extends React.Component {
               <div className="icon-user m-auto">
                 <FaUserAlt />
               </div>
-              <Form
-                className="border-bottom pb-3 mt-3"
-                onSubmit={this.handleSubmit}
-              >
+              <Form className="border-bottom pb-3 mt-3">
                 <FormGroup>
                   <Input
                     className="rounded-pill"
@@ -110,28 +107,28 @@ class Login extends React.Component {
                   size="lg"
                   block
                   color="success"
-                  type="submit"
+                  onClick={this.handleSubmit}
                 >
                   เข้าสู่ระบบ
                 </Button>
-
-                <Button
+                {/* <Button
                   className="rounded-pill mt-3"
                   size="lg"
                   block
                   color="primary"
                 >
                   เข้าสู่ระบบด้วยเฟสบุ๊ค
-                </Button>
-
+                </Button> */}
                 <Button
                   className="rounded-pill mt-2"
                   size="lg"
                   block
                   color="outline-info"
+                  onClick={() => (window.location.href = "/register")}
                 >
                   สมัครสมาชิก
                 </Button>
+                
               </Form>
             </Col>
           </Row>
