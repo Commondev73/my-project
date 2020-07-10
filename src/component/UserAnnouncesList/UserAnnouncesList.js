@@ -5,7 +5,14 @@ import { Container, Button, Modal, ModalBody, ModalFooter } from "reactstrap";
 import TabOnline from "./Tabs/TabOnline";
 import ReactPaginate from "react-paginate";
 import NoData from "./NoData/NoData";
-import { FaPlusCircle, FaTrashAlt, FaTimes } from "react-icons/fa";
+import {
+  FaPlusCircle,
+  FaTrashAlt,
+  FaTimes,
+  FaGlobeAmericas,
+  FaFileAlt,
+  FaEdit,
+} from "react-icons/fa";
 import { Link, withRouter } from "react-router-dom";
 class UserAnnouncesList extends React.Component {
   constructor(props) {
@@ -37,9 +44,7 @@ class UserAnnouncesList extends React.Component {
             marginPagesDisplayed={2}
             pageRangeDisplayed={5}
             forcePage={this.props.match.params.page - 1}
-            onPageChange={(data) =>
-              this.props.getData(data.selected + 1)
-            }
+            onPageChange={(data) => this.props.getData(data.selected + 1)}
             containerClassName={"pagination"}
             subContainerClassName={"pages pagination"}
             activeClassName={"active"}
@@ -47,8 +52,8 @@ class UserAnnouncesList extends React.Component {
         )}
       </Fragment>
     ) : (
-        <NoData />
-      );
+      <NoData />
+    );
   };
 
   confirmDelete = (id) => {
@@ -64,7 +69,7 @@ class UserAnnouncesList extends React.Component {
   };
 
   render() {
-    const { announces, count , match } = this.props;
+    const { announces, count, match } = this.props;
     return (
       <Container>
         <div className="tabs">
@@ -77,7 +82,16 @@ class UserAnnouncesList extends React.Component {
                     : "border order-bottom-0"
                 }
               >
-                <a href="/member/announces/online">ออนไลน์ ({count.online})</a>
+                <a
+                  href="/member/announces/online"
+                  className="d-flex justify-content-center"
+                >
+                  <FaGlobeAmericas style={{ marginTop: "12px" }} />
+                  <span className="ml-1 d-none d-sm-block d-md-block ">
+                    ออนไลน์
+                  </span>
+                  ({count.online})
+                </a>
               </li>
               <li
                 className={
@@ -86,8 +100,15 @@ class UserAnnouncesList extends React.Component {
                     : "border border-bottom-0"
                 }
               >
-                <a href="/member/announces/draft">
-                  แบบร่าง ({count.draft})
+                <a
+                  href="/member/announces/draft"
+                  className="d-flex justify-content-center"
+                >
+                  <FaFileAlt style={{ marginTop: "12px" }} />
+                  <span className="ml-1 d-none d-md-block d-sm-block">
+                    แบบร่าง
+                  </span>
+                  ({count.draft})
                 </a>
               </li>
               <li
@@ -97,22 +118,34 @@ class UserAnnouncesList extends React.Component {
                     : "border border-bottom-0 mr-1"
                 }
               >
-                <a href="/member/announces/correct">
-                  รอแก้ไข ({count.correct})
+                <a
+                  href="/member/announces/correct"
+                  className="d-flex justify-content-center"
+                >
+                  <FaEdit style={{ marginTop: "12px" }}/>
+                  <span className="ml-1 d-none d-md-block d-sm-block">
+                    รอแก้ไข
+                  </span>
+                  ({count.correct})
                 </a>
               </li>
               <Link to="/member/announces/post">
                 <div className="m-auto">
                   <Button color="success" className="rounded-pill">
-                    <FaPlusCircle className="mr-1" />
-                    เพิ่มประกาศ
+                    <span className="ml-1 d-none d-sm-block ">
+                      <FaPlusCircle className="mr-1" />
+                      เพิ่มประกาศ
+                    </span>
+                    <span className="d-block d-sm-none">
+                      <FaPlusCircle />
+                    </span>
                   </Button>
                 </div>
               </Link>
             </ul>
           </nav>
           <Container className="pt-3 pb-3 border table-user-announces">
-            <SearchUserAnnounces match={match} status={this.state.activeTab}/>
+            <SearchUserAnnounces match={match} status={this.state.activeTab} />
             {this.handleAnnounces(announces)}
           </Container>
         </div>

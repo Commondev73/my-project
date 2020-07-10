@@ -68,9 +68,15 @@ class MailList extends React.Component {
                     : "border order-bottom-0"
                 }
               >
-                <a href="/member/mail">
-                  <FaMailBulk />
-                  &nbsp;ทั้งหมด ({this.mailAll()})
+                <a
+                  href="/member/mail"
+                  className="d-flex justify-content-center"
+                >
+                  <FaMailBulk style={{ marginTop: "13px" }} />
+                  <span className="ml-1 d-none d-md-block d-sm-block">
+                    ทั้งหมด
+                  </span>
+                  ({this.mailAll()})
                 </a>
               </li>
               <li
@@ -80,9 +86,15 @@ class MailList extends React.Component {
                     : "border border-bottom-0"
                 }
               >
-                <a href="/member/read/mail/">
-                  <FaRegEnvelopeOpen />
-                  &nbsp;อ่านแล้ว ({count.read})
+                <a
+                  href="/member/read/mail/"
+                  className="d-flex justify-content-center"
+                >
+                  <FaRegEnvelopeOpen style={{ marginTop: "12px" }} />
+                  <span className="ml-1 d-none d-md-block d-sm-block">
+                    อ่านแล้ว
+                  </span>
+                  ({count.read})
                 </a>
               </li>
               <li
@@ -92,9 +104,15 @@ class MailList extends React.Component {
                     : "border border-bottom-0"
                 }
               >
-                <a href="/member/unread/mail/1">
-                  <FaRegEnvelope />
-                  &nbsp;ยังไม่ได้อ่าน ({count.unread})
+                <a
+                  href="/member/unread/mail/1"
+                  className="d-flex justify-content-center"
+                >
+                  <FaRegEnvelope style={{ marginTop:"12px"}} />
+                  <span className="ml-1 d-none d-md-block d-sm-block">
+                    ไม่ได้อ่าน
+                  </span>
+                  ({count.unread})
                 </a>
               </li>
               <li
@@ -104,9 +122,15 @@ class MailList extends React.Component {
                     : "border border-bottom-0"
                 }
               >
-                <a href="/member/save/mail/1">
-                  <FaStar color="#E5C04D" />
-                  &nbsp;ติดดาว({count.save})
+                <a
+                  href="/member/save/mail/1"
+                  className="d-flex justify-content-center"
+                >
+                  <FaStar color="#E5C04D" style={{ marginTop: "12px" }} />
+                  <span className="ml-1 d-none d-md-block d-sm-block">
+                    ติดดาว
+                  </span>
+                  ({count.save})
                 </a>
               </li>
             </ul>
