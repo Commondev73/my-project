@@ -96,7 +96,6 @@ class Bookmarks extends React.Component {
                   <BreadcrumbItem>หน้าสมาชิก</BreadcrumbItem>
                   <BreadcrumbItem active>รายการโปรด</BreadcrumbItem>
                 </Breadcrumb>
-                <Container className="pt-3 border" style={BookMarkBorder}>
                   <Row>
                     {bookmarks.data.map((announce) => (
                       <AnnouncesList
@@ -129,7 +128,6 @@ class Bookmarks extends React.Component {
                     )}
                     {bookmarks.data.length === 0 && <NoData />}
                   </Row>
-                </Container>
               </Container>
               <BottomNavigation count={count} />
             </Fragment>
