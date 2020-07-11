@@ -1,6 +1,6 @@
-.user .navbar-toggler-icon {
+/* .user .navbar-toggler-icon {
   background-image: url(https://www.livinginsider.com/assets18/images/xno-user.png.pagespeed.ic.7d6lssbtJ3.webp) !important;
-}
+} */
 
 /* .navbar .navbar-nav {
   display: inline-block;
@@ -42,10 +42,33 @@ ul.main-menu {
   height: 35px;
 }
 
+.image-user {
+  width: 110px;
+  height: 25px;
+  margin: auto;
+}
+
+div.image-user img{
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 @media only screen and (max-width: 768px) and (min-width: 320px) {
   .navbar-brand img {
-    display: inline-block;
     height: 24px;
+  }
+}
+@media only screen and (max-width: 991px) and (min-width: 769px) {
+  .navbar-brand img {
+    height: 28px;
+  }
+}
+
+@media only screen and (max-width: 767px) and (min-width: 320px) {
+  .image-user {
+    width: 110px;
   }
 }
 

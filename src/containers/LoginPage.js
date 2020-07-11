@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import Login from "../component/Login/Login";
+import Header from "../component/Header/Header";
 import ModalErr from "../component/ModalErr/ModalErr";
 import { Container, Breadcrumb, BreadcrumbItem } from "reactstrap";
 import { FaHome } from "react-icons/fa";
@@ -12,43 +13,52 @@ class LoginPage extends React.Component {
     super(props);
   }
 
-  handleSubmit = data => {
+  componentDidMount = () => {
+    document.title = "เข้าสู่ระบบ";
+  };
+
+  handleSubmit = (data) => {
     this.props.login(data);
   };
 
   render() {
-    const { err, redirect, isLoading } = this.props;
+    const { err, redirect, isAuthenticated, user, match } = this.props;
     if (redirect) {
-      return <Redirect to='/member'/>;
+      return <Redirect to="/member/announces/online/1" />;
     }
     return (
       <Fragment>
-        <Container className="mt-2">
-          <Breadcrumb style={{ backgroundColor: "white" }}>
-            <BreadcrumbItem>
-              <FaHome className="mr-1" />
-              <a href="/">หน้าแรก</a>
-            </BreadcrumbItem>
-            <BreadcrumbItem active>เข้าสู่ระบบ</BreadcrumbItem>
-          </Breadcrumb>
-        </Container>
-        <Login submit={this.handleSubmit} err={err} />
-        {err  && <ModalErr />}
+        <Header user={user} isAuthenticated={isAuthenticated} match={match} />
+        <div className="content">
+          <Container className="mt-2">
+            <Breadcrumb style={{ backgroundColor: "white" }}>
+              <BreadcrumbItem>
+                <FaHome className="mr-1" />
+                <a href="/">หน้าแรก</a>
+              </BreadcrumbItem>
+              <BreadcrumbItem active>เข้าสู่ระบบ</BreadcrumbItem>
+            </Breadcrumb>
+          </Container>
+          <Login submit={this.handleSubmit} err={err} />
+        </div>
       </Fragment>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
+    isAuthenticated: state.user.authenticated,
+    user: state.user,
+
     err: state.login.err,
     isLoading: state.login.isLoading,
-    redirect: state.login.redirect
+    redirect: state.login.redirect,
   };
 };
 
 const mapDispatchToProps = {
-  login
+  login,
 };
 
 export default LoginPage = connect(

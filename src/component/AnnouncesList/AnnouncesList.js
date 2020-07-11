@@ -16,26 +16,73 @@ import { MdHome, MdSettingsOverscan } from "react-icons/md";
 import {
   FaBed,
   FaBath,
-  FaBullhorn,
+  FaBuilding,
   FaMapMarkerAlt,
-  FaEdit
+  FaEdit,
+  FaHome
 } from "react-icons/fa";
 import { TiHeartFullOutline } from "react-icons/ti";
-
 
 class AnnouncesList extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      mark: this.props.mark,
+    };
   }
+
+  handleBookMark = async (id) => {
+    await this.setState((prevState) => {
+      const mark = this.state.mark;
+      mark ? this.props.deleteBookMark(id) : this.props.addBookMark(id);
+      return {
+        ...prevState,
+        mark: !this.state.mark,
+      };
+    });
+  };
+
+  ItemStyle = () => {
+    const result = this.state.mark;
+    return result ? "heart-mark" : "heart";
+  };
+
+  StyleType = (type) => {
+    return type === 'เช่า' ? "mt-2 rounded-pill border-white type1" : "mt-2 rounded-pill border-white type2";
+  }
+  
+  dateFormat = (date) => {
+    const months = [
+      "ม.ค",
+      "ก.พ",
+      "มี.ค",
+      "เม.ย",
+      "พ.ค.",
+      "มิ.ย",
+      "ก.ค",
+      "ส.ค",
+      "ก.ย",
+      "ต.ค",
+      "พ.ย",
+      "ธ.ค",
+    ];
+    let current_datetime = new Date(date);
+    let formatted_date =
+      current_datetime.getDate() +
+      " " +
+      months[current_datetime.getMonth()] +
+      " " +
+      (current_datetime.getFullYear() + 543);
+    return formatted_date;
+  };
 
   render() {
     const { announce } = this.props;
-    // console.log('image',announce.image[0].image_name);
     return (
       <Fragment>
         {/* <Link to={`/announce/${announce.id}`}></Link> */}
         <Col sm="4" md="3" xs="6" className="mb-3">
-          <Link className="announces-link" to={`/announce/${announce.id}`}>
+          <Link className="announces-link" to={`/announce/${announce.id}/${this.props.mark}`}>
             <div className="announces-list ">
               <Card style={{ borderRadius: "10px" }}>
                 <div className="img-box">
@@ -51,7 +98,7 @@ class AnnouncesList extends React.Component {
                 </div>
                 <CardBody>
                   <CardTitle>
-                    <h6 style={{ color: "rgb(23,162,184)"}}>
+                    <h6 style={{ color: "rgb(23,162,184)" }}>
                       {announce.topic}
                     </h6>
                   </CardTitle>
@@ -62,7 +109,7 @@ class AnnouncesList extends React.Component {
                         style={{ color: "#D74B3F" }}
                       />
                       &nbsp;
-                      {announce.province_name} &nbsp;{announce.amphoe_name}
+                      {announce.province_name === 'กรุงเทพมหานคร'? 'กทม' : announce.province_name} &nbsp;{announce.amphoe_name}
                     </div>
                     <Row>
                       <Col
@@ -87,10 +134,10 @@ class AnnouncesList extends React.Component {
                       </Col>
                       <Col xs="6" className="announce-details">
                         <MdSettingsOverscan
-                          className="mr-1"
+                          className="mr-2"
                           style={{ color: "#138799" }}
                         />
-                        {announce.area}&nbsp;ตร.ว.
+                        {Math.round(announce.area * 100) / 100}&nbsp;{announce.property_type === 'บ้าน' ? 'ตร.ว.' : 'ตร.ม.'}
                       </Col>
                       <Col xs="12">
                         <div className="time announce-details mt-1">
@@ -99,7 +146,9 @@ class AnnouncesList extends React.Component {
                               className="mr-1"
                               // style={{ color: "#138799" }}
                             />
-                            <small className="text-muted">{announce.created_at}</small>
+                            <small className="text-muted">
+                              {this.dateFormat(announce.created_at)}
+                            </small>
                           </span>
                         </div>
                       </Col>
@@ -113,17 +162,19 @@ class AnnouncesList extends React.Component {
           <div className="announcement-type">
             <Button
               color="primary"
-              className="mt-2 rounded-pill border-white"
-              style={{ backgroundColor: "#6ea7ec" }}
+              className={this.StyleType(announce.announcement_type)}
             >
-              <FaBullhorn className="mr-1" />
+              {announce.property_type === 'บ้าน' ? <FaHome className="mr-1 pb-1" size="20"/> :<FaBuilding className="mr-1 pb-1" size="20"/>}
               <span>{announce.announcement_type}</span>
             </Button>
           </div>
           <div className="icon-heart">
             <TiHeartFullOutline
-              className="heart"
+              className={this.ItemStyle()}
               style={{ width: "35px", height: "35px" }}
+              onClick={() => {
+                this.handleBookMark(announce.id);
+              }}
             />
           </div>
         </Col>
@@ -132,4 +183,4 @@ class AnnouncesList extends React.Component {
   }
 }
 
-export default AnnouncesList ;
+export default AnnouncesList;

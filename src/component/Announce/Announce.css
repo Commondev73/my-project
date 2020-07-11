@@ -481,7 +481,7 @@
 .image-gallery-content.fullscreen img {
   width: 100vw;
   height: 100vh;
-  object-fit: contain; 
+  object-fit: contain;
 }
 
 .image-gallery-content.fullscreen {
@@ -519,9 +519,9 @@
 }
 .topic {
   /* background-color: #EDF5FA; */
-  border-style: solid;
+  /* border-style: solid;
   border-color: #17a2bb;
-  border-width: 1.5px;
+  border-width: 1.5px; */
 }
 .col-topic {
   background-color: white;
@@ -535,17 +535,24 @@
   background-color: white;
 }
 
-.detail-icon{
+.detail-icon {
   padding: 0;
   padding-bottom: 15px;
-  
 }
 
-.h3-detail{
+.h3-detail {
   padding-top: 15px;
   padding-bottom: 10px;
   border-top-left-radius: 23px;
   border-top-right-radius: 23px;
-  background-color: #17A2B8;
+  background-color: #17a2b8;
   color: white;
+}
+
+.heart-2:hover {
+  color: tomato;
+}
+
+.heart-2 {
+  color: rgb(187, 182, 182);
 }

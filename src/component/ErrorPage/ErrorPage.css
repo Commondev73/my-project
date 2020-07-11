@@ -1,0 +1,19 @@
+.four_zero_four_bg {
+  background-image: url(../image/dribbble_1.gif);
+  height: 500px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.contant_box_404 {
+  margin-top: -90px;
+}
+
+.contant_box_404 > h1 {
+  color: #17a2b8;
+}
+
+.four_zero_four_bg > h1 {
+  color: #17a2b8;
+}

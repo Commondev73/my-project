@@ -1,54 +1,57 @@
 import React from "react";
 import "./BottomNavigation.css";
 import {
-  FaBullhorn,
-  FaUser,
-  FaRegEnvelope,
-  FaTachometerAlt
-} from "react-icons/fa";
-import { TiHeartFullOutline } from "react-icons/ti";
-import {} from 'reactstrap';
+  FcTemplate,
+  FcBusinessman,
+  FcLike,
+  FcViewDetails,
+  FcFeedback,
+} from "react-icons/fc";
 class BottomNavigation extends React.Component {
   render() {
+    const { count } = this.props;
+    console.log('count',count)
     return (
       <div className="d-block d-sm-none fixed-bottom">
         <div className="navigation-menu">
           <nav>
             <ul>
               <li className="border-white">
-                <a href="#"></a>
-                <h5>
-                  <FaTachometerAlt />
-                </h5>
-                <p>แดชบอร์ด</p>
+                <a href="/profile">
+                  <h3>
+                    <FcBusinessman />
+                  </h3>
+                  <p>ฉัน</p>
+                </a>
               </li>
               <li className="border-white">
-                <a href="#"></a>
-                <h5>
-                  <FaUser />
-                </h5>
-                <p>ฉัน</p>
+                <a href="/member/announces/online">
+                  <h3>
+                    <FcViewDetails />
+                  </h3>
+                  <p>ประกาศของฉัน</p>
+                </a>
               </li>
               <li className="border-white">
-                <a href="#"></a>
-                <h5>
-                  <FaBullhorn />
-                </h5>
-                <p>ประกาศของฉัน</p>
-              </li>
-              <li className="border-white">
-                <a href="#"></a>
-                <h5>
-                  <TiHeartFullOutline className="" />
-                </h5>
-                <p>ถูกใจ</p>
+                <a href="/member/bookmarks">
+                  <h3>
+                    <FcLike />
+                  </h3>
+                  <p>รายการโปรด</p>
+                </a>
               </li>
               <li className="">
-                <a href="#"></a>
-                <h5>
-                  <FaRegEnvelope />
-                </h5>
-                <p>ข้อความ</p>
+                <a href="/member/mail">
+                  <div className="icon-mail-mobile">
+                    {count.unread !== 0 && (
+                      <div className="mail-notify-mobile">{count.unread}</div>
+                    )}
+                    <h3>
+                      <FcFeedback />
+                    </h3>
+                    <p>จดหมาย</p>
+                  </div>
+                </a>
               </li>
             </ul>
           </nav>

@@ -1,0 +1,54 @@
+.data-user {
+  display: inline-flex;
+  width: 100%;
+}
+.image-profile {
+  position: relative;
+  width: 150px;
+  height: 150px;
+}
+
+.image-profile img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 5px;
+  border-color: #cccccc;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.image-profile img:hover{
+  border-color: #17A2B8;
+  transition: 0.8s;
+
+}
+
+.input-image-profile {
+  position: absolute;
+  right: 12px;
+  z-index: 1;
+  top: 10px;
+}
+
+.input-image-profile input {
+  display: none;
+}
+.border-radius {
+  border-radius: 23px;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15), 0 2px 1px rgba(0, 0, 0, 0.12);
+}
+
+.from-profile {
+  background-color: #f6f6f6;
+}
+
+.icon-input-file {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+}

@@ -9,9 +9,10 @@ import {
   Container,
   Row,
   Col,
-  FormFeedback
+  FormFeedback,
 } from "reactstrap";
 import axios from "axios";
+import { result } from "lodash";
 
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -28,7 +29,7 @@ class Register extends React.PureComponent {
         first_name: "",
         last_name: "",
         password: "",
-        password_confirm: ""
+        password_confirm: "",
       },
       invalid: {
         invalidEmail: false,
@@ -36,7 +37,7 @@ class Register extends React.PureComponent {
         invalidFirst_name: false,
         invalidLast_name: false,
         invalidPassword: false,
-        invalidConfirm_password: false
+        invalidConfirm_password: false,
       },
       valid: {
         validEmail: false,
@@ -44,7 +45,7 @@ class Register extends React.PureComponent {
         validFirst_name: false,
         validLast_name: false,
         validPassword: false,
-        validConfirm_password: false
+        validConfirm_password: false,
       },
       formInputs: {
         email: "",
@@ -52,17 +53,43 @@ class Register extends React.PureComponent {
         first_name: "",
         last_name: "",
         password: "",
-        password_confirm: ""
-      }
+        password_confirm: "",
+      },
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
   }
-  
-  validEmail = async value => {
+
+  phoneReplaceHandler = (event) => {
+    const value = event.target.value.trim();
+    const { invalid, valid } = this.state;
+    const input = value.replace(/\D/g, "").substring(0, 10);
+    const first = input.substring(0, 3);
+    const middle = input.substring(3, 6);
+    const last = input.substring(6, 10);
+    let result;
+    if (input.length > 6) {
+      result = `${first}-${middle}-${last}`;
+    } else if (input.length > 3) {
+      result = `${first}-${middle}`;
+    } else if (input.length >= 0) {
+      result = input;
+    }
+    invalid.invalidPhone =
+      result.length < 12 || result.length > 12 ? true : false;
+    valid.validPhone = result.length == 12 ? true : false;
+    this.setState({
+      formInputs: {
+        ...this.state.formInputs,
+        phone: result,
+      },
+    });
+  };
+
+  validEmail = async (value) => {
     try {
       const response = await axios.post("/api/validation-email", {
-        email: value
+        email: value,
       });
       // console.log(`😱 Axios request : ${response.data}`);
       return response.data;
@@ -71,7 +98,7 @@ class Register extends React.PureComponent {
     }
   };
 
-  changeHandler = async event => {
+  changeHandler = async (event) => {
     const name = event.target.name;
     const value = event.target.value.trim();
     const { formInputs, invalid, valid, formErrors } = this.state;
@@ -85,11 +112,11 @@ class Register extends React.PureComponent {
           invalid.invalidEmail = validEmail ? false : true;
         }
         break;
-      case "phone":
-        invalid.invalidPhone =
-          value.length < 10 || value.length > 10 ? true : false;
-        valid.validPhone = value.length == 10 ? true : false;
-        break;
+      // case "phone":
+      //   invalid.invalidPhone =
+      //     value.length < 12 || value.length > 12 ? true : false;
+      //   valid.validPhone = value.length == 12 ? true : false;
+      //   break;
       case "first_name":
         invalid.invalidFirst_name = value.length <= 1 ? true : false;
         valid.validFirst_name = value.length >= 2 ? true : false;
@@ -112,8 +139,8 @@ class Register extends React.PureComponent {
     this.setState({
       formInputs: {
         ...this.state.formInputs,
-        [name]: value
-      }
+        [name]: value,
+      },
     });
   };
   handleCheckClick = () => {
@@ -165,7 +192,9 @@ class Register extends React.PureComponent {
                     valid={this.state.valid.validEmail}
                     invalid={this.state.invalid.invalidEmail}
                   />
-                  <FormFeedback className="text-center">อีเมลไม่ถูกต้อง หรือ อีเมลถูกใช้แล้ว</FormFeedback>
+                  <FormFeedback className="text-center">
+                    อีเมลไม่ถูกต้อง หรือ อีเมลถูกใช้แล้ว
+                  </FormFeedback>
                 </FormGroup>
                 <FormGroup>
                   {/* <Label for="Password">รหัสผ่าน</Label> */}
@@ -175,13 +204,17 @@ class Register extends React.PureComponent {
                     name="phone"
                     id="phone"
                     ref="phone"
+                    maxLength="12"
                     placeholder="เบอร์โทร 10 ตัวอักษร *"
-                    value={this.state.formInputs.phone.value}
-                    onChange={this.changeHandler}
+                    // value={this.phoneReplace(this.state.formInputs.phone)}
+                    value={this.state.formInputs.phone}
+                    onChange={this.phoneReplaceHandler}
                     valid={this.state.valid.validPhone}
                     invalid={this.state.invalid.invalidPhone}
                   />
-                  <FormFeedback className="text-center">กรุณากรอกเบอรฺ์โทรให้ครบ 10 ตัวอักษร</FormFeedback>
+                  <FormFeedback className="text-center">
+                    กรุณากรอกเบอรฺ์โทรให้ครบ 10 ตัวอักษร
+                  </FormFeedback>
                 </FormGroup>
                 <FormGroup>
                   <Input
@@ -196,7 +229,9 @@ class Register extends React.PureComponent {
                     valid={this.state.valid.validFirst_name}
                     invalid={this.state.invalid.invalidFirst_name}
                   />
-                   <FormFeedback className="text-center">กรุณากรอก ชื่อ *</FormFeedback>
+                  <FormFeedback className="text-center">
+                    กรุณากรอก ชื่อ *
+                  </FormFeedback>
                 </FormGroup>
                 <FormGroup>
                   <Input
@@ -211,7 +246,9 @@ class Register extends React.PureComponent {
                     valid={this.state.valid.validLast_name}
                     invalid={this.state.invalid.invalidLast_name}
                   />
-                  <FormFeedback className="text-center">กรุณากรอก นามสกุล *</FormFeedback>
+                  <FormFeedback className="text-center">
+                    กรุณากรอก นามสกุล *
+                  </FormFeedback>
                 </FormGroup>
                 <FormGroup>
                   <Input
@@ -226,7 +263,9 @@ class Register extends React.PureComponent {
                     valid={this.state.valid.validPassword}
                     invalid={this.state.invalid.invalidPassword}
                   />
-                  <FormFeedback className="text-center">กรุณาใส่ รหัสผ่านอย่างน้อย 8 ตัวอักษร *</FormFeedback>
+                  <FormFeedback className="text-center">
+                    กรุณาใส่ รหัสผ่านอย่างน้อย 8 ตัวอักษร *
+                  </FormFeedback>
                 </FormGroup>
                 <FormGroup>
                   <Input
@@ -241,7 +280,9 @@ class Register extends React.PureComponent {
                     valid={this.state.valid.validConfirm_password}
                     invalid={this.state.invalid.invalidConfirm_password}
                   />
-                  <FormFeedback className="text-center">รหัสไม่ตรงกัน *</FormFeedback>
+                  <FormFeedback className="text-center">
+                    รหัสไม่ตรงกัน *
+                  </FormFeedback>
                 </FormGroup>
                 <FormGroup>
                   <CustomInput
