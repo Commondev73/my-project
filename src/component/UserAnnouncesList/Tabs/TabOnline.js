@@ -11,14 +11,16 @@ import {
   FaPen,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 class TabOnline extends React.Component {
   dateFormat = (date) => {
     let result;
-    const endDate = new Date();
-    const startDate = new Date(date.replace(/-/g, '/'));
-    let diffTime = endDate - startDate; // milliseconds
-
+    const nowDate = new Date()
+    const endDate = moment(nowDate).format('YYYY/MM/DD HH:mm:ss');
+    const startDate = moment(date).format('YYYY/MM/DD HH:mm:ss');
+    let diffTime = moment(endDate).diff(moment(startDate), 'milliseconds'); // milliseconds
+    
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // in days
 
     const hourDiff = Math.ceil(diffTime / (1000 * 60 * 60)); // in hours
@@ -26,7 +28,7 @@ class TabOnline extends React.Component {
     const mindiff = Math.ceil(diffTime / (1000 * 60)); // in minutes
 
     // let date = (new Date(date)).toISOString().split('T')[0];
-    if (mindiff > 2880) result = new Date(date).toISOString().split("T")[0];
+    if (mindiff > 2880) result = moment(date).format('YYYY-MM-DD');
 
     if (mindiff > 1440 && mindiff < 2880) result = `เมื่อวานนี้`;
 
