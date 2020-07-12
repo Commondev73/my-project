@@ -14,28 +14,27 @@ import { Link } from "react-router-dom";
 
 class TabOnline extends React.Component {
   dateFormat = (date) => {
-    const months = [
-      "ม.ค",
-      "ก.พ",
-      "มี.ค",
-      "เม.ย",
-      "พ.ค.",
-      "มิ.ย",
-      "ก.ค",
-      "ส.ค",
-      "ก.ย",
-      "ต.ค",
-      "พ.ย",
-      "ธ.ค",
-    ];
-    let current_datetime = new Date(date);
-    let formatted_date =
-      current_datetime.getDate() +
-      " " +
-      months[current_datetime.getMonth()] +
-      " " +
-      (current_datetime.getFullYear() + 543);
-    return formatted_date;
+    let result;
+    const endDate = new Date();
+    const startDate = new Date(date);
+    let diffTime = endDate - startDate; // milliseconds
+
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // in days
+
+    const hourDiff = Math.ceil(diffTime / (1000 * 60 * 60)); // in hours
+
+    const mindiff = Math.ceil(diffTime / (1000 * 60)); // in minutes
+
+    // let date = (new Date(date)).toISOString().split('T')[0];
+    if (mindiff > 2880) result = new Date(date).toISOString().split("T")[0];
+
+    if (mindiff > 1440 && mindiff < 2880) result = `เมื่อวานนี้`;
+
+    if (mindiff > 60 && mindiff < 1440) result = `${hourDiff} ชั่วโมงที่แล้ว`;
+
+    if (mindiff < 60) result = `${mindiff} นาทีที่แล้ว`;
+
+    return result;
   };
 
   StyleType = (type) => {
@@ -101,7 +100,7 @@ class TabOnline extends React.Component {
                 <p style={{ color: "gray" }} className="d-flex">
                   <FaEdit
                     className="d-none d-md-block d-sm-block"
-                    style={{ marginTop: "4px" ,marginRight:"5px"}}
+                    style={{ marginTop: "4px", marginRight: "5px" }}
                   />
                   {this.dateFormat(announce.created_at)}
                 </p>

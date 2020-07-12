@@ -19,7 +19,7 @@ import {
   FaBuilding,
   FaMapMarkerAlt,
   FaEdit,
-  FaHome
+  FaHome,
 } from "react-icons/fa";
 import { TiHeartFullOutline } from "react-icons/ti";
 
@@ -48,32 +48,33 @@ class AnnouncesList extends React.Component {
   };
 
   StyleType = (type) => {
-    return type === 'เช่า' ? "mt-2 rounded-pill border-0 type1" : "mt-2 rounded-pill border-0 type2";
-  }
-  
+    return type === "เช่า"
+      ? "mt-2 rounded-pill border-0 type1"
+      : "mt-2 rounded-pill border-0 type2";
+  };
+
   dateFormat = (date) => {
-    const months = [
-      "ม.ค",
-      "ก.พ",
-      "มี.ค",
-      "เม.ย",
-      "พ.ค.",
-      "มิ.ย",
-      "ก.ค",
-      "ส.ค",
-      "ก.ย",
-      "ต.ค",
-      "พ.ย",
-      "ธ.ค",
-    ];
-    let current_datetime = new Date(date);
-    let formatted_date =
-      current_datetime.getDate() +
-      " " +
-      months[current_datetime.getMonth()] +
-      " " +
-      (current_datetime.getFullYear() + 543);
-    return formatted_date;
+    let result;
+    const endDate = new Date();
+    const startDate = new Date(date);
+    let diffTime = endDate - startDate; // milliseconds
+
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // in days
+
+    const hourDiff = Math.ceil(diffTime / (1000 * 60 * 60)); // in hours
+
+    const mindiff = Math.ceil(diffTime / (1000 * 60)); // in minutes
+
+    // let date = (new Date(date)).toISOString().split('T')[0];
+    if (mindiff > 2880) result = new Date(date).toISOString().split("T")[0];
+
+    if (mindiff > 1440 && mindiff < 2880) result = `เมื่อวานนี้`;
+
+    if (mindiff > 60 && mindiff < 1440) result = `${hourDiff} ชั่วโมงที่แล้ว`;
+
+    if (mindiff < 60) result = `${mindiff} นาทีที่แล้ว`;
+
+    return result;
   };
 
   render() {
@@ -82,7 +83,10 @@ class AnnouncesList extends React.Component {
       <Fragment>
         {/* <Link to={`/announce/${announce.id}`}></Link> */}
         <Col sm="4" md="3" xs="6" className="mb-3">
-          <Link className="announces-link" to={`/announce/${announce.id}/${this.props.mark}`}>
+          <Link
+            className="announces-link"
+            to={`/announce/${announce.id}/${this.props.mark}`}
+          >
             <div className="announces-list ">
               <Card style={{ borderRadius: "10px" }}>
                 <div className="img-box">
@@ -109,7 +113,10 @@ class AnnouncesList extends React.Component {
                         style={{ color: "#D74B3F" }}
                       />
                       &nbsp;
-                      {announce.province_name === 'กรุงเทพมหานคร'? 'กทม' : announce.province_name} &nbsp;{announce.amphoe_name}
+                      {announce.province_name === "กรุงเทพมหานคร"
+                        ? "กทม"
+                        : announce.province_name}{" "}
+                      &nbsp;{announce.amphoe_name}
                     </div>
                     <Row>
                       <Col
@@ -137,7 +144,8 @@ class AnnouncesList extends React.Component {
                           className="mr-2"
                           style={{ color: "#138799" }}
                         />
-                        {Math.round(announce.area * 100) / 100}&nbsp;{announce.property_type === 'บ้าน' ? 'ตร.ว.' : 'ตร.ม.'}
+                        {Math.round(announce.area * 100) / 100}&nbsp;
+                        {announce.property_type === "บ้าน" ? "ตร.ว." : "ตร.ม."}
                       </Col>
                       <Col xs="12">
                         <div className="time announce-details mt-1">
@@ -164,7 +172,11 @@ class AnnouncesList extends React.Component {
               color="primary"
               className={this.StyleType(announce.announcement_type)}
             >
-              {announce.property_type === 'บ้าน' ? <FaHome className="mr-1 pb-1" size="20"/> :<FaBuilding className="mr-1 pb-1" size="20"/>}
+              {announce.property_type === "บ้าน" ? (
+                <FaHome className="mr-1 pb-1" size="20" />
+              ) : (
+                <FaBuilding className="mr-1 pb-1" size="20" />
+              )}
               <span>{announce.announcement_type}</span>
             </Button>
           </div>
