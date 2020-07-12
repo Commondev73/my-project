@@ -62,9 +62,9 @@ a.announces-link {
 .heart-mark {
   color: tomato;
 }
-.heart:hover {
+/* .heart:hover {
   color: tomato;
-}
+} */
 
 .location {
   display: flex;
@@ -104,18 +104,18 @@ div.details-left {
 .details-left span {
   padding-left: 10px;
 }
-.card-title{
+.card-title {
   overflow: hidden;
   height: 35px;
 }
-.card-title h6{
+.card-title h6 {
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   font-weight: bold;
 }
-.created_at{
+.created_at {
   color: #5d5b5a;
 }
 .type1 {
@@ -123,11 +123,11 @@ div.details-left {
 }
 
 .type2 {
-  background-color: #199A81;
+  background-color: #199a81;
 }
 
 .type2:hover {
-  background-color: #78C45A;
+  background-color: #78c45a;
 }
 @media only screen and (max-width: 1024px) and (min-width: 768px) {
   .announce-details {

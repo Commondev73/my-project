@@ -96,38 +96,40 @@ class Bookmarks extends React.Component {
                   <BreadcrumbItem>หน้าสมาชิก</BreadcrumbItem>
                   <BreadcrumbItem active>รายการโปรด</BreadcrumbItem>
                 </Breadcrumb>
-                  <Row>
-                    {bookmarks.data.map((announce) => (
-                      <AnnouncesList
-                        key={announce.id}
-                        announce={announce}
-                        addBookMark={this.handleAddBookMark}
-                        deleteBookMark={this.handleDeleteBookMark}
-                        mark={true}
+                <Row>
+                  {bookmarks.data.map((announce) => (
+                    <AnnouncesList
+                      key={announce.id}
+                      announce={announce}
+                      addBookMark={this.handleAddBookMark}
+                      deleteBookMark={this.handleDeleteBookMark}
+                      mark={true}
+                    />
+                  ))}
+                  {bookmarks.last_page > 1 && (
+                    <Col xs="12">
+                      <ReactPaginate
+                        previousLabel={"previous"}
+                        nextLabel={"next"}
+                        breakLabel={"..."}
+                        breakClassName={"break-me"}
+                        pageCount={bookmarks.last_page}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={5}
+                        forcePage={this.props.match.params.page - 1}
+                        onPageChange={(data) => this.getData(data.selected + 1)}
+                        containerClassName={"pagination"}
+                        subContainerClassName={"pages pagination"}
+                        activeClassName={"active"}
                       />
-                    ))}
-                    {bookmarks.last_page > 1 && (
-                      <Col xs="12">
-                        <ReactPaginate
-                          previousLabel={"previous"}
-                          nextLabel={"next"}
-                          breakLabel={"..."}
-                          breakClassName={"break-me"}
-                          pageCount={bookmarks.last_page}
-                          marginPagesDisplayed={2}
-                          pageRangeDisplayed={5}
-                          forcePage={this.props.match.params.page - 1}
-                          onPageChange={(data) =>
-                            this.getData(data.selected + 1)
-                          }
-                          containerClassName={"pagination"}
-                          subContainerClassName={"pages pagination"}
-                          activeClassName={"active"}
-                        />
-                      </Col>
-                    )}
-                    {bookmarks.data.length === 0 && <NoData />}
-                  </Row>
+                    </Col>
+                  )}
+                  {bookmarks.data.length === 0 && (
+                    <Container className="pt-3 border border-0">
+                      <NoData />
+                    </Container>
+                  )}
+                </Row>
               </Container>
               <BottomNavigation count={count} />
             </Fragment>

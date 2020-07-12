@@ -14,7 +14,7 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { logout } from "../../actions";
-import { FaUser ,FaSignOutAlt} from "react-icons/fa";
+import { FaUser, FaSignOutAlt } from "react-icons/fa";
 
 class Header extends React.Component {
   constructor(props) {
@@ -40,8 +40,7 @@ class Header extends React.Component {
   NavbarTogglerSpan = (data) => {
     const { user, isAuthenticated } = this.props;
     const NoAuth = {
-      backgroundImage:
-        "url(https://www.livinginsider.com/assets18/images/xno-user.png.pagespeed.ic.7d6lssbtJ3.webp)",
+      backgroundImage: `url(${imageUser})`,
     };
     const Auth = {
       backgroundImage: `url(${user.image})`,
@@ -132,14 +131,17 @@ class Header extends React.Component {
                             src={user.image ? `${user.image}` : imageUser}
                             alt="Cinque Terre"
                           />
-                         <span className="font-menu ">หน้าสมาชิก</span>
+                          <span className="font-menu ">หน้าสมาชิก</span>
                         </div>
                       </NavLink>
                       <NavLink
                         className="rounded-pill"
                         onClick={this.handleLogout}
                       >
-                        <span className="font-menu">ออกจากระบบ<FaSignOutAlt className="ml-1"/></span>
+                        <span className="font-menu">
+                          ออกจากระบบ
+                          <FaSignOutAlt className="ml-1" />
+                        </span>
                       </NavLink>
                     </Fragment>
                   )}
@@ -149,7 +151,10 @@ class Header extends React.Component {
                         <span className="font-menu">สมัครสมาชิก</span>
                       </NavLink>
                       <NavLink className="rounded-pill" href="/login">
-                        <span className="font-menu"><FaUser className="mr-1 mb-1" />เข้าสู่ระบบ</span>
+                        <span className="font-menu">
+                          <FaUser className="mr-1 mb-1" />
+                          เข้าสู่ระบบ
+                        </span>
                       </NavLink>
                     </Fragment>
                   )}
