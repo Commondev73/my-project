@@ -113,7 +113,6 @@ div.details-left {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  font-weight: bold;
 }
 .created_at {
   color: #5d5b5a;
@@ -122,13 +121,18 @@ div.details-left {
   background-color: #6ea7ec;
 }
 
+.type1:hover {
+  background-color: #6ea7ec;
+}
+
 .type2 {
-  background-color: #199a81;
+  background-color: #57BB7D;
 }
 
 .type2:hover {
-  background-color: #78c45a;
+  background-color: #57BB7D;
 }
+
 @media only screen and (max-width: 1024px) and (min-width: 768px) {
   .announce-details {
     font-size: 12px;

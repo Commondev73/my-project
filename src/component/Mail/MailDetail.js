@@ -16,7 +16,7 @@ class MailDetail extends React.Component {
   }
 
   handleSave = () => {
-    const selected = this.state.selectedItem
+    const selected = this.state.selectedItem;
     this.setState({
       selectedItem: !selected,
     });
@@ -31,12 +31,28 @@ class MailDetail extends React.Component {
   };
 
   dateFormat = (date) => {
-    const months = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
-      "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤษจิกายน", "ธันวาคม"];
-    let current_datetime = new Date(date)
-    let formatted_date = current_datetime.getDate() + " " + months[current_datetime.getMonth()] + " " + (current_datetime.getFullYear()+543);
-    return formatted_date;
-  }
+    let result;
+    const endDate = new Date();
+    const startDate = new Date(date.replace(/-/g, '/'));
+    let diffTime = endDate - startDate; // milliseconds
+
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // in days
+
+    const hourDiff = Math.ceil(diffTime / (1000 * 60 * 60)); // in hours
+
+    const mindiff = Math.ceil(diffTime / (1000 * 60)); // in minutes
+
+    // let date = (new Date(date)).toISOString().split('T')[0];
+    if (mindiff > 2880) result = new Date(date).toISOString().split("T")[0];
+
+    if (mindiff > 1440 && mindiff < 2880) result = `เมื่อวานนี้`;
+
+    if (mindiff > 60 && mindiff < 1440) result = `${hourDiff} ชั่วโมงที่แล้ว`;
+
+    if (mindiff < 60) result = `${mindiff} นาทีที่แล้ว`;
+
+    return result;
+  };
 
   render() {
     const { message, deleteMail } = this.props;

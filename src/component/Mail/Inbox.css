@@ -34,10 +34,10 @@ td.columnD {
   color: #e5c04d;
   box-shadow: inset 0 0 5px 5px #e5c04d;
 }
-.star:hover {
+/* .star:hover {
   color: #e5c04d;
   box-shadow: inset 0 0 5px 5px #e5c04d;
-}
+} */
 
 @media only screen and (max-width: 1199px) {
   table,

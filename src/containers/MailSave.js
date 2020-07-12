@@ -134,7 +134,7 @@ class MailSave extends React.Component {
                   <BreadcrumbItem>หน้าสมาชิก</BreadcrumbItem>
                   <BreadcrumbItem active>จดหมาย-ติดดาว</BreadcrumbItem>
                 </Breadcrumb>
-                <Alert
+                {/* <Alert
                   className="text-center"
                   color="success "
                   isOpen={this.state.success}
@@ -153,7 +153,7 @@ class MailSave extends React.Component {
                   <h6 className="d-inline ml-1">
                     เกิดข้อผิดพลาด กรุณาทำรายการใหม่
                   </h6>
-                </Alert>
+                </Alert> */}
               </Container>
               <MailList
                 getData={this.getData}

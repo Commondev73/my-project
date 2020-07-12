@@ -20,14 +20,14 @@ class Footer extends React.Component {
                     className="mr-2"
                     style={{ width: "20px", height: "20px" }}
                   />
-                  Line
+                  Line modest37
                 </h6>
                 <h6>
                   <FaPhoneSquare
                     className="mr-2"
                     style={{ width: "20px", height: "20px" }}
                   />
-                  091-xxx-xxxx
+                  095-918-0931
                 </h6>
                 <h6>
                   <MdEmail
@@ -44,13 +44,13 @@ class Footer extends React.Component {
                   <span className="">เกี่ยวกับเรา</span>
                 </h6>
                 <h6>
-                  บริการหา บ้านมือสอง คอนโดให้เช่า อพาร์ทเมนท์ ขายบ้าน ที่ดิน
+                  บริการหา บ้านมือสอง คอนโดให้เช่า ขายบ้าน
                   และอสังหาริมทรัพย์ประกาศเช่า-ขาย ทั่วประเทศ
                 </h6>
               </div>
             </Col>
             <Col className="mb-3 text-light">
-              <span>&#9400; 2019 XXXXXXXX</span>
+              <span>&#9400; 2020 Commondev73</span>
             </Col>
           </Row>
         </Container>
