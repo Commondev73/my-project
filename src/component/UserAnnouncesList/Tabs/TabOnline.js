@@ -40,8 +40,8 @@ class TabOnline extends React.Component {
 
   StyleType = (type) => {
     return type === "เช่า"
-      ? "rounded-pill btn-user-announces-image type1"
-      : "rounded-pill btn-user-announces-image type2";
+      ? "rounded-pill btn-user-announces-image border-0 type1"
+      : "rounded-pill btn-user-announces-image border-0 type2";
   };
 
   render() {

@@ -48,7 +48,7 @@ class AnnouncesList extends React.Component {
   };
 
   StyleType = (type) => {
-    return type === 'เช่า' ? "mt-2 rounded-pill border-white type1" : "mt-2 rounded-pill border-white type2";
+    return type === 'เช่า' ? "mt-2 rounded-pill border-0 type1" : "mt-2 rounded-pill border-0 type2";
   }
   
   dateFormat = (date) => {
